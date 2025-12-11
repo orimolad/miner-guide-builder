@@ -1,11 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useNavigate } from "react-router-dom";
+import Header from "@/components/Header";
+import MinerCard from "@/components/MinerCard";
+import { miners } from "@/data/miners";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const handleMinerSelect = (minerId: string) => {
+    navigate(`/setup/${minerId}`);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen">
+      <div className="bg-pattern" />
+      <div className="container">
+        <Header />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-16 animate-fade-in-up">
+          {miners.map((miner) => (
+            <MinerCard
+              key={miner.id}
+              miner={miner}
+              onClick={() => handleMinerSelect(miner.id)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
