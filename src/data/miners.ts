@@ -60,7 +60,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/goldnugget-nerdminer",
     isUsbPowered: true,
     hasDisplay: false,
-    image: goldnuggetImg,
+    image: avalonqImg,
   },
   {
     id: "zyber",
@@ -82,7 +82,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-canaan-avalon-q-90th-s-btc-miner",
     isUsbPowered: false,
     hasDisplay: true,
-    image: avalonqImg,
+    image: goldnuggetImg,
   },
 ];
 
