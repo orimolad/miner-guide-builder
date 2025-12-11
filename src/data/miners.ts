@@ -1,3 +1,10 @@
+import disruptorImg from "@/assets/miners/disruptor.webp";
+import bitaxeImg from "@/assets/miners/bitaxe.webp";
+import nerdqaxeImg from "@/assets/miners/nerdqaxe.webp";
+import goldnuggetImg from "@/assets/miners/goldnugget.webp";
+import zyberImg from "@/assets/miners/zyber.webp";
+import avalonqImg from "@/assets/miners/avalonq.webp";
+
 export interface Miner {
   id: string;
   name: string;
@@ -7,6 +14,7 @@ export interface Miner {
   productLink: string;
   isUsbPowered: boolean;
   hasDisplay: boolean;
+  image: string;
 }
 
 export const miners: Miner[] = [
@@ -19,6 +27,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-disruptor-usb-solo-bitcoin-miner",
     isUsbPowered: true,
     hasDisplay: false,
+    image: disruptorImg,
   },
   {
     id: "bitaxe",
@@ -29,6 +38,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-601-gamma-power-supply-bitcoin-miner-1-2th-s",
     isUsbPowered: false,
     hasDisplay: true,
+    image: bitaxeImg,
   },
   {
     id: "nerdqaxe",
@@ -39,6 +49,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
     isUsbPowered: false,
     hasDisplay: false,
+    image: nerdqaxeImg,
   },
   {
     id: "goldnugget",
@@ -49,6 +60,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/goldnugget-nerdminer",
     isUsbPowered: true,
     hasDisplay: false,
+    image: goldnuggetImg,
   },
   {
     id: "zyber",
@@ -59,6 +71,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-zyber-8g-10-th-s-high-performance-home-bitcoin-miner",
     isUsbPowered: false,
     hasDisplay: true,
+    image: zyberImg,
   },
   {
     id: "avalonq",
@@ -69,6 +82,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-canaan-avalon-q-90th-s-btc-miner",
     isUsbPowered: false,
     hasDisplay: true,
+    image: avalonqImg,
   },
 ];
 
