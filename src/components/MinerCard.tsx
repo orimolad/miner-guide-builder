@@ -14,8 +14,12 @@ const MinerCard = ({ miner, onClick }: MinerCardProps) => {
       <div className="absolute inset-0 gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
       
       <div className="relative z-10">
-        <div className="w-full h-48 bg-secondary/50 rounded-xl flex items-center justify-center mb-5 text-6xl">
-          ⛏️
+        <div className="w-full h-48 bg-secondary/50 rounded-xl flex items-center justify-center mb-5 overflow-hidden">
+          <img 
+            src={miner.image} 
+            alt={miner.name}
+            className="w-full h-full object-contain p-4"
+          />
         </div>
         
         <h3 className="font-display text-xl text-primary mb-3">{miner.name}</h3>
