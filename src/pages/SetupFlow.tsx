@@ -94,6 +94,17 @@ const SetupFlow = () => {
       <div className="bg-pattern" />
       <div className="container max-w-4xl">
         <Header />
+        
+        <div className="mb-4">
+          <Button
+            variant="outline"
+            onClick={backToSelection}
+            className="btn-ripple border-border hover:bg-secondary"
+          >
+            <span className="relative z-10">← Back to Miners</span>
+          </Button>
+        </div>
+        
         <ProgressBar progress={progress} />
         
         <div className="animate-fade-in-up" key={currentStep}>
