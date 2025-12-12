@@ -3,6 +3,9 @@ import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 
+// Disruptor instruction GIF
+import disruptorPowerGif from "@/assets/instructions/disruptor-power.gif";
+
 interface PowerUpStepProps {
   miner: Miner;
 }
@@ -37,6 +40,22 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
             ]}
           />
         </>
+      )}
+      
+      {/* Disruptor-specific instructional GIF */}
+      {miner.id === "disruptor" && (
+        <div className="my-6">
+          <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+            <img 
+              src={disruptorPowerGif} 
+              alt="Disruptor power up demonstration"
+              className="w-full"
+            />
+          </div>
+          <p className="text-sm text-muted-foreground text-center mt-2">
+            Connecting power to your Disruptor
+          </p>
+        </div>
       )}
       
       <InfoBox variant="warning">
