@@ -3,8 +3,9 @@ import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 
-// Disruptor instruction GIF
+// Instruction GIFs
 import disruptorPowerGif from "@/assets/instructions/disruptor-power.gif";
+import nerdqaxePowerGif from "@/assets/instructions/nerdqaxe-power.gif";
 
 interface PowerUpStepProps {
   miner: Miner;
@@ -55,6 +56,24 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
             </div>
             <p className="text-sm text-muted-foreground text-center mt-2">
               Connecting power to your Disruptor
+            </p>
+          </div>
+        </div>
+      )}
+      
+      {/* NerdQaxe++ instructional GIF */}
+      {miner.id === "nerdqaxe" && (
+        <div className="my-6 flex justify-center">
+          <div className="w-32">
+            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+              <img 
+                src={nerdqaxePowerGif} 
+                alt="NerdQaxe++ power up demonstration"
+                className="w-full"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground text-center mt-2">
+              Connecting power to your NerdQaxe++
             </p>
           </div>
         </div>
