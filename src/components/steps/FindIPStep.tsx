@@ -4,6 +4,9 @@ import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 import CodeBlock from "../CodeBlock";
 
+// Instruction images
+import nerdqaxeScreenImg from "@/assets/instructions/nerdqaxe-screen.png";
+
 interface FindIPStepProps {
   miner: Miner;
 }
@@ -33,6 +36,24 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
           ? "Your miner has a display that should show the IP address on boot or in the settings menu."
           : "If your miner has a display, the IP address might be shown there."}
       </p>
+      
+      {/* NerdQaxe++ screen image */}
+      {miner.id === "nerdqaxe" && (
+        <div className="my-6 flex justify-center">
+          <div className="w-32">
+            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+              <img 
+                src={nerdqaxeScreenImg} 
+                alt="NerdQaxe++ screen showing IP address"
+                className="w-full"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground text-center mt-2">
+              IP address shown on NerdQaxe++ display
+            </p>
+          </div>
+        </div>
+      )}
       
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Method 3: Use a Network Scanner</h3>
       <p>Download a network scanner app on your phone:</p>
