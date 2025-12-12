@@ -40,7 +40,7 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
       {/* NerdQaxe++ screen image */}
       {miner.id === "nerdqaxe" && (
         <div className="my-6 flex justify-center">
-          <div className="w-32">
+          <div className="w-64">
             <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
               <img 
                 src={nerdqaxeScreenImg} 
