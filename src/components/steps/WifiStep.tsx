@@ -1,8 +1,16 @@
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
+import { Miner } from "@/data/miners";
+import axeosWifiSetupImg from "@/assets/instructions/axeos-wifi-setup.png";
 
-const WifiStep = () => {
+interface WifiStepProps {
+  miner: Miner;
+}
+
+const WifiStep = ({ miner }: WifiStepProps) => {
+  const showAxeosImage = ["bitaxe", "nerdqaxe", "disruptor"].includes(miner.id);
+
   return (
     <StepContainer stepNumber={2} title="Connect to Your Miner's Wi-Fi Network">
       <p className="mb-4">
@@ -17,6 +25,24 @@ const WifiStep = () => {
           'If prompted for a password, check the device manual or try common defaults like <strong>"password"</strong> or <strong>"12345678"</strong>',
         ]}
       />
+
+      {/* AxeOS Wi-Fi setup image for Bitaxe, NerdQaxe++, and Disruptor */}
+      {showAxeosImage && (
+        <div className="my-6 flex justify-center">
+          <div className="max-w-sm">
+            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+              <img 
+                src={axeosWifiSetupImg} 
+                alt="Wi-Fi setup showing network selection and configuration"
+                className="w-full"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground text-center mt-2">
+              Connect to the miner's Wi-Fi and configure your network
+            </p>
+          </div>
+        </div>
+      )}
       
       <InfoBox variant="info">
         <strong className="text-foreground">💡 Can't find the Wi-Fi network?</strong>
