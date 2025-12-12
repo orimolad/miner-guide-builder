@@ -29,7 +29,7 @@ const WifiStep = ({ miner }: WifiStepProps) => {
       {/* AxeOS Wi-Fi setup image for Bitaxe, NerdQaxe++, and Disruptor */}
       {showAxeosImage && (
         <div className="my-6 flex justify-center">
-          <div className="max-w-sm">
+          <div className="max-w-xl">
             <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
               <img 
                 src={axeosWifiSetupImg} 
