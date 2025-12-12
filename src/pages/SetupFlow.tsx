@@ -71,7 +71,7 @@ const SetupFlow = () => {
       case 1:
         return <PowerUpStep miner={miner} />;
       case 2:
-        return <WifiStep />;
+        return <WifiStep miner={miner} />;
       case 3:
         return <FindIPStep miner={miner} />;
       case 4:
