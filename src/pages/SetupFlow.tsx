@@ -75,7 +75,7 @@ const SetupFlow = () => {
       case 3:
         return <FindIPStep miner={miner} />;
       case 4:
-        return <ConfigureStep onAddressChange={() => {}} />;
+        return <ConfigureStep miner={miner} onAddressChange={() => {}} />;
       case 5:
         return <StartMiningStep miner={miner} />;
       case 6:
