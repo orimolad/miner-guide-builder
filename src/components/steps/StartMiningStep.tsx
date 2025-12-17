@@ -23,15 +23,13 @@ const StartMiningStep = ({ miner }: StartMiningStepProps) => {
 
   const openPoolStats = () => {
     const address = btcAddress || "YOUR_BTC_ADDRESS";
-    window.open(`https://pool.bitcoinmerch.com/#/app/${address}`, "_blank");
+    window.open(`https://pool.bitcoinmerch.com/app/${address}`, "_blank");
   };
 
   return (
     <StepContainer stepNumber={5} title="Start Mining & Verify Operation">
-      <p className="mb-4">
-        Your miner should now be hashing! Let's verify everything is working correctly.
-      </p>
-      
+      <p className="mb-4">Your miner should now be hashing! Let's verify everything is working correctly.</p>
+
       <h3 className="text-primary font-display text-xl mt-8 mb-4">On Your Device:</h3>
       <CheckList
         items={[
@@ -41,7 +39,7 @@ const StartMiningStep = ({ miner }: StartMiningStepProps) => {
           "Accepted shares should start appearing (may take 1-5 minutes)",
         ]}
       />
-      
+
       <InfoBox variant="success">
         <strong className="text-foreground">✅ Good Signs:</strong>
         <br />
@@ -50,13 +48,12 @@ const StartMiningStep = ({ miner }: StartMiningStepProps) => {
         • Shares being accepted by the pool
         <br />
         • Temperature stable (usually 40-70°C)
-        <br />
-        • No error messages
+        <br />• No error messages
       </InfoBox>
-      
+
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Check Pool Statistics:</h3>
       <p className="mb-4">Verify your miner is showing up on the pool:</p>
-      
+
       <div className="my-6">
         <Label htmlFor="poolBtcAddress" className="text-primary font-semibold text-base mb-2 block">
           Your Bitcoin Address (from previous step):
@@ -70,14 +67,11 @@ const StartMiningStep = ({ miner }: StartMiningStepProps) => {
           className="bg-secondary/50 border-border focus:border-primary focus:ring-primary"
         />
       </div>
-      
-      <Button
-        onClick={openPoolStats}
-        className="gradient-primary text-primary-foreground glow-primary btn-ripple mt-4"
-      >
+
+      <Button onClick={openPoolStats} className="gradient-primary text-primary-foreground glow-primary btn-ripple mt-4">
         <span className="relative z-10">📊 View My Pool Stats</span>
       </Button>
-      
+
       <InfoBox variant="warning" className="mt-8">
         <strong className="text-foreground">⚠️ Pool showing zero hash rate?</strong>
         <br />
@@ -86,8 +80,7 @@ const StartMiningStep = ({ miner }: StartMiningStepProps) => {
         • Double-check your Bitcoin address matches
         <br />
         • Verify pool URL is correct
-        <br />
-        • Make sure the miner shows it's connected
+        <br />• Make sure the miner shows it's connected
       </InfoBox>
     </StepContainer>
   );
