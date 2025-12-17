@@ -92,8 +92,12 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
         • LED lights turning on
         <br />
         • Fan noise (for larger miners)
-        <br />
-        • Screen display showing boot information
+        {miner.id !== "disruptor" && (
+          <>
+            <br />
+            • Screen display showing boot information
+          </>
+        )}
         <br />
         • Device feeling warm to the touch
       </InfoBox>
