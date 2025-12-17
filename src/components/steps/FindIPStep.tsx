@@ -53,10 +53,10 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
       <p>Download a network scanner app on your phone:</p>
       <CheckList
         items={[
-          'iOS: "Fing" or "Network Analyzer"',
-          'Android: "Fing" or "Network Scanner"',
+          'iOS: <a href="https://apps.apple.com/app/fing-network-scanner/id430921107" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Fing</a> or <a href="https://apps.apple.com/app/network-analyzer/id562315041" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Network Analyzer</a>',
+          'Android: <a href="https://play.google.com/store/apps/details?id=com.overlook.android.fing" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Fing</a> or <a href="https://play.google.com/store/apps/details?id=com.first_row.network_scanner" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Network Scanner</a>',
           'Look for a device with "Espressif" or similar manufacturer name',
-          "Advanced Port Scanner",
+          'Desktop: <a href="https://www.advanced-port-scanner.com/" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Advanced Port Scanner</a>',
         ]}
       />
 
