@@ -20,11 +20,18 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
             Your {miner.name} is USB-powered, making setup incredibly simple!
           </p>
           <CheckList
-            items={[
-              "Connect the USB cable to your miner",
-              "Plug the USB into a power adapter or computer USB port",
-              "Wait 10-15 seconds for the device to boot",
-            ]}
+            items={
+              miner.id === "disruptor"
+                ? [
+                    "Connect USB Miner to USB port",
+                    "Wait 10-15 seconds for the device to boot",
+                  ]
+                : [
+                    "Connect the USB cable to your miner",
+                    "Plug the USB into a power adapter or computer USB port",
+                    "Wait 10-15 seconds for the device to boot",
+                  ]
+            }
           />
         </>
       ) : (
