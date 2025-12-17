@@ -1,8 +1,14 @@
+import bitcoinMerchLogo from "@/assets/logo/bitcoinmerch-logo.png";
+
 const Header = () => {
   return (
     <header className="text-center py-12 px-5 relative overflow-hidden">
-      <div className="w-20 h-20 mx-auto mb-5 gradient-primary rounded-2xl flex items-center justify-center text-4xl animate-float glow-primary">
-        ₿
+      <div className="w-48 mx-auto mb-5 animate-float">
+        <img 
+          src={bitcoinMerchLogo} 
+          alt="Bitcoin Merch Logo"
+          className="w-full h-auto"
+        />
       </div>
       <h1 className="font-display text-3xl md:text-5xl gradient-text mb-3 tracking-tight">
         Set up a Bitcoin Miner device
