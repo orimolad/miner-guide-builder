@@ -14,24 +14,21 @@ const SoloMiningStep = ({ miner }: SoloMiningStepProps) => {
         <div className="text-6xl mb-5">🎰</div>
         <h3 className="text-primary font-display text-xl">Solo Mining = Lottery Tickets</h3>
       </div>
-      
-      <p className="mb-6">
-        Solo mining works differently than pool mining. Here's what you need to know:
-      </p>
-      
+
+      <p className="mb-6">Solo mining works differently than pool mining. Here's what you need to know:</p>
+
       <h3 className="text-primary font-display text-xl mt-8 mb-4">How It Works:</h3>
       <InfoBox variant="info">
         <strong className="text-foreground">Every hash your miner computes is like a lottery ticket:</strong>
-        <br /><br />
-        • Your {miner.name} generates {miner.hashrate}
+        <br />
+        <br />• Your {miner.name} generates {miner.hashrate}
         <br />
         • Each hash is a chance to find a valid block
         <br />
-        • If you find a block, you get the FULL block reward (~6.25 BTC + fees)
-        <br />
-        • If you don't find a block, you get nothing
+        • If you find a block, you get the FULL block reward (~3.125 BTC + fees)
+        <br />• If you don't find a block, you get nothing
       </InfoBox>
-      
+
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Key Differences from Pool Mining:</h3>
       <CheckList
         items={[
@@ -41,13 +38,14 @@ const SoloMiningStep = ({ miner }: SoloMiningStepProps) => {
           "<strong>Full Reward:</strong> If you win, the entire block reward is yours",
         ]}
       />
-      
+
       <InfoBox variant="warning">
         <strong className="text-foreground">⚠️ Realistic Expectations:</strong>
         <br />
-        Finding a block with consumer mining hardware is extremely unlikely but possible. Think of it as a fun hobby with a tiny chance of a massive reward, rather than a reliable income source.
+        Finding a block with consumer mining hardware is extremely unlikely but possible. Think of it as a fun hobby
+        with a tiny chance of a massive reward, rather than a reliable income source.
       </InfoBox>
-      
+
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Your Mining is Helping:</h3>
       <p className="mb-4">Even without finding blocks, your miner:</p>
       <CheckList
