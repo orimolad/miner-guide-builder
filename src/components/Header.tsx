@@ -5,7 +5,7 @@ const Header = () => {
         ₿
       </div>
       <h1 className="font-display text-3xl md:text-5xl gradient-text mb-3 tracking-tight">
-        Bitcoin Miner Setup Guide
+        Set up a Bitcoin Miner device
       </h1>
       <p className="text-lg text-muted-foreground max-w-xl mx-auto">
         Your step-by-step companion for getting your Bitcoin miner up and running
