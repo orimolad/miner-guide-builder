@@ -50,7 +50,11 @@ const WifiStep = ({ miner }: WifiStepProps) => {
         • Try restarting the miner
         <br />
         • Move closer to the device
-        <br />• Check if the miner has a physical Wi-Fi button that needs to be pressed
+        {miner.id !== "disruptor" && (
+          <>
+            <br />• Check if the miner has a physical Wi-Fi button that needs to be pressed
+          </>
+        )}
       </InfoBox>
 
       <p className="mt-4">
