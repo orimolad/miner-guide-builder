@@ -42,7 +42,7 @@ export const miners: Miner[] = [
   },
   {
     id: "nerdqaxe",
-    name: "NerdQaxe++",
+    name: "NerdQaxe++/ NerdOCTaxe/ Hydro",
     hashrate: "5 TH/s",
     power: "External Power Supply Included",
     defaultIP: "192.168.1.xxx",
