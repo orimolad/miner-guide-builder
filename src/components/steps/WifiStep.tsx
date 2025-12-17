@@ -18,9 +18,9 @@ const WifiStep = ({ miner }: WifiStepProps) => {
       <CheckList
         items={[
           "On your phone or computer, open Wi-Fi settings",
-          'Look for a network named something like <strong>"Bitaxe"</strong>, <strong>"NerdMiner"</strong>,<strong>"MineYourCoins"</strong>, or similar',
+          'Look for a network named something like <strong>"Bitaxe"</strong>, <strong>"NerdMiner"</strong>, or similar',
           "Select that network to connect",
-          'If prompted for a password, check the device manual or try common defaults like <strong>"root"</strong>, <strong>"admin"</strong>,<strong>"password"</strong> or <strong>"12345678"</strong>',
+          'If prompted for a password, check the device manual or try common defaults like <strong>"password"</strong> or <strong>"12345678"</strong>',
         ]}
       />
 
@@ -50,7 +50,7 @@ const WifiStep = ({ miner }: WifiStepProps) => {
         • Try restarting the miner
         <br />
         • Move closer to the device
-        <br />• Check if the miner has a physical Wi-Fi button that needs to be pressed
+        <br />• Check if the miner has a physical Wi-Fi button that needs to be pressed. (disruptor has no wifi button)
       </InfoBox>
 
       <p className="mt-4">
