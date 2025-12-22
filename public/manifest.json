@@ -4,6 +4,7 @@
   "short_name": "Miner Guide",
   "description": "Step-by-step setup guide for Bitcoin mining hardware from Bitcoin Merch",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0D0D0D",
   "theme_color": "#F7931A",
