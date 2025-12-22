@@ -3,7 +3,7 @@ import bitcoinMerchLogo from "@/assets/logo/bitcoinmerch-logo.png";
 const Header = () => {
   return (
     <header className="text-center py-12 px-5 relative overflow-hidden">
-      <div className="w-48 mx-auto mb-5 animate-float">
+      <div className="w-48 mx-auto mb-5">
         <img 
           src={bitcoinMerchLogo} 
           alt="Bitcoin Merch Logo"
