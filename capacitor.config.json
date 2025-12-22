@@ -1,9 +1,0 @@
-{
-  "appId": "app.lovable.0d375bbfa6dd4d0d86903e8c224eaf1a",
-  "appName": "Bitcoin Miner Setup Guide",
-  "webDir": "dist",
-  "server": {
-    "url": "https://0d375bbf-a6dd-4d0d-8690-3e8c224eaf1a.lovableproject.com?forceHideBadge=true",
-    "cleartext": true
-  }
-}
