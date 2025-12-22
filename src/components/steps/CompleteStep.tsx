@@ -11,9 +11,14 @@ interface CompleteStepProps {
 }
 
 const CompleteStep = ({ miner, onBackToSelection }: CompleteStepProps) => {
+  const isDisruptorOrBitaxe = miner.id === "disruptor" || miner.id === "bitaxe";
+  
   const openPoolStats = () => {
     const address = localStorage.getItem("btcAddress") || "YOUR_BTC_ADDRESS";
-    window.open(`https://pool.bitcoinmerch.com/#/app/${address}`, "_blank");
+    const url = isDisruptorOrBitaxe 
+      ? `https://pool.bitcoinmerch.com/app/${address}`
+      : `https://pool.bitcoinmerch.com/#/app/${address}`;
+    window.open(url, "_blank");
   };
 
   return (
@@ -30,7 +35,9 @@ const CompleteStep = ({ miner, onBackToSelection }: CompleteStepProps) => {
         <br />
         <strong>Pool:</strong> pool.bitcoinmerch.com:3333
         <br />
-        <strong>Pool Stats:</strong> https://pool.bitcoinmerch.com/#/app/YOUR_ADDRESS
+        <strong>Pool Stats:</strong> {isDisruptorOrBitaxe 
+          ? "https://pool.bitcoinmerch.com/app/YOUR_ADDRESS"
+          : "https://pool.bitcoinmerch.com/#/app/YOUR_ADDRESS"}
       </CodeBlock>
       
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Next Steps:</h3>
@@ -38,7 +45,7 @@ const CompleteStep = ({ miner, onBackToSelection }: CompleteStepProps) => {
         items={[
           "Monitor your stats regularly on the pool dashboard",
           "Keep your miner in a well-ventilated area",
-          "Check for firmware updates periodically",
+          ...(!isDisruptorOrBitaxe ? ["Check for firmware updates periodically"] : []),
           "Join the Bitcoin Merch community for tips",
         ]}
       />
