@@ -7,6 +7,9 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 
+// Instruction images
+import poolScreenshotImg from "@/assets/instructions/pool-screenshot.png";
+
 interface StartMiningStepProps {
   miner: Miner;
 }
@@ -71,6 +74,19 @@ const StartMiningStep = ({ miner }: StartMiningStepProps) => {
       <Button onClick={openPoolStats} className="gradient-primary text-primary-foreground glow-primary btn-ripple mt-4">
         <span className="relative z-10">📊 View My Pool Stats</span>
       </Button>
+
+      {(miner.id === "disruptor" || miner.id === "bitaxe") && (
+        <div className="my-6 flex justify-center">
+          <div className="max-w-3xl">
+            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+              <img src={poolScreenshotImg} alt="Pool dashboard showing hashrate and workers" className="w-full" />
+            </div>
+            <p className="text-sm text-muted-foreground text-center mt-2">
+              Example pool dashboard showing your total hashrate and connected workers
+            </p>
+          </div>
+        </div>
+      )}
 
       <InfoBox variant="warning" className="mt-8">
         <strong className="text-foreground">⚠️ Pool showing zero hash rate?</strong>
