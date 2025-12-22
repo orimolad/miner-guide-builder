@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => ({
       manifest: false,
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,gif,woff,woff2}'],
+        maximumFileSizeToCacheInBytes: 15 * 1024 * 1024, // 15MB to handle large GIFs
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
