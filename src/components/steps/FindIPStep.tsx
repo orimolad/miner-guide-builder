@@ -20,7 +20,7 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
         To configure your miner, you need to access its web interface. Here's how to find its IP address:
       </p>
 
-      {miner.id !== "disruptor" && (
+      {miner.id !== "disruptor" && miner.id !== "bitaxe" && (
         <InfoBox variant="info">
           <strong className="text-foreground">🎯 For {miner.name}:</strong>
           <br />
@@ -28,7 +28,7 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
         </InfoBox>
       )}
 
-      {miner.id !== "disruptor" && (
+      {miner.id !== "disruptor" && miner.id !== "bitaxe" && (
         <>
           <h3 className="text-primary font-display text-xl mt-8 mb-4">Method 1: Try the Default IP</h3>
           <p>Open your web browser and type this address:</p>
@@ -38,7 +38,7 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
 
       {miner.id !== "disruptor" && (
         <>
-          <h3 className="text-primary font-display text-xl mt-8 mb-4">Method 2: Check the Device Screen</h3>
+          <h3 className="text-primary font-display text-xl mt-8 mb-4">Method {miner.id === "bitaxe" ? "1" : "2"}: Check the Device Screen</h3>
           <p>
             {miner.hasDisplay
               ? "Your miner has a display that should show the IP address on boot or in the settings menu."
@@ -59,7 +59,7 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
         </>
       )}
 
-      <h3 className="text-primary font-display text-xl mt-8 mb-4">Method {miner.id === "disruptor" ? "1" : "3"}: Use a Network Scanner</h3>
+      <h3 className="text-primary font-display text-xl mt-8 mb-4">Method {miner.id === "disruptor" ? "1" : miner.id === "bitaxe" ? "2" : "3"}: Use a Network Scanner</h3>
       <p>Download a network scanner app on your phone:</p>
       <CheckList
         items={[

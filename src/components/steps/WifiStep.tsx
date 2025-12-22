@@ -24,6 +24,14 @@ const WifiStep = ({ miner }: WifiStepProps) => {
         ]}
       />
 
+      {miner.id === "bitaxe" && (
+        <InfoBox variant="success" className="mt-4">
+          <strong className="text-foreground">✅ For Bitaxe:</strong>
+          <br />
+          The configuration page will open automatically in your browser once you connect to the Bitaxe Wi-Fi network!
+        </InfoBox>
+      )}
+
       {/* AxeOS Wi-Fi setup image for Bitaxe, NerdQaxe++, and Disruptor */}
       {showAxeosImage && (
         <div className="my-6 flex justify-center">
