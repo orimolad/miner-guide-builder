@@ -20,7 +20,7 @@ const WifiStep = ({ miner }: WifiStepProps) => {
           "On your phone or computer, open Wi-Fi settings",
           'Look for a network named something like <strong>"Bitaxe"</strong>, <strong>"NerdMiner"</strong>, or similar',
           "Select that network to connect",
-          'If prompted for a password, check the device manual or try common defaults like <strong>"password"</strong>, <strong>"root"</strong>, <strong>"admin"</strong>, <strong>"MineYourCoins"</strong> or <strong>"12345678"</strong>',
+          ...(miner.id !== "disruptor" ? ['If prompted for a password, check the device manual or try common defaults like <strong>"password"</strong>, <strong>"root"</strong>, <strong>"admin"</strong>, <strong>"MineYourCoins"</strong> or <strong>"12345678"</strong>'] : []),
         ]}
       />
 
