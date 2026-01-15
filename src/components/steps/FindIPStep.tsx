@@ -6,6 +6,7 @@ import CodeBlock from "../CodeBlock";
 
 // Instruction images
 import nerdqaxeScreenImg from "@/assets/instructions/nerdqaxe-screen.png";
+import ipAddressImg from "@/assets/instructions/ipaddress.jpg";
 
 interface FindIPStepProps {
   miner: Miner;
@@ -30,13 +31,11 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
             configure your miner's settings.
           </p>
 
-          {/* IP Address image placeholder */}
+          {/* IP Address image */}
           <div className="my-6 flex justify-center">
-            <div className="max-w-md">
-              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10 bg-secondary/30 aspect-video flex items-center justify-center">
-                <p className="text-muted-foreground text-center p-4">
-                  [ipaddress.jpg will be displayed here]
-                </p>
+            <div className="w-64">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={ipAddressImg} alt="IP address shown in browser" className="w-full" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
                 IP address shown on Bitaxe display or in browser

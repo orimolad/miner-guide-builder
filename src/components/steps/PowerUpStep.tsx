@@ -6,6 +6,7 @@ import InfoBox from "../InfoBox";
 // Instruction GIFs
 import disruptorPowerGif from "@/assets/instructions/disruptor-power.gif";
 import nerdqaxePowerGif from "@/assets/instructions/nerdqaxe-power.gif";
+import bitaxePowerGif from "@/assets/instructions/bitaxepower.gif";
 
 interface PowerUpStepProps {
   miner: Miner;
@@ -35,14 +36,15 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
         <>
           <p className="mb-4">Your Bitaxe came with an external power supply.</p>
 
-          {/* Bitaxe power GIF placeholder - will be replaced when user uploads */}
+          {/* Bitaxe power GIF */}
           <div className="my-6 flex justify-center">
-            <div className="max-w-md">
-              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10 bg-secondary/30 aspect-video flex items-center justify-center">
-                <p className="text-muted-foreground text-center p-4">
-                  [bitaxepower.gif will be displayed here]
-                </p>
+            <div className="w-32">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={bitaxePowerGif} alt="Bitaxe power up demonstration" className="w-full" />
               </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connecting power to your Bitaxe
+              </p>
             </div>
           </div>
 

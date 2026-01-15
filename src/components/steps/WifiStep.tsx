@@ -3,6 +3,8 @@ import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 import { Miner } from "@/data/miners";
 import axeosWifiSetupImg from "@/assets/instructions/axeos-wifi-setup.png";
+import bitaxeScreenImg from "@/assets/instructions/bitaxescreen.png";
+import bitaxeWifiGif from "@/assets/instructions/bitaxewifi.gif";
 
 interface WifiStepProps {
   miner: Miner;
@@ -23,23 +25,19 @@ const WifiStep = ({ miner }: WifiStepProps) => {
       {/* Bitaxe-specific content */}
       {isBitaxe ? (
         <>
-          {/* Bitaxe images - placeholders for now */}
+          {/* Bitaxe images */}
           <div className="my-6 flex flex-col sm:flex-row gap-4 justify-center">
             <div className="flex-1 max-w-xs">
-              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10 bg-secondary/30 aspect-square flex items-center justify-center">
-                <p className="text-muted-foreground text-center p-4 text-sm">
-                  [bitaxescreen.png]
-                </p>
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={bitaxeScreenImg} alt="Bitaxe screen showing WiFi network name" className="w-full" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
                 Bitaxe screen showing WiFi network name
               </p>
             </div>
             <div className="flex-1 max-w-xs">
-              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10 bg-secondary/30 aspect-square flex items-center justify-center">
-                <p className="text-muted-foreground text-center p-4 text-sm">
-                  [bitaxewifi.gif]
-                </p>
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={bitaxeWifiGif} alt="WiFi connection animation" className="w-full" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
                 WiFi connection animation
