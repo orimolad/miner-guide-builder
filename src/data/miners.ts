@@ -5,6 +5,66 @@ import goldnuggetImg from "@/assets/miners/goldnugget.webp";
 import zyberImg from "@/assets/miners/zyber.webp";
 import avalonqImg from "@/assets/miners/avalonq.webp";
 
+export interface BitaxeVariant {
+  id: string;
+  name: string;
+  hashrate: string;
+  hashrateValue: number; // in GH/s for calculations
+  power: string;
+  productLink: string;
+}
+
+export const bitaxeVariants: BitaxeVariant[] = [
+  {
+    id: "gamma",
+    name: "Gamma",
+    hashrate: "1.2 TH/s",
+    hashrateValue: 1200,
+    power: "18W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-601-gamma-power-supply-bitcoin-miner-1-2th-s",
+  },
+  {
+    id: "supra-hex",
+    name: "Supra Hex",
+    hashrate: "4.2 TH/s",
+    hashrateValue: 4200,
+    power: "90W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-supra-hex-4-2-th-s-bitcoin-miner",
+  },
+  {
+    id: "gt-gamma-turbo",
+    name: "GT Gamma Turbo",
+    hashrate: "2.4 TH/s",
+    hashrateValue: 2400,
+    power: "36W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-gt-gamma-turbo-2-4-th-s-bitcoin-miner",
+  },
+  {
+    id: "hex",
+    name: "HEX",
+    hashrate: "3 TH/s",
+    hashrateValue: 3000,
+    power: "80W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-hex-3-th-s-bitcoin-miner",
+  },
+  {
+    id: "supra",
+    name: "Supra",
+    hashrate: "600 GH/s",
+    hashrateValue: 600,
+    power: "15W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-supra-600-gh-s-bitcoin-miner",
+  },
+  {
+    id: "ultra",
+    name: "Ultra",
+    hashrate: "450 GH/s",
+    hashrateValue: 450,
+    power: "12W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-ultra-450-gh-s-bitcoin-miner",
+  },
+];
+
 export interface Miner {
   id: string;
   name: string;
@@ -15,6 +75,7 @@ export interface Miner {
   isUsbPowered: boolean;
   hasDisplay: boolean;
   image: string;
+  hasBitaxeVariants?: boolean;
 }
 
 export const miners: Miner[] = [
@@ -31,14 +92,15 @@ export const miners: Miner[] = [
   },
   {
     id: "bitaxe",
-    name: "Bitaxe Gamma",
+    name: "Bitaxe",
     hashrate: "~1.2 TH/s",
-    power: "~15 W/TH",
+    power: "~18W",
     defaultIP: "192.168.1.xxx",
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-601-gamma-power-supply-bitcoin-miner-1-2th-s",
     isUsbPowered: false,
     hasDisplay: true,
     image: bitaxeImg,
+    hasBitaxeVariants: true,
   },
   {
     id: "nerdqaxe",
@@ -88,4 +150,8 @@ export const miners: Miner[] = [
 
 export const getMiner = (id: string): Miner | undefined => {
   return miners.find((miner) => miner.id === id);
+};
+
+export const getBitaxeVariant = (id: string): BitaxeVariant | undefined => {
+  return bitaxeVariants.find((variant) => variant.id === id);
 };

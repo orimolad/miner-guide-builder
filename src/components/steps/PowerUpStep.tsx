@@ -12,20 +12,17 @@ interface PowerUpStepProps {
 }
 
 const PowerUpStep = ({ miner }: PowerUpStepProps) => {
+  const isBitaxe = miner.id === "bitaxe";
+
   return (
     <StepContainer stepNumber={1} title="Power Up Your Miner">
       {miner.isUsbPowered ? (
         <>
-          <p className="mb-4">
-            Your {miner.name} is USB-powered, making setup incredibly simple!
-          </p>
+          <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
           <CheckList
             items={
               miner.id === "disruptor"
-                ? [
-                    "Connect USB Miner to USB port",
-                    "Wait 10-15 seconds for the device to boot",
-                  ]
+                ? ["Connect USB Miner to USB port", "Wait 10-15 seconds for the device to boot"]
                 : [
                     "Connect the USB cable to your miner",
                     "Plug the USB into a power adapter or computer USB port",
@@ -34,11 +31,32 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
             }
           />
         </>
+      ) : isBitaxe ? (
+        <>
+          <p className="mb-4">Your Bitaxe came with an external power supply.</p>
+
+          {/* Bitaxe power GIF placeholder - will be replaced when user uploads */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-md">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10 bg-secondary/30 aspect-video flex items-center justify-center">
+                <p className="text-muted-foreground text-center p-4">
+                  [bitaxepower.gif will be displayed here]
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <CheckList
+            items={[
+              "Plug the power supply into a wall outlet, verify that the light on the power supply comes on",
+              "Connect the power supply to your miner",
+              "Wait 10-15 seconds for the device to boot",
+            ]}
+          />
+        </>
       ) : (
         <>
-          <p className="mb-4">
-            Your {miner.name} requires an external power supply.
-          </p>
+          <p className="mb-4">Your {miner.name} requires an external power supply.</p>
           <CheckList
             items={[
               "Connect the power supply to your miner",
@@ -49,17 +67,13 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
           />
         </>
       )}
-      
+
       {/* Disruptor-specific instructional GIF */}
       {miner.id === "disruptor" && (
         <div className="my-6 flex justify-center">
           <div className="w-32">
             <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-              <img 
-                src={disruptorPowerGif} 
-                alt="Disruptor power up demonstration"
-                className="w-full"
-              />
+              <img src={disruptorPowerGif} alt="Disruptor power up demonstration" className="w-full" />
             </div>
             <p className="text-sm text-muted-foreground text-center mt-2">
               Connecting power to your Disruptor
@@ -67,17 +81,13 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
           </div>
         </div>
       )}
-      
+
       {/* NerdQaxe++ instructional GIF */}
       {miner.id === "nerdqaxe" && (
         <div className="my-6 flex justify-center">
           <div className="w-32">
             <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-              <img 
-                src={nerdqaxePowerGif} 
-                alt="NerdQaxe++ power up demonstration"
-                className="w-full"
-              />
+              <img src={nerdqaxePowerGif} alt="NerdQaxe++ power up demonstration" className="w-full" />
             </div>
             <p className="text-sm text-muted-foreground text-center mt-2">
               Connecting power to your NerdQaxe++
@@ -85,26 +95,31 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
           </div>
         </div>
       )}
-      
+
       <InfoBox variant="warning">
         <strong className="text-foreground">⚠️ Look for these signs that your miner is powered on:</strong>
         <br />
-        • LED lights turning on
-        <br />
-        • Fan noise (for larger miners)
-        {miner.id !== "disruptor" && (
+        {isBitaxe ? (
           <>
+            • Fan spinning
+            <br />• Screen display showing boot information
+          </>
+        ) : (
+          <>
+            • LED lights turning on
             <br />
-            • Screen display showing boot information
+            • Fan noise (for larger miners)
+            {miner.id !== "disruptor" && (
+              <>
+                <br />• Screen display showing boot information
+              </>
+            )}
+            <br />• Device feeling warm to the touch
           </>
         )}
-        <br />
-        • Device feeling warm to the touch
       </InfoBox>
-      
-      <p className="mt-4">
-        Once you see these indicators, your miner is ready for the next step!
-      </p>
+
+      <p className="mt-4">Once you see these indicators, your miner is ready for the next step!</p>
     </StepContainer>
   );
 };
