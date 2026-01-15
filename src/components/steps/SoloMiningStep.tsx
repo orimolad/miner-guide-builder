@@ -1,22 +1,23 @@
-import { Miner, BitaxeVariant } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 
 interface SoloMiningStepProps {
   miner: Miner;
-  selectedVariant?: BitaxeVariant;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
 }
 
 const SoloMiningStep = ({ miner, selectedVariant }: SoloMiningStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
+  const isNerdqaxe = miner.id === "nerdqaxe";
 
   // Get hashrate description based on variant or miner
   const getHashrateDescription = (): string => {
-    if (isBitaxe && selectedVariant) {
+    if ((isBitaxe || isNerdqaxe) && selectedVariant) {
       const value = selectedVariant.hashrateValue;
       if (value >= 1000) {
-        return `~${value} GH/s (${value / 1000} trillion hashes / second)`;
+        return `~${value / 1000} TH/s (${value / 1000} trillion hashes / second)`;
       } else {
         return `~${value} GH/s (${value} billion hashes / second)`;
       }
@@ -27,6 +28,9 @@ const SoloMiningStep = ({ miner, selectedVariant }: SoloMiningStepProps) => {
   const getDeviceName = (): string => {
     if (isBitaxe && selectedVariant) {
       return `Bitaxe ${selectedVariant.name}`;
+    }
+    if (isNerdqaxe && selectedVariant) {
+      return selectedVariant.name;
     }
     return miner.name;
   };

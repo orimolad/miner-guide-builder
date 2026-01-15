@@ -65,6 +65,58 @@ export const bitaxeVariants: BitaxeVariant[] = [
   },
 ];
 
+export interface NerdqaxeVariant {
+  id: string;
+  name: string;
+  hashrate: string;
+  hashrateValue: number; // in GH/s for calculations
+  power: string;
+  productLink: string;
+}
+
+export const nerdqaxeVariants: NerdqaxeVariant[] = [
+  {
+    id: "nerdqaxe-plus-plus",
+    name: "NerdQaxe++",
+    hashrate: "5 TH/s",
+    hashrateValue: 5000,
+    power: "80W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+  },
+  {
+    id: "nerdoctaxe",
+    name: "NerdOCTaxe",
+    hashrate: "9.6 TH/s",
+    hashrateValue: 9600,
+    power: "160W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+  },
+  {
+    id: "nerdqaxe-hydro",
+    name: "NerdQaxe++ Hydro",
+    hashrate: "4.8 TH/s",
+    hashrateValue: 4800,
+    power: "80W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+  },
+  {
+    id: "nerdaxe",
+    name: "Nerdaxe",
+    hashrate: "1.2 TH/s",
+    hashrateValue: 1200,
+    power: "18W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+  },
+  {
+    id: "nerdqaxe-plus",
+    name: "NerdQaxe+",
+    hashrate: "2.4 TH/s",
+    hashrateValue: 2400,
+    power: "40W",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+  },
+];
+
 export interface Miner {
   id: string;
   name: string;
@@ -76,6 +128,7 @@ export interface Miner {
   hasDisplay: boolean;
   image: string;
   hasBitaxeVariants?: boolean;
+  hasNerdqaxeVariants?: boolean;
 }
 
 export const miners: Miner[] = [
@@ -104,14 +157,15 @@ export const miners: Miner[] = [
   },
   {
     id: "nerdqaxe",
-    name: "NerdQaxe++/ NerdOCTaxe/ Hydro",
+    name: "Nerdaxe",
     hashrate: "5 TH/s",
     power: "External Power Supply Included",
     defaultIP: "192.168.1.xxx",
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
     isUsbPowered: false,
-    hasDisplay: false,
+    hasDisplay: true,
     image: nerdqaxeImg,
+    hasNerdqaxeVariants: true,
   },
   {
     id: "goldnugget",
@@ -154,4 +208,8 @@ export const getMiner = (id: string): Miner | undefined => {
 
 export const getBitaxeVariant = (id: string): BitaxeVariant | undefined => {
   return bitaxeVariants.find((variant) => variant.id === id);
+};
+
+export const getNerdqaxeVariant = (id: string): NerdqaxeVariant | undefined => {
+  return nerdqaxeVariants.find((variant) => variant.id === id);
 };

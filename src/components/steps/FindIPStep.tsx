@@ -15,6 +15,7 @@ interface FindIPStepProps {
 const FindIPStep = ({ miner }: FindIPStepProps) => {
   const defaultIPClean = miner.defaultIP.split(" ")[0];
   const isBitaxe = miner.id === "bitaxe";
+  const isNerdqaxe = miner.id === "nerdqaxe";
 
   return (
     <StepContainer stepNumber={3} title="Find Your Miner's IP Address">
@@ -49,6 +50,36 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
             Opening the IP in your browser shows the AxeOS configuration page
           </InfoBox>
         </>
+      ) : isNerdqaxe ? (
+        <>
+          <p className="mb-4">
+            To configure your miner, you need to access its web interface. Once you have successfully configured the
+            Nerdaxe with your WiFi, it will stop emitting the Nerdaxe network and be assigned its own IP address on your
+            network which is displayed at the top of the screen.
+          </p>
+
+          <p className="mb-4">
+            To access the web interface, enter this IP number into your web browser and navigate to it like a website.
+          </p>
+
+          {/* IP Address image */}
+          <div className="my-6 flex justify-center">
+            <div className="w-64">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={ipAddressImg} alt="IP address shown on Nerdaxe display" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                IP address shown on Nerdaxe display
+              </p>
+            </div>
+          </div>
+
+          <InfoBox variant="success">
+            <strong className="text-foreground">✅ You'll know you found it when:</strong>
+            <br />
+            Opening the IP in your browser shows the Nerdaxe configuration page
+          </InfoBox>
+        </>
       ) : (
         <>
           <p className="mb-4">
@@ -74,27 +105,13 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
           {miner.id !== "disruptor" && (
             <>
               <h3 className="text-primary font-display text-xl mt-8 mb-4">
-                Method {miner.id === "bitaxe" ? "1" : "2"}: Check the Device Screen
+                Method 2: Check the Device Screen
               </h3>
               <p>
                 {miner.hasDisplay
                   ? "Your miner has a display that should show the IP address on boot or in the settings menu."
                   : "If your miner has a display, the IP address might be shown there."}
               </p>
-
-              {/* NerdQaxe++ screen image */}
-              {miner.id === "nerdqaxe" && (
-                <div className="my-6 flex justify-center">
-                  <div className="w-64">
-                    <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-                      <img src={nerdqaxeScreenImg} alt="NerdQaxe++ screen showing IP address" className="w-full" />
-                    </div>
-                    <p className="text-sm text-muted-foreground text-center mt-2">
-                      IP address shown on NerdQaxe++ display
-                    </p>
-                  </div>
-                </div>
-              )}
             </>
           )}
 

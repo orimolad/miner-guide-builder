@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMiner, BitaxeVariant, bitaxeVariants } from "@/data/miners";
+import { getMiner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants } from "@/data/miners";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
 import WelcomeStep from "@/components/steps/WelcomeStep";
@@ -21,7 +21,10 @@ const SetupFlow = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [btcAddress, setBtcAddress] = useState("");
   const [selectedBitaxeVariant, setSelectedBitaxeVariant] = useState<BitaxeVariant | undefined>(
-    bitaxeVariants[0] // Default to Gamma
+    bitaxeVariants[0]
+  );
+  const [selectedNerdqaxeVariant, setSelectedNerdqaxeVariant] = useState<NerdqaxeVariant | undefined>(
+    nerdqaxeVariants[0]
   );
   
   const miner = getMiner(minerId || "");
@@ -82,14 +85,21 @@ const SetupFlow = () => {
     localStorage.setItem("btcAddress", address);
   };
 
+  // Determine which variant to pass based on miner type
+  const getSelectedVariant = () => {
+    if (miner.hasBitaxeVariants) return selectedBitaxeVariant;
+    if (miner.hasNerdqaxeVariants) return selectedNerdqaxeVariant;
+    return undefined;
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 0:
         return (
           <WelcomeStep
             miner={miner}
-            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
-            onVariantChange={setSelectedBitaxeVariant}
+            selectedVariant={getSelectedVariant()}
+            onVariantChange={miner.hasBitaxeVariants ? setSelectedBitaxeVariant : setSelectedNerdqaxeVariant}
             btcAddress={btcAddress}
             onBtcAddressChange={handleBtcAddressChange}
           />
@@ -113,14 +123,14 @@ const SetupFlow = () => {
           <StartMiningStep
             miner={miner}
             btcAddress={btcAddress}
-            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
+            selectedVariant={getSelectedVariant()}
           />
         );
       case 6:
         return (
           <SoloMiningStep
             miner={miner}
-            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
+            selectedVariant={getSelectedVariant()}
           />
         );
       case 7:
@@ -128,7 +138,7 @@ const SetupFlow = () => {
           <CompleteStep
             miner={miner}
             btcAddress={btcAddress}
-            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
+            selectedVariant={getSelectedVariant()}
             onBackToSelection={backToSelection}
           />
         );
