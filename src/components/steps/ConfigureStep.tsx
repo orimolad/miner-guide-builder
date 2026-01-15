@@ -15,7 +15,8 @@ interface ConfigureStepProps {
 
 const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
-  const showAxeosImage = ["bitaxe", "nerdqaxe", "disruptor"].includes(miner.id);
+  const isNerdqaxe = miner.id === "nerdqaxe";
+  const showAxeosImage = ["bitaxe", "disruptor"].includes(miner.id);
 
   const handleAddressChange = (value: string) => {
     onAddressChange(value);
@@ -78,6 +79,47 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
             the colon. Put the number (1234 in the example) into the Stratum Port field.
           </InfoBox>
         </>
+      ) : isNerdqaxe ? (
+        <>
+          <CheckList items={["From the Menu, navigate to <strong>Settings</strong>"]} />
+
+          <h4 className="text-primary font-display text-lg mt-6 mb-4">Enter your pool settings here:</h4>
+          <p className="mb-2">Recommended settings:</p>
+          <CodeBlock>
+            <strong>Stratum Host:</strong> pool.bitcoinmerch.com
+            <br />
+            <strong>Stratum Port:</strong> 3333
+            <br />
+            <strong>Stratum User:</strong> (Paste your BTC address here. This is how you get paid!)
+            <br />
+            <strong>Password:</strong> x
+          </CodeBlock>
+
+          <InfoBox variant="info" className="mt-4">
+            <strong className="text-foreground">💡 Pool Format Notes:</strong>
+            <br />
+            <br />
+            Pools will display their Pool URL in the following format with the Stratum Port at the end separated by a
+            colon:
+            <br />
+            <br />
+            Ex. <code className="bg-background px-1 rounded">stratum+tcp://pool.bitcoinmerch.com:1234</code>
+            <br />
+            <br />
+            If you are using a different pool, omit "stratum+tcp://" from the URL for your Nerdaxe's settings as well as
+            the colon. Put the number (1234 in the example) into the Stratum Port field.
+          </InfoBox>
+
+          {/* Nerdaxe pool screenshot placeholder - will be replaced when user provides image */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xl">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={axeosPoolSetupImg} alt="Pool Configuration screen" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">Pool Configuration screen</p>
+            </div>
+          </div>
+        </>
       ) : (
         <>
           <h3 className="text-primary font-display text-xl mt-8 mb-4">Step-by-Step Configuration:</h3>
@@ -107,12 +149,10 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
         </div>
       )}
 
-      <h4 className="text-primary font-display text-lg mt-8 mb-4">
-        {isBitaxe ? "Optional Backup Pool:" : "Optional Backup Pool:"}
-      </h4>
+      <h4 className="text-primary font-display text-lg mt-8 mb-4">Optional Backup Pool:</h4>
       <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
 
-      {isBitaxe ? (
+      {isBitaxe || isNerdqaxe ? (
         <CodeBlock>
           <strong>Fallback Stratum Host:</strong> solo.ckpool.org
           <br />

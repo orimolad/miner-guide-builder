@@ -1,4 +1,4 @@
-import { Miner, BitaxeVariant } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
@@ -8,22 +8,26 @@ import { Button } from "../ui/button";
 interface CompleteStepProps {
   miner: Miner;
   btcAddress: string;
-  selectedVariant?: BitaxeVariant;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
   onBackToSelection: () => void;
 }
 
 const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }: CompleteStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
+  const isNerdqaxe = miner.id === "nerdqaxe";
 
   const getDeviceName = (): string => {
     if (isBitaxe && selectedVariant) {
       return `Bitaxe ${selectedVariant.name}`;
     }
+    if (isNerdqaxe && selectedVariant) {
+      return selectedVariant.name;
+    }
     return miner.name;
   };
 
   const getHashrate = (): string => {
-    if (isBitaxe && selectedVariant) {
+    if ((isBitaxe || isNerdqaxe) && selectedVariant) {
       return `~${selectedVariant.hashrate}`;
     }
     return miner.hashrate;

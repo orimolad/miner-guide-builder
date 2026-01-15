@@ -1,4 +1,4 @@
-import { Miner, BitaxeVariant } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
@@ -12,15 +12,16 @@ import poolScreenshotImg from "@/assets/instructions/pool-screenshot.png";
 interface StartMiningStepProps {
   miner: Miner;
   btcAddress: string;
-  selectedVariant?: BitaxeVariant;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
 }
 
 const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
+  const isNerdqaxe = miner.id === "nerdqaxe";
 
   // Get dynamic hashrate based on selected variant or miner
   const getExpectedHashrate = (): string => {
-    if (isBitaxe && selectedVariant) {
+    if ((isBitaxe || isNerdqaxe) && selectedVariant) {
       return `~${selectedVariant.hashrateValue} GH/s`;
     }
     return miner.hashrate;
@@ -35,6 +36,18 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStep
     <StepContainer stepNumber={5} title="Start Mining & Verify Operation">
       <p className="mb-4">Your miner should now be hashing! Let's verify everything is working correctly.</p>
 
+      {/* Nerdaxe dashboard placeholder - will be replaced when user provides image */}
+      {isNerdqaxe && (
+        <div className="my-6 flex justify-center">
+          <div className="max-w-xl">
+            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10 bg-card/50 p-8 text-center">
+              <p className="text-muted-foreground">Nerdaxe Dashboard Screenshot</p>
+              <p className="text-sm text-muted-foreground mt-2">(Image will be added)</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <h3 className="text-primary font-display text-xl mt-8 mb-4">On Your Device:</h3>
       <CheckList
         items={[
@@ -45,7 +58,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStep
         ]}
       />
 
-      {isBitaxe && (
+      {(isBitaxe || isNerdqaxe) && (
         <InfoBox variant="warning" className="mt-4">
           <strong className="text-foreground">⚠️ Temperature Warning:</strong>
           <br />
@@ -55,7 +68,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStep
         </InfoBox>
       )}
 
-      {!isBitaxe && (
+      {!isBitaxe && !isNerdqaxe && (
         <InfoBox variant="success">
           <strong className="text-foreground">✅ Good Signs:</strong>
           <br />
