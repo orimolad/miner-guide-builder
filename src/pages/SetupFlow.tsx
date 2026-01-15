@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMiner } from "@/data/miners";
+import { getMiner, BitaxeVariant, bitaxeVariants } from "@/data/miners";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
 import WelcomeStep from "@/components/steps/WelcomeStep";
@@ -19,7 +19,20 @@ const SetupFlow = () => {
   const { minerId } = useParams<{ minerId: string }>();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  const [btcAddress, setBtcAddress] = useState("");
+  const [selectedBitaxeVariant, setSelectedBitaxeVariant] = useState<BitaxeVariant | undefined>(
+    bitaxeVariants[0] // Default to Gamma
+  );
+  
   const miner = getMiner(minerId || "");
+
+  // Load BTC address from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("btcAddress");
+    if (saved) {
+      setBtcAddress(saved);
+    }
+  }, []);
 
   const progress = ((currentStep + 1) / TOTAL_STEPS) * 100;
 
@@ -64,10 +77,23 @@ const SetupFlow = () => {
     return null;
   }
 
+  const handleBtcAddressChange = (address: string) => {
+    setBtcAddress(address);
+    localStorage.setItem("btcAddress", address);
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        return <WelcomeStep miner={miner} />;
+        return (
+          <WelcomeStep
+            miner={miner}
+            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
+            onVariantChange={setSelectedBitaxeVariant}
+            btcAddress={btcAddress}
+            onBtcAddressChange={handleBtcAddressChange}
+          />
+        );
       case 1:
         return <PowerUpStep miner={miner} />;
       case 2:
@@ -75,13 +101,37 @@ const SetupFlow = () => {
       case 3:
         return <FindIPStep miner={miner} />;
       case 4:
-        return <ConfigureStep miner={miner} onAddressChange={() => {}} />;
+        return (
+          <ConfigureStep
+            miner={miner}
+            btcAddress={btcAddress}
+            onAddressChange={handleBtcAddressChange}
+          />
+        );
       case 5:
-        return <StartMiningStep miner={miner} />;
+        return (
+          <StartMiningStep
+            miner={miner}
+            btcAddress={btcAddress}
+            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
+          />
+        );
       case 6:
-        return <SoloMiningStep miner={miner} />;
+        return (
+          <SoloMiningStep
+            miner={miner}
+            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
+          />
+        );
       case 7:
-        return <CompleteStep miner={miner} onBackToSelection={backToSelection} />;
+        return (
+          <CompleteStep
+            miner={miner}
+            btcAddress={btcAddress}
+            selectedVariant={miner.hasBitaxeVariants ? selectedBitaxeVariant : undefined}
+            onBackToSelection={backToSelection}
+          />
+        );
       default:
         return null;
     }
@@ -94,7 +144,7 @@ const SetupFlow = () => {
       <div className="bg-pattern" />
       <div className="container max-w-4xl">
         <Header />
-        
+
         <div className="mb-4">
           <Button
             variant="outline"
@@ -104,13 +154,13 @@ const SetupFlow = () => {
             <span className="relative z-10">← Back to Miners</span>
           </Button>
         </div>
-        
+
         <ProgressBar progress={progress} />
-        
+
         <div className="animate-fade-in-up" key={currentStep}>
           {renderStep()}
         </div>
-        
+
         {!isLastStep && (
           <div className="flex flex-col sm:flex-row gap-4 my-10">
             {currentStep > 0 && (
