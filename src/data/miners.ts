@@ -29,7 +29,7 @@ export const bitaxeVariants: BitaxeVariant[] = [
     hashrate: "4.2 TH/s",
     hashrateValue: 4200,
     power: "90W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-supra-hex-4-2-th-s-bitcoin-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-suprahex-4-2-th-s-bitcoin-miner-1?_pos=1&_sid=2eef023aa&_ss=r",
   },
   {
     id: "gt-gamma-turbo",
@@ -37,7 +37,7 @@ export const bitaxeVariants: BitaxeVariant[] = [
     hashrate: "2.4 TH/s",
     hashrateValue: 2400,
     power: "36W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-gt-gamma-turbo-2-4-th-s-bitcoin-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-gt-gamma-turbo-bm1370-asic-2-2th-s?_pos=1&_sid=6ee559654&_ss=r",
   },
   {
     id: "hex",
@@ -45,7 +45,7 @@ export const bitaxeVariants: BitaxeVariant[] = [
     hashrate: "3 TH/s",
     hashrateValue: 3000,
     power: "80W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-hex-3-th-s-bitcoin-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch%C2%AE-bitaxe-hex-solo-miner-3th-s?_pos=1&_sid=3b363e1ca&_ss=r",
   },
   {
     id: "supra",
@@ -53,7 +53,7 @@ export const bitaxeVariants: BitaxeVariant[] = [
     hashrate: "600 GH/s",
     hashrateValue: 600,
     power: "15W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-supra-600-gh-s-bitcoin-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch%C2%AE-bitaxe-400-bitcoin-miner-600gh-s?_pos=1&_sid=dbf85461e&_ss=r",
   },
   {
     id: "ultra",
@@ -61,7 +61,7 @@ export const bitaxeVariants: BitaxeVariant[] = [
     hashrate: "450 GH/s",
     hashrateValue: 450,
     power: "12W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-ultra-450-gh-s-bitcoin-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-bitaxe-1366-solo-bitcoin-miner-up-to-500gh-s?_pos=2&_sid=c10f78836&_ss=r",
   },
 ];
 
