@@ -16,6 +16,10 @@ const InfoBox = ({
   children,
   className
 }: InfoBoxProps) => {
-  return;
+  return (
+    <div className={cn("border-l-4 p-4 rounded-r-lg my-4", variantStyles[variant], className)}>
+      {children}
+    </div>
+  );
 };
 export default InfoBox;
