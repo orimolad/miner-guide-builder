@@ -179,7 +179,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
       )}
 
       {/* Non-disruptor device verification */}
-      {!isDisruptor && (
+      {!isDisruptor && !isGoldDigger && (
         <>
           <h3 className="text-primary font-display text-xl mt-8 mb-4">On Your Device:</h3>
           <CheckList
