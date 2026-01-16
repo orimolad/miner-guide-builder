@@ -15,23 +15,63 @@ interface PowerUpStepProps {
 const PowerUpStep = ({ miner }: PowerUpStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
+  const isDisruptor = miner.id === "disruptor";
 
   return (
     <StepContainer stepNumber={1} title="Power Up Your Miner">
-      {miner.isUsbPowered ? (
+      {isDisruptor ? (
         <>
           <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
           <CheckList
-            items={
-              miner.id === "disruptor"
-                ? ["Connect USB Miner to USB port", "Wait 10-15 seconds for the device to boot"]
-                : [
-                    "Connect the USB cable to your miner",
-                    "Plug the USB into a power adapter or computer USB port",
-                    "Wait 10-15 seconds for the device to boot",
-                  ]
-            }
+            items={[
+              "Connect Disruptor to USB port (at least 5V 2A is recommended, lower power may cause performance issues)",
+              "Wait 10-15 seconds for the device to boot with a blue flashing light cycle",
+            ]}
           />
+
+          {/* Disruptor power GIF */}
+          <div className="my-6 flex justify-center">
+            <div className="w-32">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={disruptorPowerGif} alt="Disruptor power up demonstration" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connecting power to your Disruptor
+              </p>
+            </div>
+          </div>
+
+          <InfoBox variant="warning">
+            <strong className="text-foreground">⚠️ Look for these signs that your miner is powered on:</strong>
+            <br />
+            • LED lights turning on
+            <br />
+            • Fan is spinning
+            <br />
+            • Device feeling warm to the touch
+          </InfoBox>
+        </>
+      ) : miner.isUsbPowered ? (
+        <>
+          <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
+          <CheckList
+            items={[
+              "Connect the USB cable to your miner",
+              "Plug the USB into a power adapter or computer USB port",
+              "Wait 10-15 seconds for the device to boot",
+            ]}
+          />
+          <InfoBox variant="warning">
+            <strong className="text-foreground">⚠️ Look for these signs that your miner is powered on:</strong>
+            <br />
+            • LED lights turning on
+            <br />
+            • Fan noise (for larger miners)
+            <br />
+            • Screen display showing boot information
+            <br />
+            • Device feeling warm to the touch
+          </InfoBox>
         </>
       ) : isBitaxe ? (
         <>
@@ -56,6 +96,14 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
               "Wait 10-15 seconds for the device to boot",
             ]}
           />
+
+          <InfoBox variant="warning">
+            <strong className="text-foreground">⚠️ Look for these signs that your miner is powered on:</strong>
+            <br />
+            • Fan spinning
+            <br />
+            • Screen display showing boot information
+          </InfoBox>
         </>
       ) : isNerdqaxe ? (
         <>
@@ -80,6 +128,14 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
               "Wait 10-15 seconds for the device to boot",
             ]}
           />
+
+          <InfoBox variant="warning">
+            <strong className="text-foreground">⚠️ Look for these signs that your miner is powered on:</strong>
+            <br />
+            • Fan spinning
+            <br />
+            • Screen display showing boot information
+          </InfoBox>
         </>
       ) : (
         <>
@@ -92,45 +148,20 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
               "Wait 20-30 seconds for the device to boot",
             ]}
           />
-        </>
-      )}
 
-      {/* Disruptor-specific instructional GIF */}
-      {miner.id === "disruptor" && (
-        <div className="my-6 flex justify-center">
-          <div className="w-32">
-            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-              <img src={disruptorPowerGif} alt="Disruptor power up demonstration" className="w-full" />
-            </div>
-            <p className="text-sm text-muted-foreground text-center mt-2">
-              Connecting power to your Disruptor
-            </p>
-          </div>
-        </div>
-      )}
-
-      <InfoBox variant="warning">
-        <strong className="text-foreground">⚠️ Look for these signs that your miner is powered on:</strong>
-        <br />
-        {isBitaxe || isNerdqaxe ? (
-          <>
-            • Fan spinning
-            <br />• Screen display showing boot information
-          </>
-        ) : (
-          <>
+          <InfoBox variant="warning">
+            <strong className="text-foreground">⚠️ Look for these signs that your miner is powered on:</strong>
+            <br />
             • LED lights turning on
             <br />
             • Fan noise (for larger miners)
-            {miner.id !== "disruptor" && (
-              <>
-                <br />• Screen display showing boot information
-              </>
-            )}
-            <br />• Device feeling warm to the touch
-          </>
-        )}
-      </InfoBox>
+            <br />
+            • Screen display showing boot information
+            <br />
+            • Device feeling warm to the touch
+          </InfoBox>
+        </>
+      )}
 
       <p className="mt-4">Once you see these indicators, your miner is ready for the next step!</p>
     </StepContainer>

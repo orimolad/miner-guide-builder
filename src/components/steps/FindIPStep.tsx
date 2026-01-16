@@ -10,15 +10,16 @@ import nerdaxeIpAddressImg from "@/assets/instructions/nerdaxe-ip-address.jpg";
 
 interface FindIPStepProps {
   miner: Miner;
+  stepNumber?: number;
 }
 
-const FindIPStep = ({ miner }: FindIPStepProps) => {
+const FindIPStep = ({ miner, stepNumber = 3 }: FindIPStepProps) => {
   const defaultIPClean = miner.defaultIP.split(" ")[0];
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
 
   return (
-    <StepContainer stepNumber={3} title="Find Your Miner's IP Address">
+    <StepContainer stepNumber={stepNumber} title="Find Your Miner's IP Address">
       {isBitaxe ? (
         <>
           <p className="mb-4">
@@ -86,38 +87,26 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
             To configure your miner, you need to access its web interface. Here's how to find its IP address:
           </p>
 
-          {miner.id !== "disruptor" && (
-            <InfoBox variant="info">
-              <strong className="text-foreground">🎯 For {miner.name}:</strong>
-              <br />
-              Default IP: <code className="bg-background px-2 py-0.5 rounded">{miner.defaultIP}</code>
-            </InfoBox>
-          )}
+          <InfoBox variant="info">
+            <strong className="text-foreground">🎯 For {miner.name}:</strong>
+            <br />
+            Default IP: <code className="bg-background px-2 py-0.5 rounded">{miner.defaultIP}</code>
+          </InfoBox>
 
-          {miner.id !== "disruptor" && (
-            <>
-              <h3 className="text-primary font-display text-xl mt-8 mb-4">Method 1: Try the Default IP</h3>
-              <p>Open your web browser and type this address:</p>
-              <CodeBlock>http://{defaultIPClean}</CodeBlock>
-            </>
-          )}
-
-          {miner.id !== "disruptor" && (
-            <>
-              <h3 className="text-primary font-display text-xl mt-8 mb-4">
-                Method 2: Check the Device Screen
-              </h3>
-              <p>
-                {miner.hasDisplay
-                  ? "Your miner has a display that should show the IP address on boot or in the settings menu."
-                  : "If your miner has a display, the IP address might be shown there."}
-              </p>
-            </>
-          )}
+          <h3 className="text-primary font-display text-xl mt-8 mb-4">Method 1: Try the Default IP</h3>
+          <p>Open your web browser and type this address:</p>
+          <CodeBlock>http://{defaultIPClean}</CodeBlock>
 
           <h3 className="text-primary font-display text-xl mt-8 mb-4">
-            Method {miner.id === "disruptor" ? "1" : "3"}: Use a Network Scanner
+            Method 2: Check the Device Screen
           </h3>
+          <p>
+            {miner.hasDisplay
+              ? "Your miner has a display that should show the IP address on boot or in the settings menu."
+              : "If your miner has a display, the IP address might be shown there."}
+          </p>
+
+          <h3 className="text-primary font-display text-xl mt-8 mb-4">Method 3: Use a Network Scanner</h3>
           <p>Download a network scanner app on your phone:</p>
           <CheckList
             items={[

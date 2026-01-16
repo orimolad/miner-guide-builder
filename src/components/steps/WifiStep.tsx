@@ -7,28 +7,79 @@ import bitaxeScreenImg from "@/assets/instructions/bitaxescreen.png";
 import bitaxeWifiGif from "@/assets/instructions/bitaxewifi.gif";
 import nerdaxeScreenImg from "@/assets/instructions/nerdaxescreen.jpg";
 import nerdaxeWifiGif from "@/assets/instructions/nerdaxewifi.gif";
+import disruptorWifiGif from "@/assets/instructions/disruptorwifi.gif";
 
 interface WifiStepProps {
   miner: Miner;
+  stepNumber?: number;
 }
 
-const WifiStep = ({ miner }: WifiStepProps) => {
+const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
-  const showAxeosImage = miner.id === "disruptor";
+  const isDisruptor = miner.id === "disruptor";
 
   return (
-    <StepContainer stepNumber={2} title="Connect to Your Miner's Wi-Fi Network">
+    <StepContainer stepNumber={stepNumber} title={isDisruptor ? "Connect to your Disruptor via WiFi" : "Connect to Your Miner's Wi-Fi Network"}>
       <p className="mb-4">
         {isBitaxe
           ? "Your Bitaxe creates its own temporary WiFi network for initial setup. Let's connect to it!"
           : isNerdqaxe
             ? "Your Nerdaxe creates its own temporary WiFi network for initial setup. Let's connect to it!"
-            : "Your miner creates its own Wi-Fi network for initial setup. Let's connect to it!"}
+            : isDisruptor
+              ? "Your miner creates its own temporary WiFi network for initial setup. Let's connect to it!"
+              : "Your miner creates its own Wi-Fi network for initial setup. Let's connect to it!"}
       </p>
 
-      {/* Bitaxe-specific content */}
-      {isBitaxe ? (
+      {/* Disruptor-specific content */}
+      {isDisruptor ? (
+        <>
+          {/* Disruptor WiFi GIF */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={disruptorWifiGif} alt="Phone showing Bitaxe_2705 WiFi network" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Select the Bitaxe network from your WiFi settings
+              </p>
+            </div>
+          </div>
+
+          <CheckList
+            items={[
+              "On your phone/tablet/computer, open WiFi settings",
+              'Look for a network with <strong>Bitaxe</strong> in the name - i.e. Bitaxe_XXXX',
+              "Select that network to connect and wait several seconds. A captive WiFi screen will appear with the miner's web interface / dashboard.",
+            ]}
+          />
+
+          <InfoBox variant="info" className="mt-6">
+            <strong className="text-foreground">💡 Can't find the WiFi network?</strong>
+            <br />
+            <br />
+            • Make sure the miner has been powered on for at least 30 seconds
+            <br />
+            • Try restarting the miner
+            <br />
+            • Move closer to the device
+          </InfoBox>
+
+          <InfoBox variant="warning" className="mt-4">
+            <strong className="text-foreground">!!! If the dashboard doesn't pop up automatically:</strong>
+            <br />
+            <br />
+            The device you are using may be blocking the pop up. If this happens:
+            <br />
+            <br />
+            1. Connect to the Disruptor's WiFi network
+            <br />
+            2. Select "Use Without Internet" if prompted
+            <br />
+            3. In a web browser, navigate to: <code className="bg-background px-2 py-0.5 rounded">http://192.168.4.1/</code>
+          </InfoBox>
+        </>
+      ) : isBitaxe ? (
         <>
           {/* Bitaxe images */}
           <div className="my-6 flex flex-col sm:flex-row gap-4 justify-center">
@@ -140,37 +191,31 @@ const WifiStep = ({ miner }: WifiStepProps) => {
         </>
       ) : (
         <>
-          {/* Non-Bitaxe/Non-Nerdqaxe content */}
+          {/* Non-Bitaxe/Non-Nerdqaxe/Non-Disruptor content */}
           <CheckList
             items={[
               "On your phone or computer, open Wi-Fi settings",
               'Look for a network named something like <strong>"Bitaxe"</strong>, <strong>"NerdMiner"</strong>, or similar',
               "Select that network to connect",
-              ...(miner.id !== "disruptor"
-                ? [
-                    'If prompted for a password, check the device manual or try common defaults like <strong>"password"</strong>, <strong>"root"</strong>, <strong>"admin"</strong>, <strong>"MineYourCoins"</strong> or <strong>"12345678"</strong>',
-                  ]
-                : []),
+              'If prompted for a password, check the device manual or try common defaults like <strong>"password"</strong>, <strong>"root"</strong>, <strong>"admin"</strong>, <strong>"MineYourCoins"</strong> or <strong>"12345678"</strong>',
             ]}
           />
 
-          {/* AxeOS Wi-Fi setup image for Disruptor */}
-          {showAxeosImage && (
-            <div className="my-6 flex justify-center">
-              <div className="max-w-xl">
-                <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-                  <img
-                    src={axeosWifiSetupImg}
-                    alt="Wi-Fi setup showing network selection and configuration"
-                    className="w-full"
-                  />
-                </div>
-                <p className="text-sm text-muted-foreground text-center mt-2">
-                  Connect to the miner's Wi-Fi and configure your network
-                </p>
+          {/* AxeOS Wi-Fi setup image for generic miners */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xl">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img
+                  src={axeosWifiSetupImg}
+                  alt="Wi-Fi setup showing network selection and configuration"
+                  className="w-full"
+                />
               </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connect to the miner's Wi-Fi and configure your network
+              </p>
             </div>
-          )}
+          </div>
 
           <InfoBox variant="info">
             <strong className="text-foreground">💡 Can't find the Wi-Fi network?</strong>
@@ -180,11 +225,7 @@ const WifiStep = ({ miner }: WifiStepProps) => {
             • Try restarting the miner
             <br />
             • Move closer to the device
-            {miner.id !== "disruptor" && (
-              <>
-                <br />• Check if the miner has a physical Wi-Fi button that needs to be pressed
-              </>
-            )}
+            <br />• Check if the miner has a physical Wi-Fi button that needs to be pressed
           </InfoBox>
 
           <p className="mt-4">

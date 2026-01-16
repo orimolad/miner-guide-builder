@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMiner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants } from "@/data/miners";
 import Header from "@/components/Header";
@@ -8,12 +8,53 @@ import PowerUpStep from "@/components/steps/PowerUpStep";
 import WifiStep from "@/components/steps/WifiStep";
 import FindIPStep from "@/components/steps/FindIPStep";
 import ConfigureStep from "@/components/steps/ConfigureStep";
+import HomeWifiStep from "@/components/steps/HomeWifiStep";
 import StartMiningStep from "@/components/steps/StartMiningStep";
 import SoloMiningStep from "@/components/steps/SoloMiningStep";
 import CompleteStep from "@/components/steps/CompleteStep";
 import { Button } from "@/components/ui/button";
 
-const TOTAL_STEPS = 8;
+// Step types for dynamic step rendering
+type StepType =
+  | "welcome"
+  | "power"
+  | "minerWifi"
+  | "findIP"
+  | "configure"
+  | "homeWifi"
+  | "startMining"
+  | "soloMining"
+  | "complete";
+
+// Default flow for Bitaxe/Nerdaxe/others
+const DEFAULT_STEPS: StepType[] = [
+  "welcome",
+  "power",
+  "minerWifi",
+  "findIP",
+  "configure",
+  "startMining",
+  "soloMining",
+  "complete",
+];
+
+// Disruptor-specific flow (pool before home WiFi, Find IP is optional inline)
+const DISRUPTOR_STEPS: StepType[] = [
+  "welcome",
+  "power",
+  "minerWifi",
+  "configure",
+  "homeWifi",
+  "startMining",
+  "soloMining",
+  "complete",
+];
+
+// Get steps based on miner ID
+const getStepsForMiner = (minerId: string): StepType[] => {
+  if (minerId === "disruptor") return DISRUPTOR_STEPS;
+  return DEFAULT_STEPS;
+};
 
 const SetupFlow = () => {
   const { minerId } = useParams<{ minerId: string }>();
@@ -26,8 +67,10 @@ const SetupFlow = () => {
   const [selectedNerdqaxeVariant, setSelectedNerdqaxeVariant] = useState<NerdqaxeVariant | undefined>(
     nerdqaxeVariants[0]
   );
-  
+
   const miner = getMiner(minerId || "");
+  const steps = useMemo(() => getStepsForMiner(minerId || ""), [minerId]);
+  const TOTAL_STEPS = steps.length;
 
   // Load BTC address from localStorage on mount
   useEffect(() => {
@@ -44,7 +87,7 @@ const SetupFlow = () => {
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [currentStep]);
+  }, [currentStep, TOTAL_STEPS]);
 
   const prevStep = useCallback(() => {
     if (currentStep > 0) {
@@ -68,7 +111,7 @@ const SetupFlow = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentStep, nextStep, prevStep]);
+  }, [currentStep, nextStep, prevStep, TOTAL_STEPS]);
 
   useEffect(() => {
     if (!miner) {
@@ -92,9 +135,17 @@ const SetupFlow = () => {
     return undefined;
   };
 
+  // Get the display step number based on the current step type
+  const getDisplayStepNumber = (stepType: StepType): number => {
+    const index = steps.indexOf(stepType);
+    return index >= 0 ? index : 0;
+  };
+
   const renderStep = () => {
-    switch (currentStep) {
-      case 0:
+    const currentStepType = steps[currentStep];
+
+    switch (currentStepType) {
+      case "welcome":
         return (
           <WelcomeStep
             miner={miner}
@@ -104,36 +155,41 @@ const SetupFlow = () => {
             onBtcAddressChange={handleBtcAddressChange}
           />
         );
-      case 1:
+      case "power":
         return <PowerUpStep miner={miner} />;
-      case 2:
-        return <WifiStep miner={miner} />;
-      case 3:
-        return <FindIPStep miner={miner} />;
-      case 4:
+      case "minerWifi":
+        return <WifiStep miner={miner} stepNumber={getDisplayStepNumber("minerWifi")} />;
+      case "findIP":
+        return <FindIPStep miner={miner} stepNumber={getDisplayStepNumber("findIP")} />;
+      case "configure":
         return (
           <ConfigureStep
             miner={miner}
             btcAddress={btcAddress}
             onAddressChange={handleBtcAddressChange}
+            stepNumber={getDisplayStepNumber("configure")}
           />
         );
-      case 5:
+      case "homeWifi":
+        return <HomeWifiStep miner={miner} />;
+      case "startMining":
         return (
           <StartMiningStep
             miner={miner}
             btcAddress={btcAddress}
             selectedVariant={getSelectedVariant()}
+            stepNumber={getDisplayStepNumber("startMining")}
           />
         );
-      case 6:
+      case "soloMining":
         return (
           <SoloMiningStep
             miner={miner}
             selectedVariant={getSelectedVariant()}
+            stepNumber={getDisplayStepNumber("soloMining")}
           />
         );
-      case 7:
+      case "complete":
         return (
           <CompleteStep
             miner={miner}

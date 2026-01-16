@@ -14,11 +14,13 @@ interface StartMiningStepProps {
   miner: Miner;
   btcAddress: string;
   selectedVariant?: BitaxeVariant | NerdqaxeVariant;
+  stepNumber?: number;
 }
 
-const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStepProps) => {
+const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }: StartMiningStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
+  const isDisruptor = miner.id === "disruptor";
 
   // Get dynamic hashrate based on selected variant or miner
   const getExpectedHashrate = (): string => {
@@ -34,7 +36,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStep
   };
 
   return (
-    <StepContainer stepNumber={5} title="Start Mining & Verify Operation">
+    <StepContainer stepNumber={stepNumber} title="Start Mining & Verify Operation">
       <p className="mb-4">Your miner should now be hashing! Let's verify everything is working correctly.</p>
 
       {/* Nerdaxe dashboard showing mining stats */}
@@ -53,39 +55,6 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStep
             </p>
           </div>
         </div>
-      )}
-
-      <h3 className="text-primary font-display text-xl mt-8 mb-4">On Your Device:</h3>
-      <CheckList
-        items={[
-          "Check the miner's screen and/or web interface",
-          `Look for a hash rate displaying: <strong>${getExpectedHashrate()}</strong>`,
-          "Accepted shares should start appearing (may take 1-5 minutes)",
-          "Monitor your miner's temperatures. Stable temperatures are <strong>40-70°C</strong>",
-        ]}
-      />
-
-      {(isBitaxe || isNerdqaxe) && (
-        <InfoBox variant="warning" className="mt-4">
-          <strong className="text-foreground">⚠️ Temperature Warning:</strong>
-          <br />
-          If the ASIC Temperature goes above 70°, your miner will go into safety mode and display an{" "}
-          <strong>OVERHEAT</strong> error. If this occurs, go to the Settings tab and put your frequency lower than the
-          default setting.
-        </InfoBox>
-      )}
-
-      {!isBitaxe && !isNerdqaxe && (
-        <InfoBox variant="success">
-          <strong className="text-foreground">✅ Good Signs:</strong>
-          <br />
-          • Hash rate matches expected specs (±10%)
-          <br />
-          • Shares being accepted by the pool
-          <br />
-          • Temperature stable (usually 40-70°C)
-          <br />• No error messages
-        </InfoBox>
       )}
 
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Check Pool Statistics:</h3>
@@ -132,6 +101,71 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStep
         • Verify pool URL is correct
         <br />• Make sure the miner shows it's connected
       </InfoBox>
+
+      {/* Disruptor-specific: Optional Find IP section */}
+      {isDisruptor && (
+        <>
+          <h3 className="text-primary font-display text-xl mt-10 mb-4">Optional - Find Your Miner's IP Address</h3>
+          <p className="mb-4">
+            To access your miner's web interface, you need to find its new IP address on your network. Here's how to find it:
+          </p>
+
+          <h4 className="text-primary font-display text-lg mt-6 mb-4">Use a Network Scanner</h4>
+          <p className="mb-2">Download a network scanner app:</p>
+          <CheckList
+            items={[
+              'iOS: <a href="https://apps.apple.com/app/fing-network-scanner/id430921107" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Fing</a> or <a href="https://apps.apple.com/app/network-analyzer/id562315041" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Network Analyzer</a>',
+              'Android: <a href="https://play.google.com/store/apps/details?id=com.overlook.android.fing" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Fing</a> or <a href="https://play.google.com/store/apps/details?id=com.first_row.network_scanner" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Network Scanner</a>',
+              'Desktop: <a href="https://www.advanced-port-scanner.com/" target="_blank" rel="noopener noreferrer" class="text-bitcoin hover:underline">Advanced Port Scanner</a>',
+              'Look for a device with "Espressif" or similar manufacturer name',
+            ]}
+          />
+
+          <InfoBox variant="success" className="mt-4">
+            <strong className="text-foreground">✅ You'll know you found it when:</strong>
+            <br />
+            Opening the IP in your web browser shows AxeOS, its web interface. You can monitor its performance and configure it from this number any time.
+          </InfoBox>
+        </>
+      )}
+
+      {/* Non-disruptor device verification */}
+      {!isDisruptor && (
+        <>
+          <h3 className="text-primary font-display text-xl mt-8 mb-4">On Your Device:</h3>
+          <CheckList
+            items={[
+              "Check the miner's screen and/or web interface",
+              `Look for a hash rate displaying: <strong>${getExpectedHashrate()}</strong>`,
+              "Accepted shares should start appearing (may take 1-5 minutes)",
+              "Monitor your miner's temperatures. Stable temperatures are <strong>40-70°C</strong>",
+            ]}
+          />
+
+          {(isBitaxe || isNerdqaxe) && (
+            <InfoBox variant="warning" className="mt-4">
+              <strong className="text-foreground">⚠️ Temperature Warning:</strong>
+              <br />
+              If the ASIC Temperature goes above 70°, your miner will go into safety mode and display an{" "}
+              <strong>OVERHEAT</strong> error. If this occurs, go to the Settings tab and put your frequency lower than the
+              default setting.
+            </InfoBox>
+          )}
+
+          {!isBitaxe && !isNerdqaxe && (
+            <InfoBox variant="success">
+              <strong className="text-foreground">✅ Good Signs:</strong>
+              <br />
+              • Hash rate matches expected specs (±10%)
+              <br />
+              • Shares being accepted by the pool
+              <br />
+              • Temperature stable (usually 40-70°C)
+              <br />• No error messages
+            </InfoBox>
+          )}
+        </>
+      )}
     </StepContainer>
   );
 };
