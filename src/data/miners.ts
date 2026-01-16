@@ -89,7 +89,7 @@ export const nerdqaxeVariants: NerdqaxeVariant[] = [
     hashrate: "9.6 TH/s",
     hashrateValue: 9600,
     power: "160W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdoctaxe-9-6th-s?_pos=1&_sid=d09525aee&_ss=r",
   },
   {
     id: "nerdqaxe-hydro",
@@ -97,7 +97,7 @@ export const nerdqaxeVariants: NerdqaxeVariant[] = [
     hashrate: "4.8 TH/s",
     hashrateValue: 4800,
     power: "80W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-hydro?_pos=2&_sid=60709e436&_ss=r",
   },
   {
     id: "nerdaxe",
@@ -105,7 +105,7 @@ export const nerdqaxeVariants: NerdqaxeVariant[] = [
     hashrate: "1.2 TH/s",
     hashrateValue: 1200,
     power: "18W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdaxe-btc-miner?_pos=1&_sid=00442c8ba&_ss=r",
   },
   {
     id: "nerdqaxe-plus",
@@ -113,7 +113,7 @@ export const nerdqaxeVariants: NerdqaxeVariant[] = [
     hashrate: "2.4 TH/s",
     hashrateValue: 2400,
     power: "40W",
-    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-4-8th-s-multi-chip-btc-miner",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-nerdqaxe-2-4th-s-btc-miner?_pos=1&_sid=1fa4c470f&_ss=r",
   },
 ];
 
