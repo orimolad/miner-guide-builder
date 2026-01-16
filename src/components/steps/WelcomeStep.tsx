@@ -147,9 +147,14 @@ const WelcomeStep = ({
         />
 
         <p className="mt-4 mb-2">
-          <Link to="/wallets" className="text-primary hover:underline">
+          <a 
+            href="https://bitcoinmerch.com/collections/hardware-wallets" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
             Check out our recommended wallets if you don't have one yet! →
-          </Link>
+          </a>
         </p>
 
         {/* BTC Address Input */}
