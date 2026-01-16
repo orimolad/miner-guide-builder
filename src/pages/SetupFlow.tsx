@@ -8,6 +8,7 @@ import PowerUpStep from "@/components/steps/PowerUpStep";
 import WifiStep from "@/components/steps/WifiStep";
 import FindIPStep from "@/components/steps/FindIPStep";
 import ConfigureStep from "@/components/steps/ConfigureStep";
+import ConfigureAllStep from "@/components/steps/ConfigureAllStep";
 import HomeWifiStep from "@/components/steps/HomeWifiStep";
 import StartMiningStep from "@/components/steps/StartMiningStep";
 import SoloMiningStep from "@/components/steps/SoloMiningStep";
@@ -21,6 +22,7 @@ type StepType =
   | "minerWifi"
   | "findIP"
   | "configure"
+  | "configureAll"
   | "homeWifi"
   | "startMining"
   | "soloMining"
@@ -50,9 +52,21 @@ const DISRUPTOR_STEPS: StepType[] = [
   "complete",
 ];
 
+// Gold Digger flow - combines WiFi + Pool + Wallet in one step
+const GOLDDIGGER_STEPS: StepType[] = [
+  "welcome",
+  "power",
+  "minerWifi",
+  "configureAll",
+  "startMining",
+  "soloMining",
+  "complete",
+];
+
 // Get steps based on miner ID
 const getStepsForMiner = (minerId: string): StepType[] => {
   if (minerId === "disruptor") return DISRUPTOR_STEPS;
+  if (minerId === "golddigger") return GOLDDIGGER_STEPS;
   return DEFAULT_STEPS;
 };
 
@@ -168,6 +182,15 @@ const SetupFlow = () => {
             btcAddress={btcAddress}
             onAddressChange={handleBtcAddressChange}
             stepNumber={getDisplayStepNumber("configure")}
+          />
+        );
+      case "configureAll":
+        return (
+          <ConfigureAllStep
+            miner={miner}
+            btcAddress={btcAddress}
+            onAddressChange={handleBtcAddressChange}
+            stepNumber={getDisplayStepNumber("configureAll")}
           />
         );
       case "homeWifi":

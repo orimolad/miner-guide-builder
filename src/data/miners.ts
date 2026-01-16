@@ -4,6 +4,7 @@ import nerdqaxeImg from "@/assets/miners/nerdqaxe.webp";
 import goldnuggetImg from "@/assets/miners/goldnugget.webp";
 import zyberImg from "@/assets/miners/zyber.webp";
 import avalonqImg from "@/assets/miners/avalonq.webp";
+import golddiggerImg from "@/assets/miners/golddigger.webp";
 
 export interface BitaxeVariant {
   id: string;
@@ -132,6 +133,17 @@ export interface Miner {
 }
 
 export const miners: Miner[] = [
+  {
+    id: "golddigger",
+    name: "Gold Digger",
+    hashrate: "~1000 KH/s",
+    power: "<3W",
+    defaultIP: "192.168.4.1",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-gold-digger-lottery-nmminer-1000kh-s",
+    isUsbPowered: true,
+    hasDisplay: true,
+    image: golddiggerImg,
+  },
   {
     id: "disruptor",
     name: "Disruptor",

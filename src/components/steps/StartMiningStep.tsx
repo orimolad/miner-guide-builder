@@ -9,6 +9,8 @@ import { Button } from "../ui/button";
 // Instruction images
 import poolScreenshotImg from "@/assets/instructions/pool-screenshot.png";
 import nerdqaxeDashboardImg from "@/assets/instructions/nerdqaxedashboard.png";
+import golddiggerHashingImg from "@/assets/instructions/golddiggerhashing.jpg";
+import golddiggerIpImg from "@/assets/instructions/golddiggerip.jpg";
 
 interface StartMiningStepProps {
   miner: Miner;
@@ -21,11 +23,15 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
+  const isGoldDigger = miner.id === "golddigger";
 
   // Get dynamic hashrate based on selected variant or miner
   const getExpectedHashrate = (): string => {
     if ((isBitaxe || isNerdqaxe) && selectedVariant) {
       return `~${selectedVariant.hashrateValue} GH/s`;
+    }
+    if (isGoldDigger) {
+      return "~1000 KH/s";
     }
     return miner.hashrate;
   };
@@ -38,6 +44,25 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
   return (
     <StepContainer stepNumber={stepNumber} title="Start Mining & Verify Operation">
       <p className="mb-4">Your miner should now be hashing! Let's verify everything is working correctly.</p>
+
+      {/* Gold Digger on-device verification */}
+      {isGoldDigger && (
+        <>
+          <h3 className="text-primary font-display text-xl mt-4 mb-4">On Your Device:</h3>
+          <p className="mb-4">Check the miner's screen. Your hashrate will show measured in KH/s.</p>
+          
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={golddiggerHashingImg} alt="Gold Digger screen showing hashrate" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Gold Digger screen displaying hashrate in KH/s
+              </p>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Nerdaxe dashboard showing mining stats */}
       {isNerdqaxe && (
@@ -126,6 +151,30 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
             <br />
             Opening the IP in your web browser shows AxeOS, its web interface. You can monitor its performance and configure it from this number any time.
           </InfoBox>
+        </>
+      )}
+
+      {/* Gold Digger-specific: IP on device screen */}
+      {isGoldDigger && (
+        <>
+          <h3 className="text-primary font-display text-xl mt-10 mb-4">Optional - Access your miner's dashboard</h3>
+          <p className="mb-4">
+            Once you connect the Gold Digger to your network, it will generate a new IP address for the device's web interface.
+          </p>
+          <p className="mb-4">
+            To access your miner's web interface, simply type in the IP address that is displayed on the screen in a web browser!
+          </p>
+
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={golddiggerIpImg} alt="Gold Digger screen showing IP address" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Gold Digger screen displaying the device's IP address
+              </p>
+            </div>
+          </div>
         </>
       )}
 
