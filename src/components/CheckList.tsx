@@ -10,7 +10,7 @@ const CheckList = ({
       {items.map((item, index) => (
         <li key={index} className="flex items-start gap-3">
           <Check className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
-          <span>{item}</span>
+          <span dangerouslySetInnerHTML={{ __html: item }} />
         </li>
       ))}
     </ul>
