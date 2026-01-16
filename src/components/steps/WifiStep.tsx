@@ -34,7 +34,15 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
       {/* Disruptor-specific content */}
       {isDisruptor ? (
         <>
-          {/* Disruptor WiFi GIF */}
+          <CheckList
+            items={[
+              "On your phone/tablet/computer, open WiFi settings",
+              'Look for a network with <strong>Bitaxe</strong> in the name - i.e. Bitaxe_XXXX',
+              "Select that network to connect and wait several seconds. A captive WiFi screen will appear with the miner's web interface / dashboard.",
+            ]}
+          />
+
+          {/* Disruptor WiFi GIF - below checklist */}
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -45,14 +53,6 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
               </p>
             </div>
           </div>
-
-          <CheckList
-            items={[
-              "On your phone/tablet/computer, open WiFi settings",
-              'Look for a network with <strong>Bitaxe</strong> in the name - i.e. Bitaxe_XXXX',
-              "Select that network to connect and wait several seconds. A captive WiFi screen will appear with the miner's web interface / dashboard.",
-            ]}
-          />
 
           <InfoBox variant="info" className="mt-6">
             <strong className="text-foreground">💡 Can't find the WiFi network?</strong>
