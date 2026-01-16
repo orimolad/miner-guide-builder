@@ -4,7 +4,7 @@ import nerdqaxeImg from "@/assets/miners/nerdqaxe.webp";
 import goldnuggetImg from "@/assets/miners/goldnugget.webp";
 import zyberImg from "@/assets/miners/zyber.webp";
 import avalonqImg from "@/assets/miners/avalonq.webp";
-import golddiggerImg from "@/assets/instructions/golddiggerqr.jpg";
+import golddiggerImg from "@/assets/miners/golddigger.jpg";
 
 export interface BitaxeVariant {
   id: string;
