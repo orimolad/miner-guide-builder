@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import SetupFlow from "./pages/SetupFlow";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Wallets from "./pages/Wallets";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,7 +20,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/setup/:minerId" element={<SetupFlow />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/wallets" element={<Wallets />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
