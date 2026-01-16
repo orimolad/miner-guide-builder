@@ -5,7 +5,8 @@ import { Miner } from "@/data/miners";
 import axeosWifiSetupImg from "@/assets/instructions/axeos-wifi-setup.png";
 import bitaxeScreenImg from "@/assets/instructions/bitaxescreen.png";
 import bitaxeWifiGif from "@/assets/instructions/bitaxewifi.gif";
-import nerdqaxeScreenImg from "@/assets/instructions/nerdqaxe-screen.png";
+import nerdaxeScreenImg from "@/assets/instructions/nerdaxescreen.jpg";
+import nerdaxeWifiGif from "@/assets/instructions/nerdaxewifi.gif";
 
 interface WifiStepProps {
   miner: Miner;
@@ -84,14 +85,22 @@ const WifiStep = ({ miner }: WifiStepProps) => {
         </>
       ) : isNerdqaxe ? (
         <>
-          {/* Nerdaxe images - using existing nerdqaxe-screen.png for now */}
+          {/* Nerdaxe images - side by side */}
           <div className="my-6 flex flex-col sm:flex-row gap-4 justify-center">
             <div className="flex-1 max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-                <img src={nerdqaxeScreenImg} alt="Nerdaxe screen showing WiFi network name" className="w-full" />
+                <img src={nerdaxeScreenImg} alt="Nerdaxe screen showing WiFi network name" className="w-full" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
-                Nerdaxe screen showing WiFi network name
+                Nerdaxe screen showing WiFi network name (e.g., "Nerdaxe_9461")
+              </p>
+            </div>
+            <div className="flex-1 max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={nerdaxeWifiGif} alt="Phone connecting to Nerdaxe WiFi network" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connect to the Nerdaxe network from your phone's WiFi settings
               </p>
             </div>
           </div>
