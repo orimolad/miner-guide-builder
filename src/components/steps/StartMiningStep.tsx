@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 
 // Instruction images
 import poolScreenshotImg from "@/assets/instructions/pool-screenshot.png";
+import nerdqaxeDashboardImg from "@/assets/instructions/nerdqaxedashboard.png";
 
 interface StartMiningStepProps {
   miner: Miner;
@@ -36,14 +37,20 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant }: StartMiningStep
     <StepContainer stepNumber={5} title="Start Mining & Verify Operation">
       <p className="mb-4">Your miner should now be hashing! Let's verify everything is working correctly.</p>
 
-      {/* Nerdaxe dashboard placeholder - will be replaced when user provides image */}
+      {/* Nerdaxe dashboard showing mining stats */}
       {isNerdqaxe && (
         <div className="my-6 flex justify-center">
-          <div className="max-w-xl">
-            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10 bg-card/50 p-8 text-center">
-              <p className="text-muted-foreground">Nerdaxe Dashboard Screenshot</p>
-              <p className="text-sm text-muted-foreground mt-2">(Image will be added)</p>
+          <div className="max-w-3xl">
+            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+              <img
+                src={nerdqaxeDashboardImg}
+                alt="NerdQaxe dashboard showing hashrate, shares, and efficiency"
+                className="w-full"
+              />
             </div>
+            <p className="text-sm text-muted-foreground text-center mt-2">
+              NerdQaxe dashboard displaying hashrate, shares, efficiency, and power gauges
+            </p>
           </div>
         </div>
       )}

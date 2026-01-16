@@ -5,8 +5,8 @@ import InfoBox from "../InfoBox";
 import CodeBlock from "../CodeBlock";
 
 // Instruction images
-import nerdqaxeScreenImg from "@/assets/instructions/nerdqaxe-screen.png";
 import ipAddressImg from "@/assets/instructions/ipaddress.jpg";
+import nerdaxeIpAddressImg from "@/assets/instructions/nerdaxe-ip-address.jpg";
 
 interface FindIPStepProps {
   miner: Miner;
@@ -64,12 +64,12 @@ const FindIPStep = ({ miner }: FindIPStepProps) => {
 
           {/* IP Address image */}
           <div className="my-6 flex justify-center">
-            <div className="w-64">
+            <div className="max-w-md">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-                <img src={ipAddressImg} alt="IP address shown on Nerdaxe display" className="w-full" />
+                <img src={nerdaxeIpAddressImg} alt="IP address shown at the top of Nerdaxe display" className="w-full" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
-                IP address shown on Nerdaxe display
+                IP address (e.g., 192.168.0.220) shown at the top of the Nerdaxe screen
               </p>
             </div>
           </div>

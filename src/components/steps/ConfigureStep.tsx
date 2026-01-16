@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Miner } from "@/data/miners";
 import axeosPoolSetupImg from "@/assets/instructions/axeos-pool-setup.png";
+import nerdaxePoolImg from "@/assets/instructions/nerdaxepool.png";
 
 interface ConfigureStepProps {
   miner: Miner;
@@ -110,13 +111,15 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
             the colon. Put the number (1234 in the example) into the Stratum Port field.
           </InfoBox>
 
-          {/* Nerdaxe pool screenshot placeholder - will be replaced when user provides image */}
+          {/* Nerdaxe pool screenshot */}
           <div className="my-6 flex justify-center">
             <div className="max-w-xl">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-                <img src={axeosPoolSetupImg} alt="Pool Configuration screen" className="w-full" />
+                <img src={nerdaxePoolImg} alt="Nerdaxe Pool Configuration screen" className="w-full" />
               </div>
-              <p className="text-sm text-muted-foreground text-center mt-2">Pool Configuration screen</p>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Nerdaxe pool settings - Enter your Bitcoin address and pool URL
+              </p>
             </div>
           </div>
         </>
