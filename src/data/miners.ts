@@ -136,7 +136,7 @@ export const miners: Miner[] = [
     id: "disruptor",
     name: "Disruptor",
     hashrate: "~300 GH/s",
-    power: "USB Powered",
+    power: "8W",
     defaultIP: "192.168.4.1",
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-disruptor-usb-solo-bitcoin-miner",
     isUsbPowered: true,

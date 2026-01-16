@@ -6,14 +6,19 @@ import InfoBox from "../InfoBox";
 interface SoloMiningStepProps {
   miner: Miner;
   selectedVariant?: BitaxeVariant | NerdqaxeVariant;
+  stepNumber?: number;
 }
 
-const SoloMiningStep = ({ miner, selectedVariant }: SoloMiningStepProps) => {
+const SoloMiningStep = ({ miner, selectedVariant, stepNumber = 6 }: SoloMiningStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
+  const isDisruptor = miner.id === "disruptor";
 
   // Get hashrate description based on variant or miner
   const getHashrateDescription = (): string => {
+    if (isDisruptor) {
+      return "~300 GH/s (300 billion hashes / second)";
+    }
     if ((isBitaxe || isNerdqaxe) && selectedVariant) {
       const value = selectedVariant.hashrateValue;
       if (value >= 1000) {
@@ -36,7 +41,7 @@ const SoloMiningStep = ({ miner, selectedVariant }: SoloMiningStepProps) => {
   };
 
   return (
-    <StepContainer stepNumber={6} title="Understanding the Solo Mining Lottery">
+    <StepContainer stepNumber={stepNumber} title="Understanding the Solo Mining Lottery">
       <div className="text-center py-10 my-8 bg-card/30 rounded-2xl border-2 border-dashed border-primary/30">
         <div className="text-6xl mb-5">🎰</div>
         <h3 className="text-primary font-display text-xl">Solo Mining = Lottery Tickets</h3>

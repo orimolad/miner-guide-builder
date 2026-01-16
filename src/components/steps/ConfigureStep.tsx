@@ -6,18 +6,21 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Miner } from "@/data/miners";
 import axeosPoolSetupImg from "@/assets/instructions/axeos-pool-setup.png";
+import axeosPoolImg from "@/assets/instructions/axeos-pool.png";
 import nerdaxePoolImg from "@/assets/instructions/nerdaxepool.png";
+import disruptorSaveRestartGif from "@/assets/instructions/disruptorsaverestart.gif";
 
 interface ConfigureStepProps {
   miner: Miner;
   btcAddress: string;
   onAddressChange: (address: string) => void;
+  stepNumber?: number;
 }
 
-const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProps) => {
+const ConfigureStep = ({ miner, btcAddress, onAddressChange, stepNumber = 4 }: ConfigureStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
-  const showAxeosImage = ["bitaxe", "disruptor"].includes(miner.id);
+  const isDisruptor = miner.id === "disruptor";
 
   const handleAddressChange = (value: string) => {
     onAddressChange(value);
@@ -25,8 +28,12 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
   };
 
   return (
-    <StepContainer stepNumber={4} title="Configure Your Wallet & Mining Pool">
-      <p className="mb-4">This is the most important step! You need to set up your Bitcoin address and mining pool.</p>
+    <StepContainer stepNumber={stepNumber} title="Configure Your Wallet & Mining Pool">
+      <p className="mb-4">
+        {isDisruptor
+          ? "This is the most important step! Before connecting the Disruptor to your WiFi, you need to enter your BTC address and mining pool settings."
+          : "This is the most important step! You need to set up your Bitcoin address and mining pool."}
+      </p>
 
       <InfoBox variant="warning">
         <strong className="text-foreground">⚠️ CRITICAL: Change the Default Wallet!</strong>
@@ -49,7 +56,80 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
         />
       </div>
 
-      {isBitaxe ? (
+      {isDisruptor ? (
+        <>
+          <CheckList items={["From the Menu, navigate to <strong>Pool Settings</strong>"]} />
+
+          <h4 className="text-primary font-display text-lg mt-6 mb-4">Enter your pool settings here:</h4>
+          <p className="mb-2">Recommended settings:</p>
+          <CodeBlock>
+            <strong>Stratum Host:</strong> pool.bitcoinmerch.com
+            <br />
+            <strong>Stratum Port:</strong> 3333
+            <br />
+            <strong>Stratum User:</strong> (Paste your BTC address here. This is how you get paid!)
+            <br />
+            <strong>Password:</strong> x
+          </CodeBlock>
+
+          <InfoBox variant="info" className="mt-4">
+            <strong className="text-foreground">💡 Pool Format Notes:</strong>
+            <br />
+            <br />
+            Pools will display their Pool URL in the following format with the Stratum Port at the end separated by a
+            colon:
+            <br />
+            <br />
+            Ex. <code className="bg-background px-1 rounded">stratum+tcp://pool.bitcoinmerch.com:1234</code>
+            <br />
+            <br />
+            If you are using a different pool, omit "stratum+tcp://" from the URL for your Disruptor's settings as well as
+            the colon. Put the number (1234 in the example) into the Stratum Port field.
+          </InfoBox>
+
+          {/* Pool screenshot */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xl">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={axeosPoolImg} alt="Pool Configuration screen in AxeOS" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">AxeOS Pool Configuration screen</p>
+            </div>
+          </div>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">(Optional) Backup Pool:</h4>
+          <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
+          <CodeBlock>
+            <strong>Fallback Stratum Host:</strong> solo.ckpool.org
+            <br />
+            <strong>Fallback Stratum Port:</strong> 3333
+            <br />
+            <strong>Fallback Stratum User:</strong> (Paste your BTC address here again)
+            <br />
+            <strong>Password:</strong> x
+          </CodeBlock>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Save Settings:</h4>
+          <CheckList
+            items={[
+              'Click <strong>"Save"</strong>. A popup will say "Success! Settings saved"',
+              'Click <strong>"Restart"</strong> and wait for the restart to complete',
+            ]}
+          />
+
+          {/* Disruptor save/restart GIF */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xl">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={disruptorSaveRestartGif} alt="Save and restart animation" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Saving settings and restarting the miner
+              </p>
+            </div>
+          </div>
+        </>
+      ) : isBitaxe ? (
         <>
           <CheckList items={["From the Menu, navigate to <strong>Pool Settings</strong>"]} />
 
@@ -79,6 +159,36 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
             If you are using a different pool, omit "stratum+tcp://" from the URL for your Bitaxe's settings as well as
             the colon. Put the number (1234 in the example) into the Stratum Port field.
           </InfoBox>
+
+          {/* Bitaxe pool screenshot */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xl">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={axeosPoolSetupImg} alt="Pool Configuration screen in AxeOS" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">AxeOS Pool Configuration screen</p>
+            </div>
+          </div>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Optional Backup Pool:</h4>
+          <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
+          <CodeBlock>
+            <strong>Fallback Stratum Host:</strong> solo.ckpool.org
+            <br />
+            <strong>Fallback Stratum Port:</strong> 3333
+            <br />
+            <strong>Fallback Stratum User:</strong> (Paste your BTC address here again)
+            <br />
+            <strong>Password:</strong> x
+          </CodeBlock>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Save Settings:</h4>
+          <CheckList
+            items={[
+              'Click <strong>"Save"</strong>. A popup will say "Success! Settings saved"',
+              'Click <strong>"Restart"</strong> and wait for the restart to complete',
+            ]}
+          />
         </>
       ) : isNerdqaxe ? (
         <>
@@ -122,6 +232,26 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
               </p>
             </div>
           </div>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Optional Backup Pool:</h4>
+          <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
+          <CodeBlock>
+            <strong>Fallback Stratum Host:</strong> solo.ckpool.org
+            <br />
+            <strong>Fallback Stratum Port:</strong> 3333
+            <br />
+            <strong>Fallback Stratum User:</strong> (Paste your BTC address here again)
+            <br />
+            <strong>Password:</strong> x
+          </CodeBlock>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Save Settings:</h4>
+          <CheckList
+            items={[
+              'Click <strong>"Save"</strong>. A popup will say "Success! Settings saved"',
+              'Click <strong>"Restart"</strong> and wait for the restart to complete',
+            ]}
+          />
         </>
       ) : (
         <>
@@ -138,46 +268,22 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange }: ConfigureStepProp
             <br />
             <strong>Password:</strong> x (or leave blank)
           </CodeBlock>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Optional Backup Pool:</h4>
+          <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
+          <CodeBlock>
+            <strong>Backup Pool:</strong> stratum+tcp://solo.ckpool.org:3333
+          </CodeBlock>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Save Settings:</h4>
+          <CheckList
+            items={[
+              'Click <strong>"Save"</strong>. A popup will say "Success! Settings saved"',
+              'Click <strong>"Restart"</strong> and wait for the restart to complete',
+            ]}
+          />
         </>
       )}
-
-      {showAxeosImage && (
-        <div className="my-6 flex justify-center">
-          <div className="max-w-xl">
-            <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-              <img src={axeosPoolSetupImg} alt="Pool Configuration screen in AxeOS" className="w-full" />
-            </div>
-            <p className="text-sm text-muted-foreground text-center mt-2">AxeOS Pool Configuration screen</p>
-          </div>
-        </div>
-      )}
-
-      <h4 className="text-primary font-display text-lg mt-8 mb-4">Optional Backup Pool:</h4>
-      <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
-
-      {isBitaxe || isNerdqaxe ? (
-        <CodeBlock>
-          <strong>Fallback Stratum Host:</strong> solo.ckpool.org
-          <br />
-          <strong>Fallback Stratum Port:</strong> 3333
-          <br />
-          <strong>Fallback Stratum User:</strong> (Paste your BTC address here again)
-          <br />
-          <strong>Password:</strong> x
-        </CodeBlock>
-      ) : (
-        <CodeBlock>
-          <strong>Backup Pool:</strong> stratum+tcp://solo.ckpool.org:3333
-        </CodeBlock>
-      )}
-
-      <h4 className="text-primary font-display text-lg mt-8 mb-4">Save Settings:</h4>
-      <CheckList
-        items={[
-          'Click <strong>"Save"</strong>. A popup will say "Success! Settings saved"',
-          'Click <strong>"Restart"</strong> and wait for the restart to complete',
-        ]}
-      />
     </StepContainer>
   );
 };
