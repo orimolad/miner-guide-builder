@@ -8,6 +8,7 @@ import bitaxeWifiGif from "@/assets/instructions/bitaxewifi.gif";
 import nerdaxeScreenImg from "@/assets/instructions/nerdaxescreen.jpg";
 import nerdaxeWifiGif from "@/assets/instructions/nerdaxewifi.gif";
 import disruptorWifiGif from "@/assets/instructions/disruptorwifi.gif";
+import golddiggerWifiGif from "@/assets/instructions/golddiggerwifi.gif";
 
 interface WifiStepProps {
   miner: Miner;
@@ -18,21 +19,76 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
+  const isGoldDigger = miner.id === "golddigger";
+
+  const getTitle = () => {
+    if (isDisruptor) return "Connect to your Disruptor via WiFi";
+    if (isGoldDigger) return "Connect to your Gold Digger via WiFi";
+    return "Connect to Your Miner's Wi-Fi Network";
+  };
+
+  const getIntroText = () => {
+    if (isBitaxe) return "Your Bitaxe creates its own temporary WiFi network for initial setup. Let's connect to it!";
+    if (isNerdqaxe) return "Your Nerdaxe creates its own temporary WiFi network for initial setup. Let's connect to it!";
+    if (isDisruptor) return "Your miner creates its own temporary WiFi network for initial setup. Let's connect to it!";
+    if (isGoldDigger) return "Your Gold Digger creates its own temporary WiFi network for initial setup. Let's connect to it!";
+    return "Your miner creates its own Wi-Fi network for initial setup. Let's connect to it!";
+  };
 
   return (
-    <StepContainer stepNumber={stepNumber} title={isDisruptor ? "Connect to your Disruptor via WiFi" : "Connect to Your Miner's Wi-Fi Network"}>
-      <p className="mb-4">
-        {isBitaxe
-          ? "Your Bitaxe creates its own temporary WiFi network for initial setup. Let's connect to it!"
-          : isNerdqaxe
-            ? "Your Nerdaxe creates its own temporary WiFi network for initial setup. Let's connect to it!"
-            : isDisruptor
-              ? "Your miner creates its own temporary WiFi network for initial setup. Let's connect to it!"
-              : "Your miner creates its own Wi-Fi network for initial setup. Let's connect to it!"}
-      </p>
+    <StepContainer stepNumber={stepNumber} title={getTitle()}>
+      <p className="mb-4">{getIntroText()}</p>
 
-      {/* Disruptor-specific content */}
-      {isDisruptor ? (
+      {/* Gold Digger-specific content */}
+      {isGoldDigger ? (
+        <>
+          <CheckList
+            items={[
+              "Scan the QR code with your phone camera OR on your phone/tablet/computer, open WiFi settings",
+              'Look for a network SSID called <strong>nmap-2.4g</strong>',
+              'If prompted, enter the password <strong>12345678</strong>',
+              "Select that network to connect and wait several seconds. A captive WiFi screen will appear with the device's setup screen.",
+            ]}
+          />
+
+          {/* Gold Digger WiFi GIF */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={golddiggerWifiGif} alt="Phone connecting to nmap-2.4g WiFi network" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connect to the nmap-2.4g network from your WiFi settings
+              </p>
+            </div>
+          </div>
+
+          <InfoBox variant="info" className="mt-6">
+            <strong className="text-foreground">💡 Can't find the WiFi network?</strong>
+            <br />
+            <br />
+            • Make sure the miner has been powered on for at least 30 seconds
+            <br />
+            • Try restarting the miner
+            <br />
+            • Move closer to the device
+          </InfoBox>
+
+          <InfoBox variant="warning" className="mt-4">
+            <strong className="text-foreground">!!! If the dashboard doesn't pop up automatically:</strong>
+            <br />
+            <br />
+            The device you are using may be blocking the pop up. If this happens:
+            <br />
+            <br />
+            1. Connect to the Gold Digger's WiFi network
+            <br />
+            2. Select "Use Without Internet" if prompted
+            <br />
+            3. In a web browser, navigate to: <code className="bg-background px-2 py-0.5 rounded">http://192.168.4.1/</code>
+          </InfoBox>
+        </>
+      ) : isDisruptor ? (
         <>
           <CheckList
             items={[

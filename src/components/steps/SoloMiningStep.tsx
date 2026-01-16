@@ -13,9 +13,13 @@ const SoloMiningStep = ({ miner, selectedVariant, stepNumber = 6 }: SoloMiningSt
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
+  const isGoldDigger = miner.id === "golddigger";
 
   // Get hashrate description based on variant or miner
   const getHashrateDescription = (): string => {
+    if (isGoldDigger) {
+      return "~1000 KH/s (1 million hashes / second)";
+    }
     if (isDisruptor) {
       return "~300 GH/s (300 billion hashes / second)";
     }

@@ -7,6 +7,8 @@ import InfoBox from "../InfoBox";
 import disruptorPowerGif from "@/assets/instructions/disruptor-power.gif";
 import nerdqaxePowerGif from "@/assets/instructions/nerdqaxe-power.gif";
 import bitaxePowerGif from "@/assets/instructions/bitaxepower.gif";
+import golddiggerPowerGif from "@/assets/instructions/plugingolddigger.gif";
+import golddiggerQrImg from "@/assets/instructions/golddiggerqr.jpg";
 
 interface PowerUpStepProps {
   miner: Miner;
@@ -16,10 +18,46 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
+  const isGoldDigger = miner.id === "golddigger";
 
   return (
     <StepContainer stepNumber={1} title="Power Up Your Miner">
-      {isDisruptor ? (
+      {isGoldDigger ? (
+        <>
+          <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
+          
+          {/* Gold Digger power GIF */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={golddiggerPowerGif} alt="Gold Digger power up demonstration" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connecting power to your Gold Digger
+              </p>
+            </div>
+          </div>
+
+          <CheckList
+            items={[
+              "Connect Gold Digger to USB port with the provided USB-A to USB-C cable",
+              "Wait for the software to load. When it is done, it will display a QR code and WiFi information for connecting to your device.",
+            ]}
+          />
+
+          {/* Gold Digger QR screen */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={golddiggerQrImg} alt="Gold Digger screen showing QR code and WiFi info" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Gold Digger screen showing QR code and WiFi credentials
+              </p>
+            </div>
+          </div>
+        </>
+      ) : isDisruptor ? (
         <>
           <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
           <CheckList
