@@ -49,6 +49,21 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
     <StepContainer stepNumber={stepNumber} title="Start Mining & Verify Operation">
       <p className="mb-4">Your miner should now be hashing! Let's verify everything is working correctly.</p>
 
+      {/* Zyber on-device verification - appears first */}
+      {isZyber && (
+        <>
+          <h3 className="text-primary font-display text-xl mt-4 mb-4">On Your Device:</h3>
+          <CheckList
+            items={[
+              "Check the miner's screen and/or web interface",
+              "Look for a hash rate displaying: <strong>~10 TH/s</strong>",
+              "Accepted shares should start appearing (may take 1-5 minutes)",
+              "Monitor your miner's temperatures. Stable temperatures are <strong>40-70°C</strong>",
+            ]}
+          />
+        </>
+      )}
+
       {/* Gold Digger on-device verification */}
       {isGoldDigger && (
         <>
@@ -183,7 +198,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
       )}
 
       {/* Non-disruptor device verification */}
-      {!isDisruptor && !isGoldDigger && (
+      {!isDisruptor && !isGoldDigger && !isZyber && (
         <>
           <h3 className="text-primary font-display text-xl mt-8 mb-4">On Your Device:</h3>
           <CheckList
