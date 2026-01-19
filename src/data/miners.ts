@@ -193,9 +193,9 @@ export const miners: Miner[] = [
   {
     id: "zyber",
     name: "Zyber 8G",
-    hashrate: "10 TH/s",
-    power: "High-Performance Power Supply",
-    defaultIP: "Check device screen or router",
+    hashrate: "10+ TH/s",
+    power: "~170W",
+    defaultIP: "192.168.4.1",
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-zyber-8g-10-th-s-high-performance-home-bitcoin-miner",
     isUsbPowered: false,
     hasDisplay: true,

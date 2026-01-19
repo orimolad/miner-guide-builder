@@ -7,6 +7,7 @@ import CodeBlock from "../CodeBlock";
 // Instruction images
 import ipAddressImg from "@/assets/instructions/ipaddress.jpg";
 import nerdaxeIpAddressImg from "@/assets/instructions/nerdaxe-ip-address.jpg";
+import zyberIpAddressGif from "@/assets/instructions/zyberipaddress.gif";
 
 interface FindIPStepProps {
   miner: Miner;
@@ -17,6 +18,7 @@ const FindIPStep = ({ miner, stepNumber = 3 }: FindIPStepProps) => {
   const defaultIPClean = miner.defaultIP.split(" ")[0];
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
+  const isZyber = miner.id === "zyber";
 
   return (
     <StepContainer stepNumber={stepNumber} title="Find Your Miner's IP Address">
@@ -79,6 +81,38 @@ const FindIPStep = ({ miner, stepNumber = 3 }: FindIPStepProps) => {
             <strong className="text-foreground">✅ You'll know you found it when:</strong>
             <br />
             Opening the IP in your browser shows the Nerdaxe configuration page
+          </InfoBox>
+        </>
+      ) : isZyber ? (
+        <>
+          <p className="mb-4">
+            To configure your miner, you need to access its web interface. Once you have successfully configured the
+            Zyber with your WiFi, it will stop emitting the Zyber network and be assigned its own IP address on your
+            network.
+          </p>
+
+          <p className="mb-4">
+            After your Zyber has restarted, navigate to its Network page on its screen. To do this press the left button 
+            under the screen to cycle through until it displays. An IP address will be at the top of this screen - enter 
+            this IP number into your web browser and it will take you back into AxeOS.
+          </p>
+
+          {/* Zyber IP Address GIF */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-md">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={zyberIpAddressGif} alt="Zyber screen showing IP address on Network page" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Navigate to Network page to find your Zyber's IP address
+              </p>
+            </div>
+          </div>
+
+          <InfoBox variant="success">
+            <strong className="text-foreground">✅ You'll know you found it when:</strong>
+            <br />
+            Opening the IP in your browser shows the AxeOS configuration page
           </InfoBox>
         </>
       ) : (

@@ -24,6 +24,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
   const isGoldDigger = miner.id === "golddigger";
+  const isZyber = miner.id === "zyber";
 
   // Get dynamic hashrate based on selected variant or miner
   const getExpectedHashrate = (): string => {
@@ -32,6 +33,9 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
     }
     if (isGoldDigger) {
       return "~1000 KH/s";
+    }
+    if (isZyber) {
+      return "~10 TH/s";
     }
     return miner.hashrate;
   };
