@@ -9,6 +9,7 @@ import axeosPoolSetupImg from "@/assets/instructions/axeos-pool-setup.png";
 import axeosPoolImg from "@/assets/instructions/axeos-pool.png";
 import nerdaxePoolImg from "@/assets/instructions/nerdaxepool.png";
 import disruptorSaveRestartGif from "@/assets/instructions/disruptorsaverestart.gif";
+import zyberPoolImg from "@/assets/instructions/zyberpool.png";
 
 interface ConfigureStepProps {
   miner: Miner;
@@ -21,6 +22,7 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange, stepNumber = 4 }: C
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
+  const isZyber = miner.id === "zyber";
 
   const handleAddressChange = (value: string) => {
     onAddressChange(value);
@@ -234,6 +236,67 @@ const ConfigureStep = ({ miner, btcAddress, onAddressChange, stepNumber = 4 }: C
           </div>
 
           <h4 className="text-primary font-display text-lg mt-8 mb-4">Optional Backup Pool:</h4>
+          <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
+          <CodeBlock>
+            <strong>Fallback Stratum Host:</strong> solo.ckpool.org
+            <br />
+            <strong>Fallback Stratum Port:</strong> 3333
+            <br />
+            <strong>Fallback Stratum User:</strong> (Paste your BTC address here again)
+            <br />
+            <strong>Password:</strong> x
+          </CodeBlock>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">Save Settings:</h4>
+          <CheckList
+            items={[
+              'Click <strong>"Save"</strong>. A popup will say "Success! Settings saved"',
+              'Click <strong>"Restart"</strong> and wait for the restart to complete',
+            ]}
+          />
+        </>
+      ) : isZyber ? (
+        <>
+          <CheckList items={["From the Menu, navigate to <strong>Pool Settings</strong>"]} />
+
+          <h4 className="text-primary font-display text-lg mt-6 mb-4">Enter your pool settings here:</h4>
+          <p className="mb-2">Recommended settings:</p>
+          <CodeBlock>
+            <strong>Stratum Host:</strong> pool.bitcoinmerch.com
+            <br />
+            <strong>Stratum Port:</strong> 3333
+            <br />
+            <strong>Stratum User:</strong> (Paste your BTC address here. This is how you get paid!)
+            <br />
+            <strong>Password:</strong> x
+          </CodeBlock>
+
+          <InfoBox variant="info" className="mt-4">
+            <strong className="text-foreground">💡 Pool Format Notes:</strong>
+            <br />
+            <br />
+            Pools will display their Pool URL in the following format with the Stratum Port at the end separated by a
+            colon:
+            <br />
+            <br />
+            Ex. <code className="bg-background px-1 rounded">stratum+tcp://pool.bitcoinmerch.com:1234</code>
+            <br />
+            <br />
+            If you are using a different pool, omit "stratum+tcp://" from the URL for your Zyber's settings as well as
+            the colon. Put the number (1234 in the example) into the Stratum Port field.
+          </InfoBox>
+
+          {/* Zyber pool screenshot */}
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xl">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={zyberPoolImg} alt="Zyber Pool Configuration screen in AxeOS" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">AxeOS Pool Configuration screen for Zyber</p>
+            </div>
+          </div>
+
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">(Optional) Backup Pool:</h4>
           <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
           <CodeBlock>
             <strong>Fallback Stratum Host:</strong> solo.ckpool.org
