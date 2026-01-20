@@ -11,7 +11,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen safe-area-inset">
       <div className="bg-pattern" />
       <div className="container">
         <Header />

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ExternalLink, Cpu, Zap, Volume2, Monitor, Power } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -18,6 +19,7 @@ interface MinerSpecsSheetProps {
 }
 
 const MinerSpecsSheet = ({ miner, selectedVariant, isOpen, onOpenChange }: MinerSpecsSheetProps) => {
+  const [imageError, setImageError] = useState(false);
   const isBitaxe = miner.hasBitaxeVariants;
   const isNerdqaxe = miner.hasNerdqaxeVariants;
   const hasVariants = isBitaxe || isNerdqaxe;
@@ -65,12 +67,17 @@ const MinerSpecsSheet = ({ miner, selectedVariant, isOpen, onOpenChange }: Miner
 
         {/* Miner Image */}
         <div className="my-6 flex justify-center">
-          <div className="w-48 h-48 rounded-xl overflow-hidden border-2 border-primary/30 shadow-lg shadow-primary/10">
-            <img 
-              src={miner.image} 
-              alt={displayName} 
-              className="w-full h-full object-cover" 
-            />
+          <div className="w-48 h-48 rounded-xl overflow-hidden border-2 border-primary/30 shadow-lg shadow-primary/10 bg-secondary/50 flex items-center justify-center">
+            {imageError ? (
+              <Cpu className="w-20 h-20 text-muted-foreground" />
+            ) : (
+              <img 
+                src={miner.image} 
+                alt={displayName} 
+                className="w-full h-full object-cover"
+                onError={() => setImageError(true)}
+              />
+            )}
           </div>
         </div>
 
@@ -87,7 +94,7 @@ const MinerSpecsSheet = ({ miner, selectedVariant, isOpen, onOpenChange }: Miner
           ))}
         </div>
 
-        <SheetFooter className="mt-6 pb-4">
+        <SheetFooter className="mt-6 pb-4 safe-area-bottom">
           <Button
             onClick={handleBuyClick}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg font-semibold"
