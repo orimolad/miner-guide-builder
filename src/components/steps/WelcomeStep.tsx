@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Miner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants } from "@/data/miners";
 import InfoBox from "../InfoBox";
 import CheckList from "../CheckList";
+import MinerSpecsSheet from "../MinerSpecsSheet";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -11,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { cn } from "@/lib/utils";
 
 interface WelcomeStepProps {
   miner: Miner;
@@ -27,6 +29,8 @@ const WelcomeStep = ({
   btcAddress,
   onBtcAddressChange,
 }: WelcomeStepProps) => {
+  const [isSpecsSheetOpen, setIsSpecsSheetOpen] = useState(false);
+  
   const isBitaxe = miner.hasBitaxeVariants;
   const isNerdqaxe = miner.hasNerdqaxeVariants;
   const hasVariants = isBitaxe || isNerdqaxe;
@@ -112,7 +116,13 @@ const WelcomeStep = ({
           </div>
         )}
 
-        <InfoBox variant="info">
+        <div
+          onClick={() => (!hasVariants || selectedVariant) && setIsSpecsSheetOpen(true)}
+          className={cn(
+            "border-l-4 border-l-accent bg-accent/10 p-4 rounded-r-lg my-4",
+            (!hasVariants || selectedVariant) && "cursor-pointer hover:bg-accent/20 transition-colors"
+          )}
+        >
           <strong className="text-foreground">📊 Your Miner Specs:</strong>
           <br />
           {hasVariants && !selectedVariant ? (
@@ -123,17 +133,17 @@ const WelcomeStep = ({
               <br />
               Power: {displayPower}
               <br />
-              <a
-                href={displayProductLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                View Product Page →
-              </a>
+              <span className="text-primary">View Detailed Specs →</span>
             </>
           )}
-        </InfoBox>
+        </div>
+
+        <MinerSpecsSheet
+          miner={miner}
+          selectedVariant={selectedVariant}
+          isOpen={isSpecsSheetOpen}
+          onOpenChange={setIsSpecsSheetOpen}
+        />
 
         {/* What You'll Need Section */}
         <h3 className="text-primary font-display text-xl mt-8 mb-4">🛠 What You'll Need:</h3>
