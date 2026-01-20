@@ -3,6 +3,7 @@ import { Miner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants
 import InfoBox from "../InfoBox";
 import CheckList from "../CheckList";
 import MinerSpecsSheet from "../MinerSpecsSheet";
+import WalletRecommendationsSheet from "../WalletRecommendationsSheet";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -30,6 +31,7 @@ const WelcomeStep = ({
   onBtcAddressChange,
 }: WelcomeStepProps) => {
   const [isSpecsSheetOpen, setIsSpecsSheetOpen] = useState(false);
+  const [isWalletSheetOpen, setIsWalletSheetOpen] = useState(false);
   
   const isBitaxe = miner.hasBitaxeVariants;
   const isNerdqaxe = miner.hasNerdqaxeVariants;
@@ -145,6 +147,11 @@ const WelcomeStep = ({
           onOpenChange={setIsSpecsSheetOpen}
         />
 
+        <WalletRecommendationsSheet
+          isOpen={isWalletSheetOpen}
+          onOpenChange={setIsWalletSheetOpen}
+        />
+
         {/* What You'll Need Section */}
         <h3 className="text-primary font-display text-xl mt-8 mb-4">🛠 What You'll Need:</h3>
         <CheckList
@@ -157,14 +164,12 @@ const WelcomeStep = ({
         />
 
         <p className="mt-4 mb-2">
-          <a 
-            href="https://bitcoinmerch.com/collections/hardware-wallets" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
+          <span 
+            onClick={() => setIsWalletSheetOpen(true)}
+            className="text-primary hover:underline cursor-pointer"
           >
             Check out our recommended wallets if you don't have one yet! →
-          </a>
+          </span>
         </p>
 
         {/* BTC Address Input */}
