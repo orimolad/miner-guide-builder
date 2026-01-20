@@ -229,7 +229,7 @@ const SetupFlow = () => {
   const isLastStep = currentStep === TOTAL_STEPS - 1;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen safe-area-inset">
       <div className="bg-pattern" />
       <div className="container max-w-4xl">
         <Header />
