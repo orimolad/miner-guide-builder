@@ -1,4 +1,4 @@
-import { ExternalLink, Shield, CreditCard, Check } from "lucide-react";
+import { ExternalLink, Shield, CreditCard, Check, Smartphone } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -14,7 +14,7 @@ interface Wallet {
   description: string;
   features: string[];
   productLink: string;
-  icon: "shield" | "card";
+  icon: "shield" | "card" | "device";
 }
 
 const wallets: Wallet[] = [
@@ -34,6 +34,14 @@ const wallets: Wallet[] = [
     productLink: "https://bitcoinmerch.com/products/ledger-nano-x-hardware-wallet",
     icon: "shield",
   },
+  {
+    id: "ellipal",
+    name: "Ellipal Titan",
+    description: "Air-gapped security with large touchscreen display",
+    features: ["100% air-gapped", "4-inch touchscreen", "Anti-tamper protection"],
+    productLink: "https://bitcoinmerch.com/products/ellipal-titan",
+    icon: "device",
+  },
 ];
 
 interface WalletRecommendationsSheetProps {
@@ -46,9 +54,12 @@ const WalletRecommendationsSheet = ({ isOpen, onOpenChange }: WalletRecommendati
     window.open(link, '_blank');
   };
 
-  const IconComponent = ({ type }: { type: "shield" | "card" }) => {
+  const IconComponent = ({ type }: { type: "shield" | "card" | "device" }) => {
     if (type === "shield") {
       return <Shield className="w-8 h-8 text-primary" />;
+    }
+    if (type === "device") {
+      return <Smartphone className="w-8 h-8 text-primary" />;
     }
     return <CreditCard className="w-8 h-8 text-primary" />;
   };
