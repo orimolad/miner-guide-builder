@@ -98,7 +98,6 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
           </InfoBox>
         </>
       ) : isGoldDigger ? (
-        {/* Gold Digger-specific content */}
         <>
           <CheckList
             items={[
