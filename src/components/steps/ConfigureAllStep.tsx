@@ -31,15 +31,11 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
       <CheckList
         items={[
           'Click the <strong>"Configure WiFi"</strong> button',
-          "A list of accessible WiFi networks will be displayed. Select your network",
+          'A list of accessible WiFi networks will be displayed. Select your network<br/><span class="text-muted-foreground ml-6 text-sm">Note: These require 2.4GHz internet to mine properly</span>',
           "Alternatively, you can type your WiFi network name in the SSID field (case sensitive)",
           "Enter your WiFi Password (case sensitive)",
         ]}
       />
-
-      <InfoBox variant="info" className="mt-4">
-        <strong className="text-foreground">💡 Note:</strong> These miners require <strong>2.4GHz internet</strong> to mine properly.
-      </InfoBox>
 
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Configure Your Wallet & Mining Pool:</h3>
 
