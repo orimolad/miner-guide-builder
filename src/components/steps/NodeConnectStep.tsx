@@ -2,6 +2,7 @@ import { Miner } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
+import nodepluginImg from "@/assets/instructions/nodeplugin.gif";
 
 interface NodeConnectStepProps {
   miner: Miner;
