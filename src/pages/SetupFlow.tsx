@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMiner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants, NerdminerVariant, nerdminerVariants } from "@/data/miners";
-import Header from "@/components/Header";
+
 import ProgressBar from "@/components/ProgressBar";
 import WelcomeStep from "@/components/steps/WelcomeStep";
 import PowerUpStep from "@/components/steps/PowerUpStep";
