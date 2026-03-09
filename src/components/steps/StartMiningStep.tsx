@@ -36,6 +36,9 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
     if (isGoldDigger) {
       return "~1000 KH/s";
     }
+    if (isGoldNugget) {
+      return "~300 KH/s";
+    }
     if (isZyber) {
       return "~10 TH/s";
     }
