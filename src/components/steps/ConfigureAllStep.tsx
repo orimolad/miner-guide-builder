@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Miner } from "@/data/miners";
 import golddiggerPoolImg from "@/assets/instructions/golddiggerpool.png";
+import goldnuggetPoolImg from "@/assets/instructions/goldnuggetpool.png";
 
 interface ConfigureAllStepProps {
   miner: Miner;
