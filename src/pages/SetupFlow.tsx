@@ -102,6 +102,7 @@ const XNODEMINI_STEPS: StepType[] = [
   "welcome",
   "nodeConnect",
   "nodeLogin",
+  "nodeSettings",
   "nodeSync",
   "nodePool",
   "nodeMonitor",
