@@ -116,10 +116,10 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-                <img src={goldnuggetHashingGif} alt="Nerd Miner screen showing hashrate" className="w-full" />
+                <img src={selectedVariant?.id === 'large-screen' ? largescreenHashingGif : standardHashingGif} alt="Nerd Miner screen showing hashrate" className="w-full" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
-                Nerd Miner screen displaying hashrate in KH/s
+                {selectedVariant?.id === 'large-screen' ? 'Nerd Miner Large Screen' : 'Nerd Miner Standard'} screen displaying hashrate in KH/s
               </p>
             </div>
           </div>
