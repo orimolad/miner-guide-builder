@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMiner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants } from "@/data/miners";
+import { getMiner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants, NerdminerVariant, nerdminerVariants } from "@/data/miners";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
 import WelcomeStep from "@/components/steps/WelcomeStep";
@@ -74,11 +74,23 @@ const GOLDNUGGET_STEPS: StepType[] = [
   "complete",
 ];
 
+// Nerd Miner flow - same as Gold Nugget (combines WiFi + Pool + Wallet in one step)
+const NERDMINER_STEPS: StepType[] = [
+  "welcome",
+  "power",
+  "minerWifi",
+  "configureAll",
+  "startMining",
+  "soloMining",
+  "complete",
+];
+
 // Get steps based on miner ID
 const getStepsForMiner = (minerId: string): StepType[] => {
   if (minerId === "disruptor") return DISRUPTOR_STEPS;
   if (minerId === "golddigger") return GOLDDIGGER_STEPS;
   if (minerId === "goldnugget") return GOLDNUGGET_STEPS;
+  if (minerId === "nerdminer") return NERDMINER_STEPS;
   return DEFAULT_STEPS;
 };
 
@@ -92,6 +104,9 @@ const SetupFlow = () => {
   );
   const [selectedNerdqaxeVariant, setSelectedNerdqaxeVariant] = useState<NerdqaxeVariant | undefined>(
     nerdqaxeVariants[0]
+  );
+  const [selectedNerdminerVariant, setSelectedNerdminerVariant] = useState<NerdminerVariant | undefined>(
+    nerdminerVariants[0]
   );
 
   const miner = getMiner(minerId || "");
@@ -158,6 +173,14 @@ const SetupFlow = () => {
   const getSelectedVariant = () => {
     if (miner.hasBitaxeVariants) return selectedBitaxeVariant;
     if (miner.hasNerdqaxeVariants) return selectedNerdqaxeVariant;
+    if (miner.hasNerdminerVariants) return selectedNerdminerVariant;
+    return undefined;
+  };
+
+  const getVariantChangeHandler = () => {
+    if (miner.hasBitaxeVariants) return setSelectedBitaxeVariant;
+    if (miner.hasNerdqaxeVariants) return setSelectedNerdqaxeVariant;
+    if (miner.hasNerdminerVariants) return setSelectedNerdminerVariant;
     return undefined;
   };
 
@@ -176,13 +199,13 @@ const SetupFlow = () => {
           <WelcomeStep
             miner={miner}
             selectedVariant={getSelectedVariant()}
-            onVariantChange={miner.hasBitaxeVariants ? setSelectedBitaxeVariant : setSelectedNerdqaxeVariant}
+            onVariantChange={getVariantChangeHandler()}
             btcAddress={btcAddress}
             onBtcAddressChange={handleBtcAddressChange}
           />
         );
       case "power":
-        return <PowerUpStep miner={miner} />;
+        return <PowerUpStep miner={miner} selectedVariant={getSelectedVariant()} />;
       case "minerWifi":
         return <WifiStep miner={miner} stepNumber={getDisplayStepNumber("minerWifi")} />;
       case "findIP":

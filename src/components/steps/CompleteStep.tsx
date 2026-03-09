@@ -1,4 +1,4 @@
-import { Miner, BitaxeVariant, NerdqaxeVariant } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant, NerdminerVariant } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
@@ -8,29 +8,51 @@ import { Button } from "../ui/button";
 interface CompleteStepProps {
   miner: Miner;
   btcAddress: string;
-  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant | NerdminerVariant;
   onBackToSelection: () => void;
 }
 
 const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }: CompleteStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
+  const isNerdminer = miner.id === "nerdminer";
 
   const getDeviceName = (): string => {
-    if (isBitaxe && selectedVariant) {
-      return `Bitaxe ${selectedVariant.name}`;
+    if (isNerdminer && selectedVariant) {
+      return selectedVariant.id === "large-screen" ? "Nerd Miner Large Screen" : "Nerd Miner";
     }
-    if (isNerdqaxe && selectedVariant) {
-      return selectedVariant.name;
-    }
+    if (isBitaxe && selectedVariant) return `Bitaxe ${selectedVariant.name}`;
+    if (isNerdqaxe && selectedVariant) return selectedVariant.name;
     return miner.name;
   };
 
   const getHashrate = (): string => {
+    if (isNerdminer && selectedVariant) {
+      return selectedVariant.id === "large-screen" ? "~250KH/s" : "~75 KH/s";
+    }
     if ((isBitaxe || isNerdqaxe) && selectedVariant) {
       return `~${selectedVariant.hashrate}`;
     }
     return miner.hashrate;
+  };
+
+  const getCongratulationsText = (): string => {
+    if (isNerdminer) return "Your Nerd Miner is now mining for Bitcoin!";
+    return `Your ${getDeviceName()} is now mining Bitcoin!`;
+  };
+
+  const getNextSteps = (): string[] => {
+    if (isNerdminer) {
+      return [
+        "Monitor your stats regularly on the pool dashboard",
+        "Join the Bitcoin Merch community for tips",
+      ];
+    }
+    return [
+      "Monitor your stats regularly on the pool dashboard",
+      "Keep your miner in a well-ventilated area",
+      "Join the Bitcoin Merch community for tips",
+    ];
   };
 
   const openPoolStats = () => {
@@ -41,7 +63,7 @@ const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }:
   return (
     <StepContainer stepNumber="✓" title="Setup Complete! 🎉">
       <InfoBox variant="success">
-        <strong className="text-foreground">Congratulations!</strong> Your {getDeviceName()} is now mining Bitcoin!
+        <strong className="text-foreground">Congratulations!</strong> {getCongratulationsText()}
       </InfoBox>
 
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Quick Reference:</h3>
@@ -54,13 +76,7 @@ const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }:
       </CodeBlock>
 
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Next Steps:</h3>
-      <CheckList
-        items={[
-          "Monitor your stats regularly on the pool dashboard",
-          "Keep your miner in a well-ventilated area",
-          "Join the Bitcoin Merch community for tips",
-        ]}
-      />
+      <CheckList items={getNextSteps()} />
 
       <div className="flex flex-wrap gap-4 mt-10">
         <Button onClick={openPoolStats} className="gradient-primary text-primary-foreground glow-primary btn-ripple">
