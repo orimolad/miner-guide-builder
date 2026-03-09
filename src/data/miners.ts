@@ -255,6 +255,17 @@ export const miners: Miner[] = [
     hasDisplay: true,
     image: goldnuggetImg,
   },
+  {
+    id: "xnodemini",
+    name: "X Node Mini",
+    hashrate: "N/A (Full Node)",
+    power: "Wall Adapter",
+    defaultIP: "umbrel.local",
+    productLink: "https://bitcoinmerch.com",
+    isUsbPowered: false,
+    hasDisplay: false,
+    image: xnodeminiImg,
+  },
 ];
 
 export const getMiner = (id: string): Miner | undefined => {
