@@ -77,6 +77,7 @@ const WelcomeStep = ({
     if (isNerdqaxe) return "Nerdaxe";
     if (isNerdminer) return "Nerd Miner";
     if (miner.id === "goldnugget") return "Nerd Miner";
+    if (isXNodeMini) return "Node Running";
     return miner.name;
   };
 
