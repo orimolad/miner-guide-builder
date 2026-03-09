@@ -167,7 +167,7 @@ const WelcomeStep = ({
         <h3 className="text-primary font-display text-xl mt-8 mb-4">🛠 What You'll Need:</h3>
         <CheckList
           items={[
-            "AC Power Outlet",
+            miner.id === "goldnugget" ? "USB Power Source" : "AC Power Outlet",
             "WiFi network with internet access",
             "Mobile phone, tablet, or PC for initial configuration",
             'Your Bitcoin wallet address - It is easiest if you have your BTC address copied and pasted in the field below before starting setup.',
