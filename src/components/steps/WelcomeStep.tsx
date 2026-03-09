@@ -86,13 +86,23 @@ const WelcomeStep = ({
         <p className="mb-4">This guide will walk you through every step of setting up your miner. We'll cover:</p>
 
         <CheckList
-          items={[
-            "Powering up your device",
-            "Connecting to Wi-Fi",
-            "Configuring your wallet and mining pool",
-            "Verifying everything is working correctly",
-            "Understanding solo mining",
-          ]}
+          items={
+            miner.id === "goldnugget"
+              ? [
+                  "Powering up your device",
+                  "Configuring your wallet and mining pool",
+                  "Connecting to Wi-Fi",
+                  "Verifying everything is working correctly",
+                  "Understanding solo mining",
+                ]
+              : [
+                  "Powering up your device",
+                  "Connecting to Wi-Fi",
+                  "Configuring your wallet and mining pool",
+                  "Verifying everything is working correctly",
+                  "Understanding solo mining",
+                ]
+          }
         />
 
         {/* Model Selection for variants */}
@@ -157,7 +167,7 @@ const WelcomeStep = ({
         <h3 className="text-primary font-display text-xl mt-8 mb-4">🛠 What You'll Need:</h3>
         <CheckList
           items={[
-            "AC Power Outlet",
+            miner.id === "goldnugget" ? "USB Power Source" : "AC Power Outlet",
             "WiFi network with internet access",
             "Mobile phone, tablet, or PC for initial configuration",
             'Your Bitcoin wallet address - It is easiest if you have your BTC address copied and pasted in the field below before starting setup.',
@@ -176,7 +186,7 @@ const WelcomeStep = ({
         {/* BTC Address Input */}
         <div className="my-6">
           <Label htmlFor="welcomeBtcAddress" className="text-primary font-semibold text-base mb-2 block">
-            Enter your Bitcoin Address here for easy reference later:
+            Enter your Bitcoin Address here for reference later:
           </Label>
           <Input
             id="welcomeBtcAddress"

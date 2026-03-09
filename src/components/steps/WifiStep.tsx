@@ -55,8 +55,7 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
             items={[
               "On your phone/tablet/computer, open WiFi settings",
               'Look for a network SSID called <strong>NerdMinerAP</strong>',
-              'Enter the password <strong>MineYourCoins</strong>',
-              "Note: This is case sensitive",
+              'Enter the password <strong>MineYourCoins</strong><br/><span class="text-muted-foreground ml-6 text-sm">Note: This is case sensitive</span>',
               "Select that network to connect and wait several seconds. A captive WiFi screen will appear with the device's setup screen",
             ]}
           />
