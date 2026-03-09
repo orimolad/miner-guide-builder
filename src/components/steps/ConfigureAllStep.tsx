@@ -132,3 +132,5 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
     </StepContainer>
   );
 };
+
+export default ConfigureAllStep;
