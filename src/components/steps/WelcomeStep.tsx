@@ -73,6 +73,7 @@ const WelcomeStep = ({
   const getTitle = () => {
     if (isBitaxe) return "Bitaxe";
     if (isNerdqaxe) return "Nerdaxe";
+    if (miner.id === "goldnugget") return "Nerd Miner";
     return miner.name;
   };
 
