@@ -29,6 +29,7 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
   const getTitle = () => {
     if (isDisruptor) return "Connect to your Disruptor via WiFi";
     if (isGoldDigger) return "Connect to your Gold Digger via WiFi";
+    if (isGoldNugget) return "Connect to your Gold Nugget via WiFi";
     if (isZyber) return "Connect to your Zyber's WiFi Network";
     return "Connect to Your Miner's Wi-Fi Network";
   };
@@ -38,6 +39,7 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
     if (isNerdqaxe) return "Your Nerdaxe creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isDisruptor) return "Your miner creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isGoldDigger) return "Your Gold Digger creates its own temporary WiFi network for initial setup. Let's connect to it!";
+    if (isGoldNugget) return "Your Gold Nugget creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isZyber) return "Your Zyber creates its own temporary WiFi network for initial setup. Let's connect to it!";
     return "Your miner creates its own Wi-Fi network for initial setup. Let's connect to it!";
   };
