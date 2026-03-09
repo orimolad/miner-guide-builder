@@ -151,15 +151,19 @@ const SetupFlow = () => {
   const nextStep = useCallback(() => {
     if (currentStep < TOTAL_STEPS - 1) {
       setCurrentStep((prev) => prev + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [currentStep, TOTAL_STEPS]);
 
   const prevStep = useCallback(() => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
+  }, [currentStep]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [currentStep]);
 
   const backToSelection = () => {
