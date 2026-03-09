@@ -14,6 +14,7 @@ import StartMiningStep from "@/components/steps/StartMiningStep";
 import SoloMiningStep from "@/components/steps/SoloMiningStep";
 import NodeConnectStep from "@/components/steps/NodeConnectStep";
 import NodeLoginStep from "@/components/steps/NodeLoginStep";
+import NodeSettingsStep from "@/components/steps/NodeSettingsStep";
 import NodeSyncStep from "@/components/steps/NodeSyncStep";
 import NodePoolStep from "@/components/steps/NodePoolStep";
 import NodeMonitorStep from "@/components/steps/NodeMonitorStep";
