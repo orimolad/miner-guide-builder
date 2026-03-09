@@ -36,6 +36,7 @@ type StepType =
   | "nodeLogin"
   | "nodeSync"
   | "nodePool"
+  | "nodeSettings"
   | "nodeMonitor"
   | "complete";
 
