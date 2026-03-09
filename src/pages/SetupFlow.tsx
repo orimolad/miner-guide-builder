@@ -95,12 +95,24 @@ const NERDMINER_STEPS: StepType[] = [
   "complete",
 ];
 
+// X Node Mini flow - full node setup
+const XNODEMINI_STEPS: StepType[] = [
+  "welcome",
+  "nodeConnect",
+  "nodeLogin",
+  "nodeSync",
+  "nodePool",
+  "nodeMonitor",
+  "complete",
+];
+
 // Get steps based on miner ID
 const getStepsForMiner = (minerId: string): StepType[] => {
   if (minerId === "disruptor") return DISRUPTOR_STEPS;
   if (minerId === "golddigger") return GOLDDIGGER_STEPS;
   if (minerId === "goldnugget") return GOLDNUGGET_STEPS;
   if (minerId === "nerdminer") return NERDMINER_STEPS;
+  if (minerId === "xnodemini") return XNODEMINI_STEPS;
   return DEFAULT_STEPS;
 };
 
