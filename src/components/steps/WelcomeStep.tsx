@@ -86,13 +86,23 @@ const WelcomeStep = ({
         <p className="mb-4">This guide will walk you through every step of setting up your miner. We'll cover:</p>
 
         <CheckList
-          items={[
-            "Powering up your device",
-            "Connecting to Wi-Fi",
-            "Configuring your wallet and mining pool",
-            "Verifying everything is working correctly",
-            "Understanding solo mining",
-          ]}
+          items={
+            miner.id === "goldnugget"
+              ? [
+                  "Powering up your device",
+                  "Configuring your wallet and mining pool",
+                  "Connecting to Wi-Fi",
+                  "Verifying everything is working correctly",
+                  "Understanding solo mining",
+                ]
+              : [
+                  "Powering up your device",
+                  "Connecting to Wi-Fi",
+                  "Configuring your wallet and mining pool",
+                  "Verifying everything is working correctly",
+                  "Understanding solo mining",
+                ]
+          }
         />
 
         {/* Model Selection for variants */}
