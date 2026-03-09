@@ -10,6 +10,7 @@ import bitaxePowerGif from "@/assets/instructions/bitaxepower.gif";
 import golddiggerPowerGif from "@/assets/instructions/plugingolddigger.gif";
 import golddiggerQrImg from "@/assets/instructions/golddiggerqr.jpg";
 import zyberPowerGif from "@/assets/instructions/zyberpower.gif";
+import goldnuggetPowerGif from "@/assets/instructions/plugingoldnugget.gif";
 
 interface PowerUpStepProps {
   miner: Miner;
@@ -21,10 +22,33 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
   const isDisruptor = miner.id === "disruptor";
   const isGoldDigger = miner.id === "golddigger";
   const isZyber = miner.id === "zyber";
+  const isGoldNugget = miner.id === "goldnugget";
 
   return (
     <StepContainer stepNumber={1} title="Power Up Your Miner">
-      {isGoldDigger ? (
+      {isGoldNugget ? (
+        <>
+          <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
+          
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={goldnuggetPowerGif} alt="Gold Nugget power up demonstration" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connecting power to your Gold Nugget
+              </p>
+            </div>
+          </div>
+
+          <CheckList
+            items={[
+              "Connect Gold Nugget to USB port with the provided USB-A to USB-C cable",
+              "Wait for the software to load. When it is done, it will display a QR code and WiFi information for connecting to your device.",
+            ]}
+          />
+        </>
+      ) : isGoldDigger ? (
         <>
           <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
           

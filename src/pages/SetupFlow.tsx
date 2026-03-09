@@ -63,10 +63,22 @@ const GOLDDIGGER_STEPS: StepType[] = [
   "complete",
 ];
 
+// Gold Nugget flow - same as Gold Digger (combines WiFi + Pool + Wallet in one step)
+const GOLDNUGGET_STEPS: StepType[] = [
+  "welcome",
+  "power",
+  "minerWifi",
+  "configureAll",
+  "startMining",
+  "soloMining",
+  "complete",
+];
+
 // Get steps based on miner ID
 const getStepsForMiner = (minerId: string): StepType[] => {
   if (minerId === "disruptor") return DISRUPTOR_STEPS;
   if (minerId === "golddigger") return GOLDDIGGER_STEPS;
+  if (minerId === "goldnugget") return GOLDNUGGET_STEPS;
   return DEFAULT_STEPS;
 };
 

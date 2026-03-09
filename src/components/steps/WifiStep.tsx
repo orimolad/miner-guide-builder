@@ -9,6 +9,7 @@ import nerdaxeScreenImg from "@/assets/instructions/nerdaxescreen.jpg";
 import nerdaxeWifiGif from "@/assets/instructions/nerdaxewifi.gif";
 import disruptorWifiGif from "@/assets/instructions/disruptorwifi.gif";
 import golddiggerWifiGif from "@/assets/instructions/golddiggerwifi.gif";
+import goldnuggetWifiGif from "@/assets/instructions/goldnuggetwifi.gif";
 import zyberScreenImg from "@/assets/instructions/zyberscreen.jpg";
 import zyberWifiGif from "@/assets/instructions/zyberwifi.gif";
 
@@ -22,11 +23,13 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
   const isGoldDigger = miner.id === "golddigger";
+  const isGoldNugget = miner.id === "goldnugget";
   const isZyber = miner.id === "zyber";
 
   const getTitle = () => {
     if (isDisruptor) return "Connect to your Disruptor via WiFi";
     if (isGoldDigger) return "Connect to your Gold Digger via WiFi";
+    if (isGoldNugget) return "Connect to your Gold Nugget via WiFi";
     if (isZyber) return "Connect to your Zyber's WiFi Network";
     return "Connect to Your Miner's Wi-Fi Network";
   };
@@ -36,6 +39,7 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
     if (isNerdqaxe) return "Your Nerdaxe creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isDisruptor) return "Your miner creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isGoldDigger) return "Your Gold Digger creates its own temporary WiFi network for initial setup. Let's connect to it!";
+    if (isGoldNugget) return "Your Gold Nugget creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isZyber) return "Your Zyber creates its own temporary WiFi network for initial setup. Let's connect to it!";
     return "Your miner creates its own Wi-Fi network for initial setup. Let's connect to it!";
   };
@@ -44,8 +48,56 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
     <StepContainer stepNumber={stepNumber} title={getTitle()}>
       <p className="mb-4">{getIntroText()}</p>
 
-      {/* Gold Digger-specific content */}
-      {isGoldDigger ? (
+      {/* Gold Nugget-specific content */}
+      {isGoldNugget ? (
+        <>
+          <CheckList
+            items={[
+              "On your phone/tablet/computer, open WiFi settings",
+              'Look for a network SSID called <strong>NerdMinerAP</strong>',
+              'Enter the password <strong>MineYourCoins</strong>',
+              "Note: This is case sensitive",
+              "Select that network to connect and wait several seconds. A captive WiFi screen will appear with the device's setup screen",
+            ]}
+          />
+
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={goldnuggetWifiGif} alt="Phone connecting to NerdMinerAP WiFi network" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connect to the NerdMinerAP network from your WiFi settings
+              </p>
+            </div>
+          </div>
+
+          <InfoBox variant="info" className="mt-6">
+            <strong className="text-foreground">💡 Can't find the WiFi network?</strong>
+            <br />
+            <br />
+            • Make sure the miner has been powered on for at least 30 seconds
+            <br />
+            • Try restarting the miner
+            <br />
+            • Move closer to the device
+          </InfoBox>
+
+          <InfoBox variant="warning" className="mt-4">
+            <strong className="text-foreground">⚠️ If the dashboard doesn't pop up automatically:</strong>
+            <br />
+            <br />
+            The device you are using may be blocking the pop up. If this happens:
+            <br />
+            <br />
+            1. Connect to the Gold Nugget's WiFi network
+            <br />
+            2. Select "Use Without Internet" if prompted
+            <br />
+            3. In a web browser, navigate to: <code className="bg-background px-2 py-0.5 rounded">http://192.168.4.1/</code>
+          </InfoBox>
+        </>
+      ) : isGoldDigger ? (
         <>
           <CheckList
             items={[

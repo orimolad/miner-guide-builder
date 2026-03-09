@@ -181,14 +181,14 @@ export const miners: Miner[] = [
   },
   {
     id: "goldnugget",
-    name: "Gold Nugget / Nerd Miner",
-    hashrate: "~350 kH/s",
-    power: "USB Powered",
+    name: "Gold Nugget",
+    hashrate: "~300 KH/s",
+    power: "<3W",
     defaultIP: "192.168.4.1",
     productLink: "https://bitcoinmerch.com/products/goldnugget-nerdminer",
     isUsbPowered: true,
-    hasDisplay: false,
-    image: avalonqImg,
+    hasDisplay: true,
+    image: goldnuggetImg,
   },
   {
     id: "zyber",
@@ -210,7 +210,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-canaan-avalon-q-90th-s-btc-miner",
     isUsbPowered: false,
     hasDisplay: true,
-    image: goldnuggetImg,
+    image: avalonqImg,
   },
 ];
 

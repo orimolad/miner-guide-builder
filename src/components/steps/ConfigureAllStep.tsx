@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Miner } from "@/data/miners";
 import golddiggerPoolImg from "@/assets/instructions/golddiggerpool.png";
+import goldnuggetPoolImg from "@/assets/instructions/goldnuggetpool.png";
 
 interface ConfigureAllStepProps {
   miner: Miner;
@@ -15,6 +16,8 @@ interface ConfigureAllStepProps {
 }
 
 const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }: ConfigureAllStepProps) => {
+  const isGoldNugget = miner.id === "goldnugget";
+
   const handleAddressChange = (value: string) => {
     onAddressChange(value);
     localStorage.setItem("btcAddress", value);
@@ -44,6 +47,12 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
         <strong className="text-foreground">⚠️ CRITICAL: Change the Default Wallet!</strong>
         <br />
         The factory-set Bitcoin address MUST be replaced with YOUR OWN address, or you won't receive any rewards!
+        {isGoldNugget && (
+          <>
+            <br />
+            It MUST be a Bitcoin address only, no other crypto
+          </>
+        )}
       </InfoBox>
 
       {/* Display BTC Address from Welcome step */}
@@ -64,34 +73,54 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
       <h4 className="text-primary font-display text-lg mt-6 mb-4">Enter your pool settings here:</h4>
       <p className="mb-2">Recommended settings:</p>
       <CodeBlock>
-        <strong>Pool URL:</strong> stratum+tcp://pool.bitcoinmerch.com:3333
-        <br />
-        <strong>Pool Password:</strong> x
-        <br />
-        <strong>BTC Address:</strong> (Paste your BTC address here. This is how you get paid!)
+        {isGoldNugget ? (
+          <>
+            <strong>Pool URL:</strong> pool.bitcoinmerch.com
+            <br />
+            <strong>Pool Port:</strong> 3333
+            <br />
+            <strong>BTC Address:</strong> (Paste your BTC address here. This is how you get paid!)
+          </>
+        ) : (
+          <>
+            <strong>Pool URL:</strong> stratum+tcp://pool.bitcoinmerch.com:3333
+            <br />
+            <strong>Pool Password:</strong> x
+            <br />
+            <strong>BTC Address:</strong> (Paste your BTC address here. This is how you get paid!)
+          </>
+        )}
       </CodeBlock>
 
       {/* Pool screenshot */}
       <div className="my-6 flex justify-center">
         <div className="max-w-xl">
           <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-            <img src={golddiggerPoolImg} alt="Gold Digger Pool Configuration screen" className="w-full" />
+            <img
+              src={isGoldNugget ? goldnuggetPoolImg : golddiggerPoolImg}
+              alt={`${miner.name} Pool Configuration screen`}
+              className="w-full"
+            />
           </div>
           <p className="text-sm text-muted-foreground text-center mt-2">
-            Gold Digger configuration screen with pool settings
+            {miner.name} configuration screen with pool settings
           </p>
         </div>
       </div>
 
-      <h4 className="text-primary font-display text-lg mt-8 mb-4">(Optional) Backup Pool:</h4>
-      <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
-      <CodeBlock>
-        <strong>Pool URL (Fallback):</strong> stratum+tcp://public-pool.io:3333
-        <br />
-        <strong>Pool Password (Fallback):</strong> x
-        <br />
-        <strong>BTC Address (Fallback):</strong> (Paste your BTC address here again)
-      </CodeBlock>
+      {!isGoldNugget && (
+        <>
+          <h4 className="text-primary font-display text-lg mt-8 mb-4">(Optional) Backup Pool:</h4>
+          <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>
+          <CodeBlock>
+            <strong>Pool URL (Fallback):</strong> stratum+tcp://public-pool.io:3333
+            <br />
+            <strong>Pool Password (Fallback):</strong> x
+            <br />
+            <strong>BTC Address (Fallback):</strong> (Paste your BTC address here again)
+          </CodeBlock>
+        </>
+      )}
 
       <h4 className="text-primary font-display text-lg mt-8 mb-4">Save Settings:</h4>
       <CheckList
