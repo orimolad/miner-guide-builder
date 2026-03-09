@@ -3,7 +3,6 @@ import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 import CodeBlock from "../CodeBlock";
-import nodesettingsImg from "@/assets/instructions/nodesettings.png";
 import nodeloginImg from "@/assets/instructions/nodelogin.png";
 
 interface NodeLoginStepProps {
@@ -43,32 +42,6 @@ const NodeLoginStep = ({ miner, stepNumber = 2 }: NodeLoginStepProps) => {
         className="rounded-xl border border-border my-6 w-full"
         loading="lazy"
       />
-
-      <h3 className="text-primary font-display text-xl mt-8 mb-4">
-        Change Your Settings
-      </h3>
-
-      <p className="mb-4">Open the <strong className="text-foreground">Settings</strong> icon from the dock.</p>
-
-      <img
-        src={nodesettingsImg}
-        alt="Umbrel settings screen"
-        className="rounded-xl border border-border my-4 w-full"
-        loading="lazy"
-      />
-
-      <p className="mb-2">From here, you can:</p>
-      <CheckList
-        items={[
-          "Change your username and password",
-          "See your device's IP address (take note of this for connecting your miners)",
-          "Connect it to your WiFi network if you wish to unplug the ethernet cable",
-        ]}
-      />
-
-      <InfoBox variant="warning">
-        <strong className="text-foreground">Recommended:</strong> Use an Ethernet connection during node synchronization for the fastest and most reliable sync.
-      </InfoBox>
     </StepContainer>
   );
 };

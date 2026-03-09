@@ -14,6 +14,7 @@ import StartMiningStep from "@/components/steps/StartMiningStep";
 import SoloMiningStep from "@/components/steps/SoloMiningStep";
 import NodeConnectStep from "@/components/steps/NodeConnectStep";
 import NodeLoginStep from "@/components/steps/NodeLoginStep";
+import NodeSettingsStep from "@/components/steps/NodeSettingsStep";
 import NodeSyncStep from "@/components/steps/NodeSyncStep";
 import NodePoolStep from "@/components/steps/NodePoolStep";
 import NodeMonitorStep from "@/components/steps/NodeMonitorStep";
@@ -35,6 +36,7 @@ type StepType =
   | "nodeLogin"
   | "nodeSync"
   | "nodePool"
+  | "nodeSettings"
   | "nodeMonitor"
   | "complete";
 
@@ -100,6 +102,7 @@ const XNODEMINI_STEPS: StepType[] = [
   "welcome",
   "nodeConnect",
   "nodeLogin",
+  "nodeSettings",
   "nodeSync",
   "nodePool",
   "nodeMonitor",
@@ -273,6 +276,8 @@ const SetupFlow = () => {
         return <NodeConnectStep miner={miner} stepNumber={getDisplayStepNumber("nodeConnect")} />;
       case "nodeLogin":
         return <NodeLoginStep miner={miner} stepNumber={getDisplayStepNumber("nodeLogin")} />;
+      case "nodeSettings":
+        return <NodeSettingsStep miner={miner} stepNumber={getDisplayStepNumber("nodeSettings")} />;
       case "nodeSync":
         return <NodeSyncStep miner={miner} stepNumber={getDisplayStepNumber("nodeSync")} />;
       case "nodePool":
