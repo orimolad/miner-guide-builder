@@ -25,6 +25,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
   const isGoldDigger = miner.id === "golddigger";
+  const isGoldNugget = miner.id === "goldnugget";
   const isZyber = miner.id === "zyber";
 
   // Get dynamic hashrate based on selected variant or miner
