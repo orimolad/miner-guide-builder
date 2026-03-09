@@ -276,6 +276,8 @@ const SetupFlow = () => {
         return <NodeConnectStep miner={miner} stepNumber={getDisplayStepNumber("nodeConnect")} />;
       case "nodeLogin":
         return <NodeLoginStep miner={miner} stepNumber={getDisplayStepNumber("nodeLogin")} />;
+      case "nodeSettings":
+        return <NodeSettingsStep miner={miner} stepNumber={getDisplayStepNumber("nodeSettings")} />;
       case "nodeSync":
         return <NodeSyncStep miner={miner} stepNumber={getDisplayStepNumber("nodeSync")} />;
       case "nodePool":
