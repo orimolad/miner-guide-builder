@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMiner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants, NerdminerVariant, nerdminerVariants } from "@/data/miners";
-import Header from "@/components/Header";
+
 import ProgressBar from "@/components/ProgressBar";
 import WelcomeStep from "@/components/steps/WelcomeStep";
 import PowerUpStep from "@/components/steps/PowerUpStep";
@@ -308,7 +308,7 @@ const SetupFlow = () => {
     <div className="min-h-screen safe-area-inset">
       <div className="bg-pattern" />
       <div className="container max-w-4xl">
-        <Header />
+        
 
         <div className="mb-4">
           <Button
