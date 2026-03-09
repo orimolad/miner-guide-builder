@@ -12,6 +12,11 @@ import ConfigureAllStep from "@/components/steps/ConfigureAllStep";
 import HomeWifiStep from "@/components/steps/HomeWifiStep";
 import StartMiningStep from "@/components/steps/StartMiningStep";
 import SoloMiningStep from "@/components/steps/SoloMiningStep";
+import NodeConnectStep from "@/components/steps/NodeConnectStep";
+import NodeLoginStep from "@/components/steps/NodeLoginStep";
+import NodeSyncStep from "@/components/steps/NodeSyncStep";
+import NodePoolStep from "@/components/steps/NodePoolStep";
+import NodeMonitorStep from "@/components/steps/NodeMonitorStep";
 import CompleteStep from "@/components/steps/CompleteStep";
 import { Button } from "@/components/ui/button";
 
