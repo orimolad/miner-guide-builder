@@ -9,6 +9,7 @@ import nerdaxeScreenImg from "@/assets/instructions/nerdaxescreen.jpg";
 import nerdaxeWifiGif from "@/assets/instructions/nerdaxewifi.gif";
 import disruptorWifiGif from "@/assets/instructions/disruptorwifi.gif";
 import golddiggerWifiGif from "@/assets/instructions/golddiggerwifi.gif";
+import goldnuggetWifiGif from "@/assets/instructions/goldnuggetwifi.gif";
 import zyberScreenImg from "@/assets/instructions/zyberscreen.jpg";
 import zyberWifiGif from "@/assets/instructions/zyberwifi.gif";
 
@@ -22,6 +23,7 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
   const isGoldDigger = miner.id === "golddigger";
+  const isGoldNugget = miner.id === "goldnugget";
   const isZyber = miner.id === "zyber";
 
   const getTitle = () => {
