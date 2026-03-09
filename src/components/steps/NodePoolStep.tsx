@@ -4,6 +4,7 @@ import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 import publicpoolImg from "@/assets/instructions/nodepublicpool.png";
 import bitaxenodeImg from "@/assets/instructions/bitaxenode.png";
+import avalonnodeImg from "@/assets/instructions/avalonnode.png";
 
 interface NodePoolStepProps {
   miner: Miner;
@@ -51,9 +52,12 @@ const NodePoolStep = ({ miner, stepNumber = 4 }: NodePoolStepProps) => {
       />
 
       <h3 className="text-primary font-display text-lg mt-6 mb-3">Avalon Family App Example:</h3>
-      <div className="my-4 rounded-xl overflow-hidden border border-border bg-secondary/30 p-8 text-center">
-        <p className="text-muted-foreground italic">📷 Avalon Family App image coming soon</p>
-      </div>
+      <img
+        src={avalonnodeImg}
+        alt="Avalon Family App pool configuration for X Node"
+        className="rounded-xl border border-border my-4 w-full"
+        loading="lazy"
+      />
 
       <CheckList
         items={["Save and restart your miner"]}

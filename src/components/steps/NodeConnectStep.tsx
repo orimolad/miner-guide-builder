@@ -2,6 +2,7 @@ import { Miner } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
+import nodepluginImg from "@/assets/instructions/nodeplugin.gif";
 
 interface NodeConnectStepProps {
   miner: Miner;
@@ -33,9 +34,12 @@ const NodeConnectStep = ({ miner, stepNumber = 1 }: NodeConnectStepProps) => {
         <li>Fans are spinning</li>
       </ul>
 
-      <div className="my-6 rounded-xl overflow-hidden border border-border bg-secondary/30 p-8 text-center">
-        <p className="text-muted-foreground italic">📷 Connection image coming soon</p>
-      </div>
+      <img
+        src={nodepluginImg}
+        alt="Plugging in the X Node Mini"
+        className="rounded-xl border border-border my-6 w-full"
+        loading="lazy"
+      />
 
       <p className="mt-6 text-xl font-semibold text-foreground">
         You're ready for the next step!
