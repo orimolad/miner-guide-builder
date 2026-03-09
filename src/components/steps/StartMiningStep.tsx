@@ -88,6 +88,25 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
         </>
       )}
 
+      {/* Gold Nugget on-device verification */}
+      {isGoldNugget && (
+        <>
+          <h3 className="text-primary font-display text-xl mt-4 mb-4">On Your Device:</h3>
+          <p className="mb-4">Check the miner's screen. Your hashrate will show measured in KH/s.</p>
+          
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={goldnuggetHashingGif} alt="Gold Nugget screen showing hashrate" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Gold Nugget screen displaying hashrate in KH/s
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+
       {/* Nerdaxe dashboard showing mining stats */}
       {isNerdqaxe && (
         <div className="my-6 flex justify-center">
