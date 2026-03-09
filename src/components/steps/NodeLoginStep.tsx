@@ -4,6 +4,7 @@ import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 import CodeBlock from "../CodeBlock";
 import nodesettingsImg from "@/assets/instructions/nodesettings.png";
+import nodeloginImg from "@/assets/instructions/nodelogin.png";
 
 interface NodeLoginStepProps {
   miner: Miner;
