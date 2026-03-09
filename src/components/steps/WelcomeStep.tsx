@@ -92,6 +92,52 @@ const WelcomeStep = ({
   // Determine if this miner uses the goldnugget-style checklist order (wallet before WiFi)
   const usesWalletFirstOrder = miner.id === "goldnugget" || isNerdminer;
 
+  // X Node Mini has a unique checklist
+  const getChecklist = () => {
+    if (isXNodeMini) {
+      return [
+        "Powering up your device",
+        "Connecting to the Internet",
+        "Logging into Umbrel OS",
+        "Syncing your Bitcoin Node",
+        "Setting up your private mining pool",
+      ];
+    }
+    if (usesWalletFirstOrder) {
+      return [
+        "Powering up your device",
+        "Configuring your wallet and mining pool",
+        "Connecting to Wi-Fi",
+        "Verifying everything is working correctly",
+        "Understanding solo mining",
+      ];
+    }
+    return [
+      "Powering up your device",
+      "Connecting to Wi-Fi",
+      "Configuring your wallet and mining pool",
+      "Verifying everything is working correctly",
+      "Understanding solo mining",
+    ];
+  };
+
+  const getWhatYouNeed = () => {
+    if (isXNodeMini) {
+      return [
+        "Ethernet cable",
+        "WiFi network with internet access",
+        "PC, Laptop, smartphone or tablet for setup",
+        "Power outlet",
+      ];
+    }
+    return [
+      (miner.id === "goldnugget" || isNerdminer) ? "USB Power Source" : "AC Power Outlet",
+      "WiFi network with internet access",
+      "Mobile phone, tablet, or PC for initial configuration",
+      'Your Bitcoin wallet address - It is easiest if you have your BTC address copied and pasted in the field below before starting setup.',
+    ];
+  };
+
   return (
     <div>
       <h2 className="font-display text-2xl md:text-3xl text-primary mb-5 tracking-tight">
