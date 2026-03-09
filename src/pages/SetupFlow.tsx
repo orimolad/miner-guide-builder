@@ -308,7 +308,7 @@ const SetupFlow = () => {
     <div className="min-h-screen safe-area-inset">
       <div className="bg-pattern" />
       <div className="container max-w-4xl">
-        <Header />
+        
 
         <div className="mb-4">
           <Button
