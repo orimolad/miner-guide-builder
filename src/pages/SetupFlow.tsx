@@ -31,6 +31,11 @@ type StepType =
   | "homeWifi"
   | "startMining"
   | "soloMining"
+  | "nodeConnect"
+  | "nodeLogin"
+  | "nodeSync"
+  | "nodePool"
+  | "nodeMonitor"
   | "complete";
 
 // Default flow for Bitaxe/Nerdaxe/others
