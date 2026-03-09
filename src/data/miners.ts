@@ -210,7 +210,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-canaan-avalon-q-90th-s-btc-miner",
     isUsbPowered: false,
     hasDisplay: true,
-    image: goldnuggetImg,
+    image: avalonqImg,
   },
 ];
 
