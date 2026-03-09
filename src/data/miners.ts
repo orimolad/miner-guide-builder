@@ -188,7 +188,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/goldnugget-nerdminer",
     isUsbPowered: true,
     hasDisplay: true,
-    image: goldnuggetImg,
+    image: avalonqImg,
   },
   {
     id: "zyber",
