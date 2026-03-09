@@ -37,9 +37,12 @@ const NodeLoginStep = ({ miner, stepNumber = 2 }: NodeLoginStepProps) => {
 
       <p className="my-4">Click <strong className="text-foreground">Log In</strong></p>
 
-      <div className="my-6 rounded-xl overflow-hidden border border-border bg-secondary/30 p-8 text-center">
-        <p className="text-muted-foreground italic">📷 Login screen image coming soon</p>
-      </div>
+      <img
+        src={nodeloginImg}
+        alt="Umbrel login screen"
+        className="rounded-xl border border-border my-6 w-full"
+        loading="lazy"
+      />
 
       <h3 className="text-primary font-display text-xl mt-8 mb-4">
         Change Your Settings
