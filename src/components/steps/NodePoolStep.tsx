@@ -4,6 +4,7 @@ import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 import publicpoolImg from "@/assets/instructions/nodepublicpool.png";
 import bitaxenodeImg from "@/assets/instructions/bitaxenode.png";
+import avalonnodeImg from "@/assets/instructions/avalonnode.png";
 
 interface NodePoolStepProps {
   miner: Miner;
