@@ -261,7 +261,7 @@ export const miners: Miner[] = [
     hashrate: "N/A (Full Node)",
     power: "Wall Adapter",
     defaultIP: "umbrel.local",
-    productLink: "https://bitcoinmerch.com",
+    productLink: "https://bitcoinmerch.com/products/bitcoin-merch-x-node-mini-bitcoin-full-node",
     isUsbPowered: false,
     hasDisplay: false,
     image: xnodeminiImg,
