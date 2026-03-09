@@ -186,7 +186,7 @@ const WelcomeStep = ({
         {/* BTC Address Input */}
         <div className="my-6">
           <Label htmlFor="welcomeBtcAddress" className="text-primary font-semibold text-base mb-2 block">
-            Enter your Bitcoin Address here for easy reference later:
+            Enter your Bitcoin Address here for reference later:
           </Label>
           <Input
             id="welcomeBtcAddress"

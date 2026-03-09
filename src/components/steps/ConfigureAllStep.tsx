@@ -40,7 +40,7 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
       <h3 className="text-primary font-display text-xl mt-8 mb-4">Configure Your Wallet & Mining Pool:</h3>
 
       <InfoBox variant="warning">
-        <strong className="text-foreground">⚠️ CRITICAL: Change the Default Wallet!</strong>
+        <strong className="text-foreground">⚠️ CRITICAL: Change the {isGoldNugget ? "Wallet" : "Default Wallet"}!</strong>
         <br />
         The factory-set Bitcoin address MUST be replaced with YOUR OWN address, or you won't receive any rewards!
         {isGoldNugget && (

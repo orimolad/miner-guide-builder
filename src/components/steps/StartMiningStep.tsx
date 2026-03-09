@@ -92,7 +92,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
       {isGoldNugget && (
         <>
           <h3 className="text-primary font-display text-xl mt-4 mb-4">On Your Device:</h3>
-          <p className="mb-4">Check the miner's screen. Your hashrate will show measured in KH/s.</p>
+          <CheckList items={["Check the miner's screen. Your hashrate will show measured in KH/s"]} />
           
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
