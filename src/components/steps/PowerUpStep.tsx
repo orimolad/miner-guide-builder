@@ -10,6 +10,7 @@ import bitaxePowerGif from "@/assets/instructions/bitaxepower.gif";
 import golddiggerPowerGif from "@/assets/instructions/plugingolddigger.gif";
 import golddiggerQrImg from "@/assets/instructions/golddiggerqr.jpg";
 import zyberPowerGif from "@/assets/instructions/zyberpower.gif";
+import goldnuggetPowerGif from "@/assets/instructions/plugingoldnugget.gif";
 
 interface PowerUpStepProps {
   miner: Miner;
