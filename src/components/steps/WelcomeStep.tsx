@@ -36,6 +36,7 @@ const WelcomeStep = ({
   const isBitaxe = miner.hasBitaxeVariants;
   const isNerdqaxe = miner.hasNerdqaxeVariants;
   const isNerdminer = miner.hasNerdminerVariants;
+  const isXNodeMini = miner.id === "xnodemini";
   const hasVariants = isBitaxe || isNerdqaxe || isNerdminer;
 
   const handleVariantChange = (variantId: string) => {
