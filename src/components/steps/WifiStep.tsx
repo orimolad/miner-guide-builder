@@ -12,6 +12,7 @@ import golddiggerWifiGif from "@/assets/instructions/golddiggerwifi.gif";
 import goldnuggetWifiGif from "@/assets/instructions/goldnuggetwifi.gif";
 import zyberScreenImg from "@/assets/instructions/zyberscreen.jpg";
 import zyberWifiGif from "@/assets/instructions/zyberwifi.gif";
+import nerdminerWifiGif from "@/assets/instructions/nerdminerwifi.gif";
 
 interface WifiStepProps {
   miner: Miner;
@@ -25,8 +26,10 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
   const isGoldDigger = miner.id === "golddigger";
   const isGoldNugget = miner.id === "goldnugget";
   const isZyber = miner.id === "zyber";
+  const isNerdminer = miner.id === "nerdminer";
 
   const getTitle = () => {
+    if (isNerdminer) return "Connect to your miner via WiFi";
     if (isDisruptor) return "Connect to your Disruptor via WiFi";
     if (isGoldDigger) return "Connect to your Gold Digger via WiFi";
     if (isGoldNugget) return "Connect to your Gold Nugget via WiFi";
@@ -35,6 +38,7 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
   };
 
   const getIntroText = () => {
+    if (isNerdminer) return "Your miner creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isBitaxe) return "Your Bitaxe creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isNerdqaxe) return "Your Nerdaxe creates its own temporary WiFi network for initial setup. Let's connect to it!";
     if (isDisruptor) return "Your miner creates its own temporary WiFi network for initial setup. Let's connect to it!";
@@ -48,8 +52,55 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
     <StepContainer stepNumber={stepNumber} title={getTitle()}>
       <p className="mb-4">{getIntroText()}</p>
 
-      {/* Gold Nugget-specific content */}
-      {isGoldNugget ? (
+      {/* Nerd Miner-specific content */}
+      {isNerdminer ? (
+        <>
+          <CheckList
+            items={[
+              "On your phone/tablet/computer, open WiFi settings",
+              'Look for a network SSID called <strong>NerdMinerAP</strong>',
+              'Enter the password <strong>MineYourCoins</strong><br/><span class="text-muted-foreground ml-6 text-sm">Note: This is case sensitive</span>',
+              "Select that network to connect and wait several seconds. A captive WiFi screen will appear with the device's setup screen",
+            ]}
+          />
+
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={nerdminerWifiGif} alt="Phone connecting to NerdMinerAP WiFi network" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connect to the NerdMinerAP network from your WiFi settings
+              </p>
+            </div>
+          </div>
+
+          <InfoBox variant="info" className="mt-6">
+            <strong className="text-foreground">💡 Can't find the WiFi network?</strong>
+            <br />
+            <br />
+            • Make sure the miner has been powered on for at least 30 seconds
+            <br />
+            • Try restarting the miner
+            <br />
+            • Move closer to the device
+          </InfoBox>
+
+          <InfoBox variant="warning" className="mt-4">
+            <strong className="text-foreground">⚠️ If the dashboard doesn't pop up automatically:</strong>
+            <br />
+            <br />
+            The device you are using may be blocking the pop up. If this happens:
+            <br />
+            <br />
+            1. Connect to the miner's WiFi network
+            <br />
+            2. Select "Use Without Internet" if prompted
+            <br />
+            3. In a web browser, navigate to: <code className="bg-background px-2 py-0.5 rounded">http://192.168.4.1/</code>
+          </InfoBox>
+        </>
+      ) : isGoldNugget ? (
         <>
           <CheckList
             items={[
@@ -107,7 +158,6 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
             ]}
           />
 
-          {/* Gold Digger WiFi GIF */}
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -154,7 +204,6 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
             ]}
           />
 
-          {/* Disruptor WiFi GIF - below checklist */}
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -193,7 +242,6 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
         </>
       ) : isBitaxe ? (
         <>
-          {/* Bitaxe images */}
           <div className="my-6 flex flex-col sm:flex-row gap-4 justify-center">
             <div className="flex-1 max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -248,7 +296,6 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
         </>
       ) : isNerdqaxe ? (
         <>
-          {/* Nerdaxe images - side by side */}
           <div className="my-6 flex flex-col sm:flex-row gap-4 justify-center">
             <div className="flex-1 max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -303,7 +350,6 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
         </>
       ) : isZyber ? (
         <>
-          {/* Zyber images - side by side */}
           <div className="my-6 flex flex-col sm:flex-row gap-4 justify-center">
             <div className="flex-1 max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -358,47 +404,36 @@ const WifiStep = ({ miner, stepNumber = 2 }: WifiStepProps) => {
         </>
       ) : (
         <>
-          {/* Non-Bitaxe/Non-Nerdqaxe/Non-Disruptor content */}
           <CheckList
             items={[
-              "On your phone or computer, open Wi-Fi settings",
-              'Look for a network named something like <strong>"Bitaxe"</strong>, <strong>"NerdMiner"</strong>, or similar',
+              "On your phone/tablet/computer, open WiFi settings",
+              `Look for a network created by your ${miner.name}`,
               "Select that network to connect",
-              'If prompted for a password, check the device manual or try common defaults like <strong>"password"</strong>, <strong>"root"</strong>, <strong>"admin"</strong>, <strong>"MineYourCoins"</strong> or <strong>"12345678"</strong>',
+              "Wait for the configuration page to appear",
             ]}
           />
 
-          {/* AxeOS Wi-Fi setup image for generic miners */}
           <div className="my-6 flex justify-center">
-            <div className="max-w-xl">
+            <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
-                <img
-                  src={axeosWifiSetupImg}
-                  alt="Wi-Fi setup showing network selection and configuration"
-                  className="w-full"
-                />
+                <img src={axeosWifiSetupImg} alt="WiFi setup screen" className="w-full" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
-                Connect to the miner's Wi-Fi and configure your network
+                Network Configuration screen
               </p>
             </div>
           </div>
 
-          <InfoBox variant="info">
-            <strong className="text-foreground">💡 Can't find the Wi-Fi network?</strong>
+          <InfoBox variant="info" className="mt-6">
+            <strong className="text-foreground">💡 Can't find the WiFi network?</strong>
+            <br />
             <br />
             • Make sure the miner has been powered on for at least 30 seconds
             <br />
             • Try restarting the miner
             <br />
             • Move closer to the device
-            <br />• Check if the miner has a physical Wi-Fi button that needs to be pressed
           </InfoBox>
-
-          <p className="mt-4">
-            Once connected, you should see the network name in your Wi-Fi settings. You might see a "No Internet"
-            warning - that's normal!
-          </p>
         </>
       )}
     </StepContainer>

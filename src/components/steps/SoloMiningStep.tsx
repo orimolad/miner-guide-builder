@@ -1,11 +1,11 @@
-import { Miner, BitaxeVariant, NerdqaxeVariant } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant, NerdminerVariant } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 
 interface SoloMiningStepProps {
   miner: Miner;
-  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant | NerdminerVariant;
   stepNumber?: number;
 }
 
@@ -16,23 +16,22 @@ const SoloMiningStep = ({ miner, selectedVariant, stepNumber = 6 }: SoloMiningSt
   const isGoldDigger = miner.id === "golddigger";
   const isGoldNugget = miner.id === "goldnugget";
   const isZyber = miner.id === "zyber";
+  const isNerdminer = miner.id === "nerdminer";
 
   // Get hashrate description based on variant or miner
   const getHashrateDescription = (): string => {
-    if (isGoldNugget) {
-      return "~300 KH/s (300,000 hashes / second)";
-    }
-    if (isGoldDigger) {
-      return "~1000 KH/s (1 million hashes / second)";
-    }
-    if (isDisruptor) {
-      return "~300 GH/s (300 billion hashes / second)";
-    }
-    if (isZyber) {
-      return "~10 TH/s (10 trillion hashes / second)";
-    }
-    if ((isBitaxe || isNerdqaxe) && selectedVariant) {
+    if (isNerdminer && selectedVariant && 'hashrateValue' in selectedVariant) {
       const value = selectedVariant.hashrateValue;
+      if (value === 55) return "~55 KH/s (55,000 hashes / second)";
+      if (value === 250) return "~250 KH/s (250,000 hashes / second)";
+      return `~${value} KH/s (${(value * 1000).toLocaleString()} hashes / second)`;
+    }
+    if (isGoldNugget) return "~300 KH/s (300,000 hashes / second)";
+    if (isGoldDigger) return "~1000 KH/s (1 million hashes / second)";
+    if (isDisruptor) return "~300 GH/s (300 billion hashes / second)";
+    if (isZyber) return "~10 TH/s (10 trillion hashes / second)";
+    if ((isBitaxe || isNerdqaxe) && selectedVariant) {
+      const value = (selectedVariant as BitaxeVariant).hashrateValue;
       if (value >= 1000) {
         return `~${value / 1000} TH/s (${value / 1000} trillion hashes / second)`;
       } else {
@@ -43,12 +42,9 @@ const SoloMiningStep = ({ miner, selectedVariant, stepNumber = 6 }: SoloMiningSt
   };
 
   const getDeviceName = (): string => {
-    if (isBitaxe && selectedVariant) {
-      return `Bitaxe ${selectedVariant.name}`;
-    }
-    if (isNerdqaxe && selectedVariant) {
-      return selectedVariant.name;
-    }
+    if (isNerdminer) return "Nerd Miner";
+    if (isBitaxe && selectedVariant) return `Bitaxe ${selectedVariant.name}`;
+    if (isNerdqaxe && selectedVariant) return selectedVariant.name;
     return miner.name;
   };
 

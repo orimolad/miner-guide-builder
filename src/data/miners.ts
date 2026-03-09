@@ -5,12 +5,13 @@ import goldnuggetImg from "@/assets/miners/goldnugget.webp";
 import zyberImg from "@/assets/miners/zyber.webp";
 import avalonqImg from "@/assets/miners/avalonq.webp";
 import golddiggerImg from "@/assets/miners/golddigger.jpg";
+import nerdminerImg from "@/assets/miners/nerdminer.jpg";
 
 export interface BitaxeVariant {
   id: string;
   name: string;
   hashrate: string;
-  hashrateValue: number; // in GH/s for calculations
+  hashrateValue: number;
   power: string;
   productLink: string;
 }
@@ -70,7 +71,7 @@ export interface NerdqaxeVariant {
   id: string;
   name: string;
   hashrate: string;
-  hashrateValue: number; // in GH/s for calculations
+  hashrateValue: number;
   power: string;
   productLink: string;
 }
@@ -118,6 +119,34 @@ export const nerdqaxeVariants: NerdqaxeVariant[] = [
   },
 ];
 
+export interface NerdminerVariant {
+  id: string;
+  name: string;
+  hashrate: string;
+  hashrateValue: number; // in KH/s for calculations
+  power: string;
+  productLink: string;
+}
+
+export const nerdminerVariants: NerdminerVariant[] = [
+  {
+    id: "standard",
+    name: "Standard",
+    hashrate: "55 KH/s",
+    hashrateValue: 55,
+    power: "<1W",
+    productLink: "https://bitcoinmerch.com/products/goldnugget-nerdminer",
+  },
+  {
+    id: "large-screen",
+    name: "Large Screen",
+    hashrate: "250 KH/s",
+    hashrateValue: 250,
+    power: "<1W",
+    productLink: "https://bitcoinmerch.com/products/goldnugget-nerdminer",
+  },
+];
+
 export interface Miner {
   id: string;
   name: string;
@@ -130,6 +159,7 @@ export interface Miner {
   image: string;
   hasBitaxeVariants?: boolean;
   hasNerdqaxeVariants?: boolean;
+  hasNerdminerVariants?: boolean;
 }
 
 export const miners: Miner[] = [
@@ -180,6 +210,18 @@ export const miners: Miner[] = [
     hasNerdqaxeVariants: true,
   },
   {
+    id: "nerdminer",
+    name: "Nerd Miner",
+    hashrate: "55 KH/s",
+    power: "<1W",
+    defaultIP: "192.168.4.1",
+    productLink: "https://bitcoinmerch.com/products/goldnugget-nerdminer",
+    isUsbPowered: true,
+    hasDisplay: true,
+    image: nerdminerImg,
+    hasNerdminerVariants: true,
+  },
+  {
     id: "goldnugget",
     name: "Gold Nugget",
     hashrate: "~300 KH/s",
@@ -224,4 +266,8 @@ export const getBitaxeVariant = (id: string): BitaxeVariant | undefined => {
 
 export const getNerdqaxeVariant = (id: string): NerdqaxeVariant | undefined => {
   return nerdqaxeVariants.find((variant) => variant.id === id);
+};
+
+export const getNerdminerVariant = (id: string): NerdminerVariant | undefined => {
+  return nerdminerVariants.find((variant) => variant.id === id);
 };

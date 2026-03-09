@@ -1,4 +1,4 @@
-import { Miner } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant, NerdminerVariant } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
@@ -11,22 +11,56 @@ import golddiggerPowerGif from "@/assets/instructions/plugingolddigger.gif";
 import golddiggerQrImg from "@/assets/instructions/golddiggerqr.jpg";
 import zyberPowerGif from "@/assets/instructions/zyberpower.gif";
 import goldnuggetPowerGif from "@/assets/instructions/plugingoldnugget.gif";
+import pluginStandardGif from "@/assets/instructions/pluginstandard.gif";
+import pluginLargescreenGif from "@/assets/instructions/pluginlargescreen.gif";
 
 interface PowerUpStepProps {
   miner: Miner;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant | NerdminerVariant;
 }
 
-const PowerUpStep = ({ miner }: PowerUpStepProps) => {
+const PowerUpStep = ({ miner, selectedVariant }: PowerUpStepProps) => {
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isDisruptor = miner.id === "disruptor";
   const isGoldDigger = miner.id === "golddigger";
   const isZyber = miner.id === "zyber";
   const isGoldNugget = miner.id === "goldnugget";
+  const isNerdminer = miner.id === "nerdminer";
+
+  // Determine which GIF to show for Nerd Miner based on variant
+  const getNerdminerPowerGif = () => {
+    if (selectedVariant && 'id' in selectedVariant && selectedVariant.id === "large-screen") {
+      return pluginLargescreenGif;
+    }
+    return pluginStandardGif;
+  };
 
   return (
     <StepContainer stepNumber={1} title="Power Up Your Miner">
-      {isGoldNugget ? (
+      {isNerdminer ? (
+        <>
+          <p className="mb-4">Your Nerd Miner is USB-powered, making setup incredibly simple!</p>
+          
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={getNerdminerPowerGif()} alt="Nerd Miner power up demonstration" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Connecting power to your Nerd Miner
+              </p>
+            </div>
+          </div>
+
+          <CheckList
+            items={[
+              "Plug the Nerd Miner to USB port",
+              "Wait for the software to load. When it is done, it will prompt you to connect to its WiFi to begin setup.",
+            ]}
+          />
+        </>
+      ) : isGoldNugget ? (
         <>
           <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
           
@@ -52,7 +86,6 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
         <>
           <p className="mb-4">Your {miner.name} is USB-powered, making setup incredibly simple!</p>
           
-          {/* Gold Digger power GIF */}
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -71,7 +104,6 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
             ]}
           />
 
-          {/* Gold Digger QR screen */}
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -93,7 +125,6 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
             ]}
           />
 
-          {/* Disruptor power GIF */}
           <div className="my-6 flex justify-center">
             <div className="w-32">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -141,7 +172,6 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
         <>
           <p className="mb-4">Your Bitaxe came with an external power supply.</p>
 
-          {/* Bitaxe power GIF */}
           <div className="my-6 flex justify-center">
             <div className="w-32">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -173,7 +203,6 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
         <>
           <p className="mb-4">Your Nerdaxe came with an external power supply.</p>
 
-          {/* Nerdaxe power GIF */}
           <div className="my-6 flex justify-center">
             <div className="w-32">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
@@ -205,7 +234,6 @@ const PowerUpStep = ({ miner }: PowerUpStepProps) => {
         <>
           <p className="mb-4">Your Zyber came with an external power supply.</p>
 
-          {/* Zyber power GIF */}
           <div className="my-6 flex justify-center">
             <div className="max-w-xs">
               <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">

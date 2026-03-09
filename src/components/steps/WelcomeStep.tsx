@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Miner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants } from "@/data/miners";
+import { Miner, BitaxeVariant, bitaxeVariants, NerdqaxeVariant, nerdqaxeVariants, NerdminerVariant, nerdminerVariants } from "@/data/miners";
 import InfoBox from "../InfoBox";
 import CheckList from "../CheckList";
 import MinerSpecsSheet from "../MinerSpecsSheet";
@@ -17,8 +17,8 @@ import { cn } from "@/lib/utils";
 
 interface WelcomeStepProps {
   miner: Miner;
-  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
-  onVariantChange?: (variant: BitaxeVariant | NerdqaxeVariant) => void;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant | NerdminerVariant;
+  onVariantChange?: (variant: any) => void;
   btcAddress: string;
   onBtcAddressChange: (address: string) => void;
 }
@@ -35,19 +35,19 @@ const WelcomeStep = ({
   
   const isBitaxe = miner.hasBitaxeVariants;
   const isNerdqaxe = miner.hasNerdqaxeVariants;
-  const hasVariants = isBitaxe || isNerdqaxe;
+  const isNerdminer = miner.hasNerdminerVariants;
+  const hasVariants = isBitaxe || isNerdqaxe || isNerdminer;
 
   const handleVariantChange = (variantId: string) => {
     if (isBitaxe) {
       const variant = bitaxeVariants.find((v) => v.id === variantId);
-      if (variant && onVariantChange) {
-        onVariantChange(variant);
-      }
+      if (variant && onVariantChange) onVariantChange(variant);
     } else if (isNerdqaxe) {
       const variant = nerdqaxeVariants.find((v) => v.id === variantId);
-      if (variant && onVariantChange) {
-        onVariantChange(variant);
-      }
+      if (variant && onVariantChange) onVariantChange(variant);
+    } else if (isNerdminer) {
+      const variant = nerdminerVariants.find((v) => v.id === variantId);
+      if (variant && onVariantChange) onVariantChange(variant);
     }
   };
 
@@ -57,25 +57,38 @@ const WelcomeStep = ({
   };
 
   // Get the appropriate variants array
-  const variants = isBitaxe ? bitaxeVariants : isNerdqaxe ? nerdqaxeVariants : [];
+  const variants = isBitaxe ? bitaxeVariants : isNerdqaxe ? nerdqaxeVariants : isNerdminer ? nerdminerVariants : [];
 
   // Get display specs based on whether it has variants or is a regular miner
   const displayHashrate = hasVariants && selectedVariant ? selectedVariant.hashrate : miner.hashrate;
   const displayPower = hasVariants && selectedVariant ? selectedVariant.power : miner.power;
-  const displayProductLink = hasVariants && selectedVariant ? selectedVariant.productLink : miner.productLink;
   const displayName = isBitaxe && selectedVariant 
     ? `Bitaxe ${selectedVariant.name}` 
     : isNerdqaxe && selectedVariant 
       ? selectedVariant.name 
-      : miner.name;
+      : isNerdminer && selectedVariant
+        ? selectedVariant.id === "large-screen" ? "USB Miner Large Screen" : "USB Miner"
+        : miner.name;
 
   // Get the title based on miner type
   const getTitle = () => {
     if (isBitaxe) return "Bitaxe";
     if (isNerdqaxe) return "Nerdaxe";
+    if (isNerdminer) return "Nerd Miner";
     if (miner.id === "goldnugget") return "Nerd Miner";
     return miner.name;
   };
+
+  // Get the variant dropdown label
+  const getVariantLabel = () => {
+    if (isBitaxe) return "Select your Bitaxe Model:";
+    if (isNerdqaxe) return "Select your Nerdaxe Model:";
+    if (isNerdminer) return "Select your Nerd Miner Model:";
+    return "Select your model:";
+  };
+
+  // Determine if this miner uses the goldnugget-style checklist order (wallet before WiFi)
+  const usesWalletFirstOrder = miner.id === "goldnugget" || isNerdminer;
 
   return (
     <div>
@@ -87,7 +100,7 @@ const WelcomeStep = ({
 
         <CheckList
           items={
-            miner.id === "goldnugget"
+            usesWalletFirstOrder
               ? [
                   "Powering up your device",
                   "Configuring your wallet and mining pool",
@@ -109,7 +122,7 @@ const WelcomeStep = ({
         {hasVariants && (
           <div className="my-8">
             <Label htmlFor="minerModel" className="text-primary font-semibold text-base mb-3 block">
-              Select your {isBitaxe ? "Bitaxe" : "Nerdaxe"} Model:
+              {getVariantLabel()}
             </Label>
             <Select
               value={selectedVariant?.id || ""}
@@ -121,7 +134,7 @@ const WelcomeStep = ({
               <SelectContent className="bg-card border-border">
                 {variants.map((variant) => (
                   <SelectItem key={variant.id} value={variant.id}>
-                    {variant.name} {variant.hashrate}
+                    {isNerdminer ? variant.name : `${variant.name} ${variant.hashrate}`}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -142,9 +155,11 @@ const WelcomeStep = ({
             <span className="text-muted-foreground italic">Select a model above to see specs</span>
           ) : (
             <>
+              {displayName}
+              <br />
               Hash Rate: {displayHashrate}
               <br />
-              Power: {displayPower}
+              {isNerdminer ? "Input Voltage" : "Power"}: {displayPower}
               <br />
               <span className="text-primary">View Detailed Specs →</span>
             </>
@@ -167,7 +182,7 @@ const WelcomeStep = ({
         <h3 className="text-primary font-display text-xl mt-8 mb-4">🛠 What You'll Need:</h3>
         <CheckList
           items={[
-            miner.id === "goldnugget" ? "USB Power Source" : "AC Power Outlet",
+            (miner.id === "goldnugget" || isNerdminer) ? "USB Power Source" : "AC Power Outlet",
             "WiFi network with internet access",
             "Mobile phone, tablet, or PC for initial configuration",
             'Your Bitcoin wallet address - It is easiest if you have your BTC address copied and pasted in the field below before starting setup.',

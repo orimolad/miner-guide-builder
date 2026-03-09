@@ -7,6 +7,7 @@ import { Label } from "../ui/label";
 import { Miner } from "@/data/miners";
 import golddiggerPoolImg from "@/assets/instructions/golddiggerpool.png";
 import goldnuggetPoolImg from "@/assets/instructions/goldnuggetpool.png";
+import usbminerSettingsImg from "@/assets/instructions/usbminersettings.png";
 
 interface ConfigureAllStepProps {
   miner: Miner;
@@ -17,6 +18,8 @@ interface ConfigureAllStepProps {
 
 const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }: ConfigureAllStepProps) => {
   const isGoldNugget = miner.id === "goldnugget";
+  const isNerdminer = miner.id === "nerdminer";
+  const isNerdminerOrGoldNugget = isGoldNugget || isNerdminer;
 
   const handleAddressChange = (value: string) => {
     onAddressChange(value);
@@ -25,9 +28,8 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
 
   return (
     <StepContainer stepNumber={stepNumber} title="Connect to your WiFi Network, Mining Pool, and Wallet">
-      <p className="mb-4">Time to configure your {miner.name}!</p>
+      <p className="mb-4">Time to configure your miner!</p>
 
-      <h3 className="text-primary font-display text-xl mt-6 mb-4">Connect to Your Home WiFi:</h3>
       <CheckList
         items={[
           'Click the <strong>"Configure WiFi"</strong> button',
@@ -37,18 +39,12 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
         ]}
       />
 
-      <h3 className="text-primary font-display text-xl mt-8 mb-4">Configure Your Wallet & Mining Pool:</h3>
-
-      <InfoBox variant="warning">
-        <strong className="text-foreground">⚠️ CRITICAL: Change the {isGoldNugget ? "Wallet" : "Default Wallet"}!</strong>
+      <InfoBox variant="warning" className="mt-6">
+        <strong className="text-foreground">⚠️ CRITICAL: Change the Wallet!</strong>
         <br />
         The factory-set Bitcoin address MUST be replaced with YOUR OWN address, or you won't receive any rewards!
-        {isGoldNugget && (
-          <>
-            <br />
-            It MUST be a Bitcoin address only, no other crypto
-          </>
-        )}
+        <br />
+        It MUST be a Bitcoin address only, no other crypto
       </InfoBox>
 
       {/* Display BTC Address from Welcome step */}
@@ -69,7 +65,7 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
       <h4 className="text-primary font-display text-lg mt-6 mb-4">Enter your pool settings here:</h4>
       <p className="mb-2">Recommended settings:</p>
       <CodeBlock>
-        {isGoldNugget ? (
+        {isNerdminerOrGoldNugget ? (
           <>
             <strong>Pool URL:</strong> pool.bitcoinmerch.com
             <br />
@@ -93,7 +89,7 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
         <div className="max-w-xl">
           <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
             <img
-              src={isGoldNugget ? goldnuggetPoolImg : golddiggerPoolImg}
+              src={isNerdminer ? usbminerSettingsImg : isGoldNugget ? goldnuggetPoolImg : golddiggerPoolImg}
               alt={`${miner.name} Pool Configuration screen`}
               className="w-full"
             />
@@ -104,7 +100,7 @@ const ConfigureAllStep = ({ miner, btcAddress, onAddressChange, stepNumber = 3 }
         </div>
       </div>
 
-      {!isGoldNugget && (
+      {!isNerdminerOrGoldNugget && (
         <>
           <h4 className="text-primary font-display text-lg mt-8 mb-4">(Optional) Backup Pool:</h4>
           <p className="mb-2">Configure a backup pool in case the primary goes offline:</p>

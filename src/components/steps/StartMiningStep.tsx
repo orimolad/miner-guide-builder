@@ -1,4 +1,4 @@
-import { Miner, BitaxeVariant, NerdqaxeVariant } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant, NerdminerVariant } from "@/data/miners";
 import StepContainer from "../StepContainer";
 import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
@@ -16,7 +16,7 @@ import goldnuggetHashingGif from "@/assets/instructions/goldnuggethashing.gif";
 interface StartMiningStepProps {
   miner: Miner;
   btcAddress: string;
-  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant | NerdminerVariant;
   stepNumber?: number;
 }
 
@@ -27,21 +27,19 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
   const isGoldDigger = miner.id === "golddigger";
   const isGoldNugget = miner.id === "goldnugget";
   const isZyber = miner.id === "zyber";
+  const isNerdminer = miner.id === "nerdminer";
 
   // Get dynamic hashrate based on selected variant or miner
   const getExpectedHashrate = (): string => {
+    if (isNerdminer && selectedVariant && 'hashrateValue' in selectedVariant) {
+      return `~${selectedVariant.hashrateValue} KH/s`;
+    }
     if ((isBitaxe || isNerdqaxe) && selectedVariant) {
-      return `~${selectedVariant.hashrateValue} GH/s`;
+      return `~${(selectedVariant as BitaxeVariant).hashrateValue} GH/s`;
     }
-    if (isGoldDigger) {
-      return "~1000 KH/s";
-    }
-    if (isGoldNugget) {
-      return "~300 KH/s";
-    }
-    if (isZyber) {
-      return "~10 TH/s";
-    }
+    if (isGoldDigger) return "~1000 KH/s";
+    if (isGoldNugget) return "~300 KH/s";
+    if (isZyber) return "~10 TH/s";
     return miner.hashrate;
   };
 
@@ -54,7 +52,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
     <StepContainer stepNumber={stepNumber} title="Start Mining & Verify Operation">
       <p className="mb-4">Your miner should now be hashing! Let's verify everything is working correctly.</p>
 
-      {/* Zyber on-device verification - appears first */}
+      {/* Zyber on-device verification */}
       {isZyber && (
         <>
           <h3 className="text-primary font-display text-xl mt-4 mb-4">On Your Device:</h3>
@@ -101,6 +99,25 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
                 Gold Nugget screen displaying hashrate in KH/s
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Nerd Miner on-device verification */}
+      {isNerdminer && (
+        <>
+          <h3 className="text-primary font-display text-xl mt-4 mb-4">On Your Device:</h3>
+          <CheckList items={["Check the miner's screen. Your hashrate will show measured in KH/s"]} />
+          
+          <div className="my-6 flex justify-center">
+            <div className="max-w-xs">
+              <div className="rounded-lg overflow-hidden border border-bitcoin/30 shadow-lg shadow-bitcoin/10">
+                <img src={goldnuggetHashingGif} alt="Nerd Miner screen showing hashrate" className="w-full" />
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Nerd Miner screen displaying hashrate in KH/s
               </p>
             </div>
           </div>
@@ -222,7 +239,7 @@ const StartMiningStep = ({ miner, btcAddress, selectedVariant, stepNumber = 5 }:
       )}
 
       {/* Non-disruptor device verification */}
-      {!isDisruptor && !isGoldDigger && !isGoldNugget && !isZyber && (
+      {!isDisruptor && !isGoldDigger && !isGoldNugget && !isZyber && !isNerdminer && (
         <>
           <h3 className="text-primary font-display text-xl mt-8 mb-4">On Your Device:</h3>
           <CheckList
