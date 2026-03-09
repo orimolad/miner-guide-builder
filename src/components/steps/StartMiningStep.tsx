@@ -12,6 +12,8 @@ import nerdqaxeDashboardImg from "@/assets/instructions/nerdqaxedashboard.png";
 import golddiggerHashingImg from "@/assets/instructions/golddiggerhashing.jpg";
 import golddiggerIpImg from "@/assets/instructions/golddiggerip.jpg";
 import goldnuggetHashingGif from "@/assets/instructions/goldnuggethashing.gif";
+import standardHashingGif from "@/assets/instructions/standardhashing.gif";
+import largescreenHashingGif from "@/assets/instructions/largescreenhashing.gif";
 
 interface StartMiningStepProps {
   miner: Miner;
