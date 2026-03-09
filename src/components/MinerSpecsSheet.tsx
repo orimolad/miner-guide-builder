@@ -9,11 +9,11 @@ import {
   SheetHeader,
   SheetTitle,
 } from "./ui/sheet";
-import { Miner, BitaxeVariant, NerdqaxeVariant } from "@/data/miners";
+import { Miner, BitaxeVariant, NerdqaxeVariant, NerdminerVariant } from "@/data/miners";
 
 interface MinerSpecsSheetProps {
   miner: Miner;
-  selectedVariant?: BitaxeVariant | NerdqaxeVariant;
+  selectedVariant?: BitaxeVariant | NerdqaxeVariant | NerdminerVariant;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -22,14 +22,17 @@ const MinerSpecsSheet = ({ miner, selectedVariant, isOpen, onOpenChange }: Miner
   const [imageError, setImageError] = useState(false);
   const isBitaxe = miner.hasBitaxeVariants;
   const isNerdqaxe = miner.hasNerdqaxeVariants;
-  const hasVariants = isBitaxe || isNerdqaxe;
+  const isNerdminer = miner.hasNerdminerVariants;
+  const hasVariants = isBitaxe || isNerdqaxe || isNerdminer;
 
   // Derive display values
   const displayName = isBitaxe && selectedVariant 
     ? `Bitaxe ${selectedVariant.name}` 
     : isNerdqaxe && selectedVariant 
       ? selectedVariant.name 
-      : miner.name;
+      : isNerdminer && selectedVariant
+        ? selectedVariant.id === "large-screen" ? "Nerd Miner Large Screen" : "Nerd Miner"
+        : miner.name;
   
   const displayHashrate = hasVariants && selectedVariant ? selectedVariant.hashrate : miner.hashrate;
   const displayPower = hasVariants && selectedVariant ? selectedVariant.power : miner.power;
