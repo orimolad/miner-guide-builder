@@ -36,6 +36,7 @@ const WelcomeStep = ({
   const isBitaxe = miner.hasBitaxeVariants;
   const isNerdqaxe = miner.hasNerdqaxeVariants;
   const isNerdminer = miner.hasNerdminerVariants;
+  const isXNodeMini = miner.id === "xnodemini";
   const hasVariants = isBitaxe || isNerdqaxe || isNerdminer;
 
   const handleVariantChange = (variantId: string) => {
@@ -76,6 +77,7 @@ const WelcomeStep = ({
     if (isNerdqaxe) return "Nerdaxe";
     if (isNerdminer) return "Nerd Miner";
     if (miner.id === "goldnugget") return "Nerd Miner";
+    if (isXNodeMini) return "Node Running";
     return miner.name;
   };
 
@@ -90,6 +92,52 @@ const WelcomeStep = ({
   // Determine if this miner uses the goldnugget-style checklist order (wallet before WiFi)
   const usesWalletFirstOrder = miner.id === "goldnugget" || isNerdminer;
 
+  // X Node Mini has a unique checklist
+  const getChecklist = () => {
+    if (isXNodeMini) {
+      return [
+        "Powering up your device",
+        "Connecting to the Internet",
+        "Logging into Umbrel OS",
+        "Syncing your Bitcoin Node",
+        "Setting up your private mining pool",
+      ];
+    }
+    if (usesWalletFirstOrder) {
+      return [
+        "Powering up your device",
+        "Configuring your wallet and mining pool",
+        "Connecting to Wi-Fi",
+        "Verifying everything is working correctly",
+        "Understanding solo mining",
+      ];
+    }
+    return [
+      "Powering up your device",
+      "Connecting to Wi-Fi",
+      "Configuring your wallet and mining pool",
+      "Verifying everything is working correctly",
+      "Understanding solo mining",
+    ];
+  };
+
+  const getWhatYouNeed = () => {
+    if (isXNodeMini) {
+      return [
+        "Ethernet cable",
+        "WiFi network with internet access",
+        "PC, Laptop, smartphone or tablet for setup",
+        "Power outlet",
+      ];
+    }
+    return [
+      (miner.id === "goldnugget" || isNerdminer) ? "USB Power Source" : "AC Power Outlet",
+      "WiFi network with internet access",
+      "Mobile phone, tablet, or PC for initial configuration",
+      'Your Bitcoin wallet address - It is easiest if you have your BTC address copied and pasted in the field below before starting setup.',
+    ];
+  };
+
   return (
     <div>
       <h2 className="font-display text-2xl md:text-3xl text-primary mb-5 tracking-tight">
@@ -98,25 +146,7 @@ const WelcomeStep = ({
       <div className="text-lg leading-relaxed text-muted-foreground">
         <p className="mb-4">This guide will walk you through every step of setting up your miner. We'll cover:</p>
 
-        <CheckList
-          items={
-            usesWalletFirstOrder
-              ? [
-                  "Powering up your device",
-                  "Configuring your wallet and mining pool",
-                  "Connecting to Wi-Fi",
-                  "Verifying everything is working correctly",
-                  "Understanding solo mining",
-                ]
-              : [
-                  "Powering up your device",
-                  "Connecting to Wi-Fi",
-                  "Configuring your wallet and mining pool",
-                  "Verifying everything is working correctly",
-                  "Understanding solo mining",
-                ]
-          }
-        />
+        <CheckList items={getChecklist()} />
 
         {/* Model Selection for variants */}
         {hasVariants && (
@@ -180,14 +210,7 @@ const WelcomeStep = ({
 
         {/* What You'll Need Section */}
         <h3 className="text-primary font-display text-xl mt-8 mb-4">🛠 What You'll Need:</h3>
-        <CheckList
-          items={[
-            (miner.id === "goldnugget" || isNerdminer) ? "USB Power Source" : "AC Power Outlet",
-            "WiFi network with internet access",
-            "Mobile phone, tablet, or PC for initial configuration",
-            'Your Bitcoin wallet address - It is easiest if you have your BTC address copied and pasted in the field below before starting setup.',
-          ]}
-        />
+        <CheckList items={getWhatYouNeed()} />
 
         <p className="mt-4 mb-2">
           <span 

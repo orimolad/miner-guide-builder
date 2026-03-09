@@ -12,6 +12,11 @@ import ConfigureAllStep from "@/components/steps/ConfigureAllStep";
 import HomeWifiStep from "@/components/steps/HomeWifiStep";
 import StartMiningStep from "@/components/steps/StartMiningStep";
 import SoloMiningStep from "@/components/steps/SoloMiningStep";
+import NodeConnectStep from "@/components/steps/NodeConnectStep";
+import NodeLoginStep from "@/components/steps/NodeLoginStep";
+import NodeSyncStep from "@/components/steps/NodeSyncStep";
+import NodePoolStep from "@/components/steps/NodePoolStep";
+import NodeMonitorStep from "@/components/steps/NodeMonitorStep";
 import CompleteStep from "@/components/steps/CompleteStep";
 import { Button } from "@/components/ui/button";
 
@@ -26,6 +31,11 @@ type StepType =
   | "homeWifi"
   | "startMining"
   | "soloMining"
+  | "nodeConnect"
+  | "nodeLogin"
+  | "nodeSync"
+  | "nodePool"
+  | "nodeMonitor"
   | "complete";
 
 // Default flow for Bitaxe/Nerdaxe/others
@@ -85,12 +95,24 @@ const NERDMINER_STEPS: StepType[] = [
   "complete",
 ];
 
+// X Node Mini flow - full node setup
+const XNODEMINI_STEPS: StepType[] = [
+  "welcome",
+  "nodeConnect",
+  "nodeLogin",
+  "nodeSync",
+  "nodePool",
+  "nodeMonitor",
+  "complete",
+];
+
 // Get steps based on miner ID
 const getStepsForMiner = (minerId: string): StepType[] => {
   if (minerId === "disruptor") return DISRUPTOR_STEPS;
   if (minerId === "golddigger") return GOLDDIGGER_STEPS;
   if (minerId === "goldnugget") return GOLDNUGGET_STEPS;
   if (minerId === "nerdminer") return NERDMINER_STEPS;
+  if (minerId === "xnodemini") return XNODEMINI_STEPS;
   return DEFAULT_STEPS;
 };
 
@@ -247,6 +269,16 @@ const SetupFlow = () => {
             stepNumber={getDisplayStepNumber("soloMining")}
           />
         );
+      case "nodeConnect":
+        return <NodeConnectStep miner={miner} stepNumber={getDisplayStepNumber("nodeConnect")} />;
+      case "nodeLogin":
+        return <NodeLoginStep miner={miner} stepNumber={getDisplayStepNumber("nodeLogin")} />;
+      case "nodeSync":
+        return <NodeSyncStep miner={miner} stepNumber={getDisplayStepNumber("nodeSync")} />;
+      case "nodePool":
+        return <NodePoolStep miner={miner} stepNumber={getDisplayStepNumber("nodePool")} />;
+      case "nodeMonitor":
+        return <NodeMonitorStep miner={miner} stepNumber={getDisplayStepNumber("nodeMonitor")} />;
       case "complete":
         return (
           <CompleteStep

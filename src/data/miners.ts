@@ -6,6 +6,7 @@ import zyberImg from "@/assets/miners/zyber.webp";
 import avalonqImg from "@/assets/miners/avalonq.webp";
 import golddiggerImg from "@/assets/miners/golddigger.jpg";
 import nerdminerImg from "@/assets/miners/nerdminer.jpg";
+import xnodeminiImg from "@/assets/miners/xnodemini.png";
 
 export interface BitaxeVariant {
   id: string;
@@ -253,6 +254,17 @@ export const miners: Miner[] = [
     isUsbPowered: false,
     hasDisplay: true,
     image: goldnuggetImg,
+  },
+  {
+    id: "xnodemini",
+    name: "X Node Mini",
+    hashrate: "N/A (Full Node)",
+    power: "Wall Adapter",
+    defaultIP: "umbrel.local",
+    productLink: "https://bitcoinmerch.com",
+    isUsbPowered: false,
+    hasDisplay: false,
+    image: xnodeminiImg,
   },
 ];
 

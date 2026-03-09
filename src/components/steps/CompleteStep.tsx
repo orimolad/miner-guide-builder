@@ -4,6 +4,7 @@ import CheckList from "../CheckList";
 import InfoBox from "../InfoBox";
 import CodeBlock from "../CodeBlock";
 import { Button } from "../ui/button";
+import nodedashboardImg from "@/assets/instructions/nodedashboard.png";
 
 interface CompleteStepProps {
   miner: Miner;
@@ -16,6 +17,7 @@ const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }:
   const isBitaxe = miner.id === "bitaxe";
   const isNerdqaxe = miner.id === "nerdqaxe";
   const isNerdminer = miner.id === "nerdminer";
+  const isXNodeMini = miner.id === "xnodemini";
 
   const getDeviceName = (): string => {
     if (isNerdminer && selectedVariant) {
@@ -23,6 +25,7 @@ const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }:
     }
     if (isBitaxe && selectedVariant) return `Bitaxe ${selectedVariant.name}`;
     if (isNerdqaxe && selectedVariant) return selectedVariant.name;
+    if (isXNodeMini) return "X Node Mini";
     return miner.name;
   };
 
@@ -35,6 +38,61 @@ const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }:
     }
     return miner.hashrate;
   };
+
+  const openPoolStats = () => {
+    const address = btcAddress || "YOUR_BTC_ADDRESS";
+    window.open(`https://pool.bitcoinmerch.com/app/${address}`, "_blank");
+  };
+
+  if (isXNodeMini) {
+    return (
+      <StepContainer stepNumber="✓" title="You're Done! 🚀">
+        <InfoBox variant="success">
+          <strong className="text-foreground">Congratulations!</strong> You now have:
+        </InfoBox>
+
+        <CheckList
+          items={[
+            "A fully synced Bitcoin full node",
+            "A private mining pool powered by your own hardware",
+            "Local control over validation, rewards, and privacy",
+          ]}
+        />
+
+        <p className="text-xl font-semibold text-foreground mt-6 mb-4">
+          Welcome to true Bitcoin sovereignty — all running on your X Node Mini
+        </p>
+
+        <img
+          src={nodedashboardImg}
+          alt="X Node Mini Umbrel dashboard"
+          className="rounded-xl border border-border my-6 w-full"
+          loading="lazy"
+        />
+
+        <div className="flex flex-wrap gap-4 mt-10">
+          <a href="https://bitcoinmerch.com/pages/contact-us" target="_blank" rel="noopener noreferrer">
+            <Button variant="outline" className="btn-ripple border-border hover:bg-secondary">
+              <span className="relative z-10">💬 Get Support</span>
+            </Button>
+          </a>
+          <Button
+            variant="outline"
+            onClick={onBackToSelection}
+            className="btn-ripple border-border hover:bg-secondary"
+          >
+            <span className="relative z-10">🔄 Setup Another Device</span>
+          </Button>
+        </div>
+
+        <InfoBox variant="info" className="mt-10 text-center">
+          <strong className="text-foreground">Happy Mining! ⛏️</strong>
+          <br />
+          May the odds be ever in your favor! 🍀
+        </InfoBox>
+      </StepContainer>
+    );
+  }
 
   const getCongratulationsText = (): string => {
     if (isNerdminer) return "Your Nerd Miner is now mining for Bitcoin!";
@@ -53,11 +111,6 @@ const CompleteStep = ({ miner, btcAddress, selectedVariant, onBackToSelection }:
       "Keep your miner in a well-ventilated area",
       "Join the Bitcoin Merch community for tips",
     ];
-  };
-
-  const openPoolStats = () => {
-    const address = btcAddress || "YOUR_BTC_ADDRESS";
-    window.open(`https://pool.bitcoinmerch.com/app/${address}`, "_blank");
   };
 
   return (
