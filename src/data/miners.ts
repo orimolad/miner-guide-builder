@@ -4,6 +4,7 @@ import nerdqaxeImg from "@/assets/miners/nerdqaxe.webp";
 import goldnuggetImg from "@/assets/miners/goldnugget.webp";
 import zyberImg from "@/assets/miners/zyber.webp";
 import avalonqImg from "@/assets/miners/avalonq.webp";
+import avalonqNewImg from "@/assets/miners/avalonq.png";
 import golddiggerImg from "@/assets/miners/golddigger.png";
 import nerdminerImg from "@/assets/miners/nerdminer.jpg";
 import xnodeminiImg from "@/assets/miners/xnodemini.png";
@@ -253,7 +254,7 @@ export const miners: Miner[] = [
     productLink: "https://bitcoinmerch.com/products/bitcoin-merch-canaan-avalon-q-90th-s-btc-miner",
     isUsbPowered: false,
     hasDisplay: true,
-    image: goldnuggetImg,
+    image: avalonqNewImg,
   },
   {
     id: "xnodemini",
